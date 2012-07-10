@@ -11,10 +11,12 @@ BaseApp::Application.routes.draw do
     resources :users
   end
 
-  resources :items do
+  resources :items, :except => [ :index ] do
     resources :tags, :only => :create
   end
   match '/tags/:name' => 'tags#show'
 
-  root :to => "pages#index"
+  match '/items' => 'library#index'
+
+  root :to => "items#index"
 end

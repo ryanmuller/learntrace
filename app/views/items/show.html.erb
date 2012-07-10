@@ -1,27 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @item.name %>
-</p>
-
-<p>
-<% if current_user.pinned?(@item) %>
-  <%= render 'unpin' %>
-<% else %>
-  <%= render 'pin' %>
-<% end %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @item.description %>
-</p>
-
-<p>
-  <b>Url:</b>
-  <%= @item.url %>
-</p>
+<%= render :partial => 'item', :locals => { :item => @item } %>
 
 <p>
   <b>Tags:</b>
