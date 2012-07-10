@@ -15,6 +15,15 @@
   <%= @item.url %>
 </p>
 
+<p>
+  <b>Tags:</b>
+  <% @item.tags.each do |tag| %>
+    <%= link_to tag.name, "/tags/#{tag.name}" %>
+  <% end %>
+  <%= form_for [@item, Tag.new], :html => { :class => 'form-inline' } do |f| %>
+    <%= render :partial => 'tags/form', :locals => { :f => f } %>
+  <% end %>
+</p>
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>
