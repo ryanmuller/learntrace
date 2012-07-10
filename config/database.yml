@@ -1,0 +1,18 @@
+development:
+  adapter: postgresql
+  database: learntrace_development
+  username: postgres
+  password: root
+  encoding: utf8
+  pool: 5
+
+test: &test
+  adapter: postgresql
+  database: learntrace_test
+  username: postgres
+  password: root
+  encoding: utf8
+  pool: 5
+
+cucumber:
+  <<: *test
