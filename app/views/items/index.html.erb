@@ -1,1 +1,4 @@
-<%= render @items %>
+<% @tags.each do |tag| %>
+  <h2><%= tag.name %></h2>
+  <%= render tag.items %>
+<% end %>
