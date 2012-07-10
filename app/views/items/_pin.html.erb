@@ -1,0 +1,4 @@
+<%= form_for(current_user.pins.build(item_id: @item.id)) do |f| %>
+  <div><%= f.hidden_field :item_id %></div>
+  <%= f.submit "Pin", class: "btn btn-large btn-primary" %>
+<% end %>

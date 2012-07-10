@@ -31,7 +31,15 @@ class User < ActiveRecord::Base
   end
 
   def pin!(item)
-    pins.build(item_id: item.id)
+    pins.create!(item_id: item.id)
+  end
+
+  def unpin!(item)
+    pins.find_by_item_id(item.id).destroy
+  end
+
+  def pinned?(item)
+    pins.find_by_item_id(item)
   end
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
