@@ -3,6 +3,7 @@
     <% if current_user.admin? %>
       <%= link_to "Admin", admin_path %>
     <% end %>
+    <%= link_to "Library", '/items' %>
     <%= link_to "Sign out", destroy_user_session_path %></li>
     <%= link_to "Settings", edit_user_registration_path %>
   <% else %>
