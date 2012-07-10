@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /items
   # GET /items.json
   def index
@@ -44,6 +46,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
+        current_user.pin!(@item)
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render json: @item, status: :created, location: @item }
       else

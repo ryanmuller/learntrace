@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_and_belongs_to_many :roles
+  
+  has_many :pins
+  has_many :items, :through => :pins
 
   def role?(role)
     return !!self.roles.find_by_name(role.to_s)
@@ -25,6 +28,10 @@ class User < ActiveRecord::Base
 
   def admin?
     role?(:admin)
+  end
+
+  def pin!(item)
+    pins.build(item_id: item.id)
   end
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
