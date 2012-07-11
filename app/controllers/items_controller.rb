@@ -4,12 +4,32 @@ class ItemsController < ApplicationController
   def index
     @tags = Tag.order("RANDOM()").limit(12)
     @items = Item.all
+    @tag_data = Tag.all.map{|t| t.name }.join(",")
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @items }
       format.js { render :layout => false }
     end
+  end
+
+  def tag_filter
+    # user has cleared tag search; render main objects
+    if params[:tag].empty?
+      @tags = Tag.order("RANDOM()").limit(12)
+      render :partial => 'item_board', :layout => false
+      return false
+    else
+      @tag = Tag.find_by_name(params[:tag], :include => :items)
+      @items = @tag.items.best
+      division = (@items.count / 3).to_i
+      @col_array = [@items[0..division], @items[division+1..2*division], @items[2*division+1..-1]]
+    end
+
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+
   end
 
   # GET /items/1

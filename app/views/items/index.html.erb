@@ -11,12 +11,13 @@
 <% end %>
 
 <div class="row">
-  <% [0,1,2].each do |i| %>
-    <div class="span4 scroll-col">
-      <% @tags[i*3..i*3+2].each do |tag| %>
-        <%= render :partial => 'tags/board', :locals => { :tag => tag } %>
-      <% end %>
-    </div>
-  <% end %>
-  <div id="loader"></div>
+
+  <div class="span5">
+    <input id="tag-input" type="text" data-tags="<%= @tag_data %>" /> <strong style="margin-left: 10px;">Search for a tag!</strong>
+  </div>
+  
+</div>
+<hr />
+<div id="main-board" class="row">
+  <%= render :partial => 'item_board' %>
 </div>
