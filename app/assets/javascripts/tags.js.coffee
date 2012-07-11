@@ -10,7 +10,7 @@ jQuery ->
       $("#tag-input").typeahead({ 
         source: d,
         onselect: (e) ->
-          $("#main-board").html("<h2>loading...</h2>")
+          $("#board-header").text("loading...")
           $("#main-board").load('/items/tag_filter', { tag: e })
           $("#main-board").addClass('no-load')
           console.log('finished')
