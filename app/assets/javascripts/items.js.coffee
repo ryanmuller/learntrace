@@ -8,7 +8,7 @@ window.LearnstreamUtils = {
     $("form.new_pin").submit(() ->
       f = this
       $.post($(this).attr('action'), $(this).serialize(), (e) ->
-        $(f).find('button').replaceWith('<i class="icon-ok"></i> Pinned!')
+        $(f).find('button').replaceWith('<button class="btn disabled"><i class="icon-ok"></i> Pinned!</button>')
       )
       return false
     )
