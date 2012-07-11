@@ -1,16 +1,18 @@
 <div class="item">
+
+  <div class="img-container">
+    <div class="actions">
+      <% if current_user %>
+        <% if current_user.pinned?(item) %>
+          <%= render :partial => 'items/unpin', :locals => { :item => item }  %>
+        <% else %>
+          <%= render :partial => 'items/pin', :locals => { :item => item }  %>
+        <% end %>
+      <% end %>
+    </div>
+    <a href="<%= item.url %>"><img src="<%= item.thumb_url %>" width="274px"></a>
+  </div>
   <h3><a href="<%= item.url %>"><%= item.name %></a></h3>
 
-  <img src="<%= item.thumb_url %>" width="239px">
-
   <p><%= item.description %></p>
-  <div class="pin-btn">
-    <% if current_user %>
-      <% if current_user.pinned?(item) %>
-        <%= '<span><i class="icon-ok"></i> Pinned!</span>'.html_safe if ! @hide_pin %>
-      <% else %>
-        <%= render :partial => 'items/pin', :locals => { :item => item }  %>
-      <% end %>
-    <% end %>
-  </div>
 </div>

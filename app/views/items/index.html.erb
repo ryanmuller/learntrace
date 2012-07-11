@@ -12,12 +12,12 @@
 
 <div class="row">
 
-  <div class="span5">
-    <input id="tag-input" type="text" data-tags="<%= @tag_data %>" /> <strong style="margin-left: 10px;">Search for a tag!</strong>
+  <div class="span12">
+    <span class="search-text">I wanna learn about</span>
+    <input id="tag-input" type="text" data-tags="<%= @tag_data %>" placeholder="everything!" />
   </div>
   
 </div>
-<hr />
 <div id="main-board" class="row">
   <%= render :partial => 'item_board' %>
 </div>

@@ -1,4 +1,4 @@
 <%= form_for(current_user.pins.build(item_id: item.id)) do |f| %>
   <div><%= f.hidden_field :item_id %></div>
-  <button class="btn"><i class="icon-flag"></i></button>
+  <button class="btn"><i class="icon-flag"></i> Save</button>
 <% end %>
