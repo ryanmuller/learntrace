@@ -2,6 +2,7 @@ require 'uri'
 require 'net/http'
 require 'nokogiri'
 require 'image_size'
+require 'open-uri'
 
 module ScraperUtils
 
@@ -12,6 +13,23 @@ module ScraperUtils
     return URI.escape(url)
   end
 
+
+  def ScraperUtils.get_response_with_redirect(uri)
+     # gets page
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true if uri.scheme == "https"  # enable SSL/TLS
+    res = http.start {
+      http.request_get(uri.request_uri) {|res|
+    }
+    }
+
+    if res.code == "301"
+      # hope there's no infinite redirect...
+      return ScraperUtils.get_response_with_redirect(URI.parse(res.header['location']))
+    end
+
+    return res
+  end
 
   # url: url
   # etc...
@@ -30,19 +48,11 @@ module ScraperUtils
     # checks to make sure you're not using some odd protocol...
     return nothing if !(url.start_with?("http://") || url.start_with?("https://"))
 
-    # gets page
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true if uri.scheme == "https"  # enable SSL/TLS
-    res = http.start {
-        http.request_get(uri.path) {|res|
-            }
-    }
-
+    res = ScraperUtils.get_response_with_redirect(uri)
 
     content = res.body
     content_type = res['content-type']
 
-    p content_type
 
     # if unsure of content type, abort!
     return nothing if content_type.nil?
@@ -80,8 +90,9 @@ end
 # TO use, call Scraper.new(url)
 class Scraper
   attr :url, :content, :content_type, :doc
-  def initialize(url)
+  def initialize(url, og_img = false)
     @url = url
+    @og_img = og_img
     @content = nil
     @content_type = nil
     
@@ -101,13 +112,13 @@ class Scraper
     if @content_type.include?('image')
       yield @url
     elsif @doc
-      og_image = @doc.xpath('//meta[@property="og:image"]').first
-      if og_image
-        yield og_image.attribute('content').value
+      if @og_img
+        og_image = @doc.xpath('//meta[@property="og:image"]').first
+        yield og_image.attribute('content').value 
       else
         images = @doc.css('img')
         images.each do |i|
-          image_url = URI.join(@url, i['src'])
+          image_url = URI.join(@url, URI.escape(i['src']))
           yield image_url.to_s
         end
       end
@@ -189,11 +200,23 @@ class YoutubeScraper < Scraper
   def video_id_extract
     vid = @video_id_rx.match(@url)
     video_id = vid[1] unless vid.nil?
+    if vid.nil?
+      @og_img = true
+      video_id = nil
+    else
+      video_id = vid[1]
+    end
+
     return video_id
   end
 
   def largest_image_url
-    return @thumbnail_template.sub("$video_id", @video_id)
+    if @og_img
+      self.download
+      return super
+    else
+      return @thumbnail_template.sub("$video_id", @video_id)
+    end
   end
 
 
@@ -243,15 +266,33 @@ class CourseraScraper < Scraper
   end
 end
 
+class UdacityScraper < Scraper
+  def largest_image_url
+    if !@content
+        self.download
+    end
+
+    if @content
+      vid = /videoId:\s*'([A-Za-z0-9\-_]+)'/.match(@content)
+      thumbnail_template = 'http://img.youtube.com/vi/$video_id/default.jpg'
+      img_url = vid.nil? ? nil : thumbnail_template.sub("$video_id", vid[1])
+      return img_url
+    end
+  end
+end
+
+
 
 def find_thumb(url)
   dict = {
     "www.ted.com" => proc {|url| return TedScraper.new(url).thumbnail },
     "www.youtube.com" => proc {|url| return YoutubeScraper.new(url).thumbnail },
     "www.khanacademy.org" => proc {|url| return KhanScraper.new(url).thumbnail },
-    "www.coursera.org" => proc {|url| return CourseraScraper.new(url).thumbnail }
+    "www.coursera.org" => proc {|url| return CourseraScraper.new(url).thumbnail },
+    "www.udacity.com" => proc {|url| return UdacityScraper.new(url).thumbnail }
   }
 
+  url = ScraperUtils.clean_url(url)
   host = URI.parse(url).host 
 
   if dict.has_key?(host)
