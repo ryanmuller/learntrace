@@ -38,8 +38,14 @@ class PinsController < ApplicationController
   end
 
   def destroy
-    @item = Pin.find(params[:id]).item
+    @pin = Pin.find(params[:id])
+    @item = @pin.item
     current_user.unpin!(@item)
-    redirect_to @item
+
+    respond_to do |format|
+      logger.debug(format.js)
+      format.html { redirect_to @item }
+      format.js 
+    end
   end
 end
