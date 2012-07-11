@@ -1,16 +1,13 @@
-<div class="item-title">
- <h3><a href="<%= item.url %>"><%= item.name %></a></h3>
-
-  <div class="pin-btn">
-    <% if current_user %>
-      <% if current_user.pinned?(item) %>
-      <% else %>
-        <%= render :partial => 'items/pin', :locals => { :item => item }  %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<h3><a href="<%= item.url %>"><%= item.name %></a></h3>
 
 <img src="<%= item.thumb_url %>" width="239px">
 
 <p><%= item.description %></p>
+<div class="pin-btn">
+  <% if current_user %>
+    <% if current_user.pinned?(item) %>
+    <% else %>
+      <%= render :partial => 'items/pin', :locals => { :item => item }  %>
+    <% end %>
+  <% end %>
+</div>
