@@ -1,5 +1,5 @@
 <div class="item-title">
-  <h3><a href="<%= item.url %>"><%= item.name %></a></h3>
+ <h3><a href="<%= item.url %>"><%= item.name %></a></h3>
 
   <div class="pin-btn">
     <% if current_user %>
@@ -11,5 +11,6 @@
   </div>
 </div>
 
+<img src="<%= item.thumb_url %>" width="239px">
 
 <p><%= item.description %></p>
