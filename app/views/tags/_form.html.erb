@@ -1,1 +1,1 @@
-<%= f.text_field :name %> <%= f.submit "Add tag", :class => 'btn' %>
+<%= f.text_field :name, {:id => "tag-typehead", "data-tags" => "#{Tag.all.map{|t| t.name}.join(',')}" } %> <%= f.submit "Add tag", :class => 'btn' %>

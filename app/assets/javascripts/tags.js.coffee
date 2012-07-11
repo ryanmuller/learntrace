@@ -16,3 +16,8 @@ jQuery ->
           $("#main-board").removeClass("no-load")
       )
         
+
+
+  if $("#tag-typehead").length > 0
+    d = $("#tag-typehead").data('tags').split(",")
+    $("#tag-typehead").typeahead({ source: d })
