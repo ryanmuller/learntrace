@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Base Application</title>
+  <title>Learnstream</title>
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-
-
-  <div id="container">
-
-    <%= render "layouts/application/header" %>
+  <%= render "layouts/application/header" %>
+  <div class="container">
 
     <% if notice %>
       <p id="flash_notice" class="notice"><%= notice %></p>
@@ -22,7 +19,6 @@
     <% end %>
 
     <%= yield %>
-
   </div>
 
 </body>
