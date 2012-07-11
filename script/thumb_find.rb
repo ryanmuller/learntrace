@@ -28,10 +28,16 @@ module ScraperUtils
     uri = URI.parse(url)
 
     # checks to make sure you're not using some odd protocol...
-    return nothing if !(url.start_with?("http://") || url.starts_with?("https://"))
+    return nothing if !(url.start_with?("http://") || url.start_with?("https://"))
 
     # gets page
-    res = Net::HTTP.get_response(uri)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true if uri.scheme == "https"  # enable SSL/TLS
+    res = http.start {
+        http.request_get(uri.path) {|res|
+            }
+    }
+
 
     content = res.body
     content_type = res['content-type']
@@ -95,11 +101,17 @@ class Scraper
     if @content_type.include?('image')
       yield @url
     elsif @doc
-      images = @doc.css('img')
-      images.each do |i|
-        image_url = URI.join(@url, i['src'])
-        yield image_url.to_s
+      og_image = @doc.xpath('//meta[@property="og:image"]').first
+      if og_image
+        yield og_image.attribute('content').value
+      else
+        images = @doc.css('img')
+        images.each do |i|
+          image_url = URI.join(@url, i['src'])
+          yield image_url.to_s
+        end
       end
+
     end
   end
 
@@ -214,13 +226,30 @@ end
 
 
 
+class CourseraScraper < Scraper
+  def initialize(url)
+    super(url)
+    vid = /\/course\/(\w+)/.match(@url) ## check...
+    @video_id = vid.nil? ? nil : vid[1]
+    @thumbnail_template = 'https://s3.amazonaws.com/coursera/topics/$video_id/large-icon.png'
+  end
+
+  def largest_image_url
+    if @video_id.nil?
+      return nil
+    else
+      return @thumbnail_template.sub("$video_id", @video_id)
+    end
+  end
+end
 
 
 def find_thumb(url)
   dict = {
     "www.ted.com" => proc {|url| return TedScraper.new(url).thumbnail },
     "www.youtube.com" => proc {|url| return YoutubeScraper.new(url).thumbnail },
-    "www.khanacademy.org" => proc {|url| return KhanScraper.new(url).thumbnail }
+    "www.khanacademy.org" => proc {|url| return KhanScraper.new(url).thumbnail },
+    "www.coursera.org" => proc {|url| return CourseraScraper.new(url).thumbnail }
   }
 
   host = URI.parse(url).host 
