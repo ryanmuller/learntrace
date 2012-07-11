@@ -8,6 +8,8 @@ gem 'bootstrap-sass', '2.0.0'
 
 gem 'heroku'
 
+gem 'imagesize'
+
 gem "pg", :require => "pg"
 
 gem 'json'
