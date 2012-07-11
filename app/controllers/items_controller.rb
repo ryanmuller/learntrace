@@ -13,6 +13,15 @@ class ItemsController < ApplicationController
     end
   end
 
+  def new 
+    @item = Item.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @item }
+    end
+  end
+
   def tag_filter
     # user has cleared tag search; render main objects
     if params[:tag].empty?
@@ -43,17 +52,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # GET /items/new
-  # GET /items/new.json
-  def new
-    @item = Item.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @item }
-    end
-  end
-
   # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])
@@ -62,7 +60,9 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
+    require 'scraper_utils'
     @item = Item.new(params[:item])
+    @item.thumb_url = ScraperUtils.find_thumb(params[:item][:url])
 
     respond_to do |format|
       if @item.save
