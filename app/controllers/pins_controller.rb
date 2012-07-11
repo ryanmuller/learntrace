@@ -1,5 +1,5 @@
 class PinsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:public_index]
 
   def index
     @pins = current_user.pins
@@ -8,6 +8,15 @@ class PinsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @pins }
+    end
+  end
+
+  def public_index
+    @user = User.find(params[:user_id])
+    @pins = @user.pins
+    
+    respond_to do |format|
+      format.html
     end
   end
 
@@ -29,8 +38,14 @@ class PinsController < ApplicationController
   end
 
   def destroy
-    @item = Pin.find(params[:id]).item
+    @pin = Pin.find(params[:id])
+    @item = @pin.item
     current_user.unpin!(@item)
-    redirect_to @item
+
+    respond_to do |format|
+      logger.debug(format.js)
+      format.html { redirect_to @item }
+      format.js 
+    end
   end
 end
