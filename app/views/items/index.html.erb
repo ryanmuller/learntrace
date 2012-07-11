@@ -12,13 +12,11 @@
 
 <div class="row">
   <% [0,1,2].each do |i| %>
-    <div class="span4">
+    <div class="span4 scroll-col">
       <% @tags[i*3..i*3+2].each do |tag| %>
-        <div class="board">
-          <h2><%= tag.name %></h2>
-          <%= render tag.items.featured %>
-        </div>
+        <%= render :partial => 'tags/board', :locals => { :tag => tag } %>
       <% end %>
     </div>
   <% end %>
+  <div id="loader"></div>
 </div>

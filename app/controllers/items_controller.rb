@@ -1,8 +1,6 @@
 class ItemsController < ApplicationController
   before_filter :authenticate_user!, :except => [ :index, :show ]
 
-  # GET /items
-  # GET /items.json
   def index
     @tags = Tag.order("RANDOM()").limit(12)
     @items = Item.all
@@ -10,6 +8,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @items }
+      format.js { render :layout => false }
     end
   end
 

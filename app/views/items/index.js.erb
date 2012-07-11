@@ -1,0 +1,9 @@
+<% unless @tags.blank? %>
+  <% [0,1,2].each do |i| %>
+    <% @tags[i*3..i*3+2].each do |tag| %>
+      $('.scroll-col').eq(<%= i %>).append("<%= j render :partial => 'tags/board', :locals => { :tag => tag } %>");
+    <% end %>
+  <% end %>
+<% end %>
+$('#loader').removeClass('loading');
+
