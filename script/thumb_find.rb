@@ -201,12 +201,26 @@ class TedScraper < Scraper
   end
 end
 
+class KhanScraper < Scraper
+  def largest_image_url
+    if !@doc
+      self.download
+    end
+    if @doc
+      return @doc.css(".thumb").first['style'].split(/\('|'\)/)[1]
+    end
+  end
+end
+
+
+
 
 
 def find_thumb(url)
   dict = {
     "www.ted.com" => proc {|url| return TedScraper.new(url).thumbnail },
-    "www.youtube.com" => proc {|url| return YoutubeScraper.new(url).thumbnail }
+    "www.youtube.com" => proc {|url| return YoutubeScraper.new(url).thumbnail },
+    "www.khanacademy.org" => proc {|url| return KhanScraper.new(url).thumbnail }
   }
 
   host = URI.parse(url).host 
