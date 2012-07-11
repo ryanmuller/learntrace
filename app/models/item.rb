@@ -9,4 +9,5 @@ class Item < ActiveRecord::Base
   end
 
   scope :featured, order('pins_count DESC').limit(4)
+  scope :best, order('pins_count DESC')
 end
