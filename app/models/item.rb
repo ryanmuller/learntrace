@@ -8,5 +8,5 @@ class Item < ActiveRecord::Base
     end
   end
 
-  scope :featured, order('pins_count DESC').limit(5)
+  scope :featured, order('pins_count DESC').limit(4)
 end
