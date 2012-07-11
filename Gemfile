@@ -10,6 +10,7 @@ gem 'xml-simple'
 gem 'heroku'
 
 gem 'image_size'
+gem 'nokogiri'
 
 gem "pg", :require => "pg"
 

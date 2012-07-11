@@ -273,6 +273,7 @@ DEPENDENCIES
   kaminari
   meta_search
   mongrel (>= 1.2.0.pre2)
+  nokogiri
   omniauth-facebook
   pg
   rails (= 3.2.1)
