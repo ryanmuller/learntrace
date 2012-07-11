@@ -22,7 +22,10 @@ class PinsController < ApplicationController
   def create
     @item = Item.find(params[:pin][:item_id])
     current_user.pin!(@item)
-    redirect_to @item
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy

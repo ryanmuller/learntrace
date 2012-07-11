@@ -6,3 +6,5 @@ jQuery ->
       status = $(this).attr('data-status')
       $.post('/pins/'+pin_id, { "_method": "PUT", pin: { status: status }})
   }).disableSelection()
+
+

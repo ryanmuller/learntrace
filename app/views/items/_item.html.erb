@@ -7,6 +7,7 @@
   <div class="pin-btn">
     <% if current_user %>
       <% if current_user.pinned?(item) %>
+        <%= '<span><i class="icon-ok"></i> Pinned!</span>'.html_safe if ! @hide_pin %>
       <% else %>
         <%= render :partial => 'items/pin', :locals => { :item => item }  %>
       <% end %>
