@@ -1,4 +1,5 @@
-superuser = User.create({ :email => 'support@learnstream.org', :password => 'test', :password_confirmation => 'test' })
+# note: password 'test' was too short; changed it to adminpass
+superuser = User.create({ :email => 'support@learnstream.org', :password => 'adminpass', :password_confirmation => 'adminpass' })
 
 
 require 'xmlsimple'
