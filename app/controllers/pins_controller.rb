@@ -1,5 +1,5 @@
 class PinsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:public_index]
 
   def index
     @pins = current_user.pins
@@ -8,6 +8,15 @@ class PinsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @pins }
+    end
+  end
+
+  def public_index
+    @user = User.find(params[:user_id])
+    @pins = @user.pins
+    
+    respond_to do |format|
+      format.html
     end
   end
 

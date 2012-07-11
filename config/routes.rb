@@ -20,6 +20,7 @@ BaseApp::Application.routes.draw do
   match '/tags/:name' => 'tags#show'
 
   match '/library' => 'pins#index'
+  match '/:user_id/library' => 'pins#public_index'
 
   root :to => "items#index"
 end

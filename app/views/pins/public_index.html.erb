@@ -1,9 +1,9 @@
-<div class="row" id="pin-kanban">
-  <h2>Drag your pins to the right category!</h2>
+<div class="row">
+  <h2>Check out what <%= @user.email %> is learning!</h2>
   <div class="span4">
     <div class="board">
       <h2>To do</h2>
-      <div id="todo-items" data-status="todo" class="sortable-board">
+      <div id="public-todo-items">
         <%= render @pins.todo %>
         <div>&nbsp;</div>
       </div>
@@ -13,7 +13,7 @@
   <div class="span4">
     <div class="board">
       <h2>Doing</h2>
-      <div id="doing-items" data-status="doing" class="sortable-board">
+      <div id="public-doing-items">
         <%= render @pins.doing %>
         <div>&nbsp;</div>
       </div>
@@ -23,7 +23,7 @@
   <div class="span4">
     <div class="board">
       <h2>Done</h2>
-      <div id="done-items" data-status="done" class="sortable-board">
+      <div id="public-done-items">
         <%= render @pins.done %>
         <div>&nbsp;</div>
       </div>
@@ -33,7 +33,3 @@
 </div>
 
 
-<hr>
-<h3>Add an item</h3>
-
-<%= render 'items/form' %>
