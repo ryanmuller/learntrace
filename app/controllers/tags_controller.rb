@@ -14,6 +14,11 @@ class TagsController < ApplicationController
   end
 
   def show
-    @tag = Tag.find_by_name(params[:name])
+    @tag = Tag.find_by_name(params[:name], :include => :items)
+    @items = @tag.items.best
+
+    division = (@items.count / 3).to_i
+
+    @col_array = [@items[0..division], @items[division+1..2*division], @items[2*division+1..-1]]
   end
 end
