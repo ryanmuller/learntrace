@@ -1,4 +1,4 @@
-document.jQuery ->
+jQuery ->
   $('#todo-items, #doing-items, #done-items').sortable({
     connectWith: '.sortable-board',
     receive: (event, ui) ->
