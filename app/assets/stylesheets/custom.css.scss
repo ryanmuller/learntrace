@@ -74,6 +74,7 @@ p {
   box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
   padding: 1em;
   margin-bottom: 1em;
+  overflow: auto;
 }
 
 /* items */
@@ -88,11 +89,15 @@ p {
     margin-right: 1em;
     padding-bottom: 0.5em;
   }
+  position: relative;
+  .actions {
+    display: none;
+    position: absolute;
+    top: -8px;
+    form {
+      display: inline;
+    }
+  }
   margin-bottom: 1em;
 }
 
-.pin {
-  .control {
-    display: none;
-  }
-}
