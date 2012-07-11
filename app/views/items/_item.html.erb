@@ -1,10 +1,15 @@
-<h3><a href="<%= item.url %>"><%= item.name %></a>
+<div class="item-title">
+  <h3><a href="<%= item.url %>"><%= item.name %></a></h3>
 
-<% if current_user.pinned?(item) %>
-  <%= render :partial => 'items/unpin', :locals => { :item => item } %>
-<% else %>
-  <%= render :partial => 'items/pin', :locals => { :item => item }  %>
-<% end %>
-</h3>
+  <div class="pin-btn">
+    <% if current_user %>
+      <% if current_user.pinned?(item) %>
+      <% else %>
+        <%= render :partial => 'items/pin', :locals => { :item => item }  %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
 
 <p><%= item.description %></p>

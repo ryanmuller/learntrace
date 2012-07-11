@@ -1,1 +1,12 @@
-<%= render @items %>
+<div class="row">
+  <% [0,1,2].each do |i| %>
+    <div class="span4">
+      <% @tags[i*2..i*2+1].each do |tag| %>
+        <div class="board">
+          <h2><%= tag.name %></h2>
+          <%= render tag.items.featured %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

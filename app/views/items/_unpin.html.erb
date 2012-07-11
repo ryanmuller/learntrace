@@ -1,4 +1,4 @@
 <%= form_for(current_user.pins.find_by_item_id(item), 
              html: { method: :delete }) do |f| %>
-  <%= f.submit "Unpin", class: "btn btn-large" %>
+  <button class="btn btn-small"><i class="icon-remove"></i></button>
 <% end %>

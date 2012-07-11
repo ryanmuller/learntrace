@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
+    @tags = Tag.order("RANDOM()").limit(5)
     @items = Item.all
 
     respond_to do |format|
