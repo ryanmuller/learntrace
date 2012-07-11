@@ -1,3 +1,15 @@
+<% unless current_user %>
+  <div class="hero-unit">
+    <h1>Learnstream</h1>
+
+    <p>Come learn with us! You could be sharing the following topics and way more.</p>
+    <p>
+    <%= link_to "Sign up", new_user_registration_path, :class => "btn btn-primary btn-large" %>
+    <br>or <%= link_to "sign in", new_user_session_path %> to an existing account
+    </p>
+  </div>
+<% end %>
+
 <div class="row">
   <% [0,1,2].each do |i| %>
     <div class="span4">
