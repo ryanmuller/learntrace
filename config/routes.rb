@@ -1,6 +1,6 @@
 BaseApp::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
-    resources :pins
+    resources :pins, :only => [ :create, :destroy ] 
   end
 
   get "pages/index"
@@ -14,9 +14,11 @@ BaseApp::Application.routes.draw do
   resources :items do
     resources :tags, :only => :create
   end
+  resources :pins, :only => :update
+  
   match '/tags/:name' => 'tags#show'
 
-  match '/library' => 'library#index'
+  match '/library' => 'pins#index'
 
   root :to => "items#index"
 end
