@@ -6,4 +6,9 @@ class Pin < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :item_id, presence: true
+
+  scope :todo, where(:status => "todo")
+  scope :doing, where(:status => "doing")
+  scope :done, where(:status => "done")
+
 end

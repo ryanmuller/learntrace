@@ -16,7 +16,7 @@ BaseApp::Application.routes.draw do
   end
   match '/tags/:name' => 'tags#show'
 
-  match '/library' => 'library#index'
+  match '/library' => 'pins#index'
 
   root :to => "items#index"
 end
