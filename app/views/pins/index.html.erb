@@ -1,17 +1,32 @@
-<div class="row">
+<div class="row" id="pin-kanban">
   <div class="span4">
-    <h2>To do</h2>
-    <%= render @pins.todo %>
+    <div class="board">
+      <h2>To do</h2>
+      <div id="todo-items" data-status="todo" class="sortable-board">
+        <%= render @pins.todo %>
+        <div>&nbsp;</div>
+      </div>
+    </div>
   </div>
   
   <div class="span4">
-    <h2>Doing</h2>
-    <%= render @pins.doing %>
+    <div class="board">
+      <h2>Doing</h2>
+      <div id="doing-items" data-status="doing" class="sortable-board">
+        <%= render @pins.doing %>
+        <div>&nbsp;</div>
+      </div>
+    </div>
   </div>
 
   <div class="span4">
-    <h2>Done</h2>
-    <%= render @pins.done %>
+    <div class="board">
+      <h2>Done</h2>
+      <div id="done-items" data-status="done" class="sortable-board">
+        <%= render @pins.done %>
+        <div>&nbsp;</div>
+      </div>
+    </div>
   </div>
 </div>
 
