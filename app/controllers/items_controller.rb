@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_filter :authenticate_user!, :except => [ :index, :show ]
+  before_filter :authenticate_user!, :except => [ :index, :show, :tag_filter ]
 
   def index
     @tags = Tag.order("RANDOM()").limit(12)
