@@ -1,5 +1,4 @@
-<div class="item">
-
+<div class="item" data-id="<%= item.id %>">
   <div class="img-container">
     <div class="actions">
       <% if current_user %>
@@ -10,9 +9,43 @@
         <% end %>
       <% end %>
     </div>
-    <a href="<%= item.url %>"><img src="<%= item.thumb_url %>" width="274px"></a>
+    <a href="<%= item.url %>" class="clickable"><img src="<%= item.thumb_url %>" width="274px"></a>
   </div>
   <h3><a href="<%= item.url %>"><%= item.name %></a></h3>
 
-  <p><%= truncate item.description, :length => 160, :separator => ' ' %></p>
+  <p class="clickable"><%= truncate item.description, :length => 160, :separator => ' ' %></p>
+</div>
+
+
+
+<div class="modal hide" id="item-modal-<%= item.id %>">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3><a href="<%= item.url %>"><%= item.name %></a></h3>
+  </div>
+  <div class="row">
+  <div class="modal-body">
+    <div class="img-container">
+      <div class="actions">
+        <% if current_user %>
+          <% if current_user.pinned?(item) %>
+            <%= render :partial => 'items/unpin', :locals => { :item => item }  %>
+          <% else %>
+            <%= render :partial => 'items/pin', :locals => { :item => item, :pin_text => "Save to Library" }  %>
+          <% end %>
+        <% end %>
+      </div>
+      <% if item.thumb_url %>
+        <a href="<%= item.url %>"><img src="<%= item.thumb_url %>" width="274px"></a>
+      <% end %>
+    </div>
+    <p><%= item.description %></p>
+  </div>
+</div>
+<div class="row">
+  <div class="modal-footer">
+    <a class="btn btn-primary" href="<%= item.url %>">Take me to the course!</a>
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>
 </div>
