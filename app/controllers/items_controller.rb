@@ -12,7 +12,7 @@ class ItemsController < ApplicationController
   end
 
   def new 
-    @item = Item.new
+    @item = Item.new({ :url => params[:url], :description => params[:description], :name => params[:name] })
 
     respond_to do |format|
       format.html # new.html.erb
