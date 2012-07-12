@@ -3,12 +3,10 @@ class ItemsController < ApplicationController
 
   def index
     @tags = Tag.order("RANDOM()").limit(12)
-    @items = Item.all
     @tag_data = Tag.all.map{|t| t.name }.join(",")
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @items }
       format.js { render :layout => false }
     end
   end
