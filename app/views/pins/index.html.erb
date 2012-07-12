@@ -1,6 +1,6 @@
-<a class="btn" data-toggle="modal" href="#addItem" >Add Item</a>
 
 <div class="row" id="library-header">
+<a class="btn" data-toggle="modal" href="#addItem" >Add Item</a>
   <span class="pull-right"><%= link_to "Public Link", public_library_path(:user_id => current_user.id) %></span>
   <br />
   <h2>Drag your pins to the right category!</h2>
@@ -9,7 +9,8 @@
 <div class="row" id="pin-kanban">
   <div class="span4">
     <div class="board">
-      <h2>To do</h2>
+      <h2>To learn</h2>
+      <hr />
       <div id="todo-items" data-status="todo" class="sortable-board">
         <%= render @pins.todo %>
         <div>&nbsp;</div>
@@ -19,7 +20,8 @@
 
   <div class="span4">
     <div class="board">
-      <h2>Doing</h2>
+      <h2>Learning</h2>
+      <hr />
       <div id="doing-items" data-status="doing" class="sortable-board">
         <%= render @pins.doing %>
         <div>&nbsp;</div>
@@ -29,7 +31,8 @@
 
   <div class="span4">
     <div class="board">
-      <h2>Done</h2>
+      <h2>Learned</h2>
+      <hr />
       <div id="done-items" data-status="done" class="sortable-board">
         <%= render @pins.done %>
         <div>&nbsp;</div>
