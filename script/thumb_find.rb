@@ -38,7 +38,6 @@ module ScraperUtils
   # otherwise, returns [content_type, content]
   def ScraperUtils.fetch_url(url, referer = nil, retries = 1, dimension = false)
     cur_try = 0
-    p "fetching #{url}"
     nothing = dimension ? nil : [nil, nil]
 
     # cleans url and parses into URI object
@@ -146,24 +145,20 @@ class Scraper
         next
       end
 
-      p size
       area = size[0]*size[1]
 
       # ignore little images
       if area < 5000
-        p "ignore little #{image_url}"
         next
       end
 
       # ignore excessively long/wide images
       if size.max / size.min > 1.5
-        p "ignore dimensions #{image_url}"
         next
       end
 
       # penalize images with 'sprite' in their name
       if image_url.to_s.downcase.include?("sprite")
-        p "penalizing sprite #{image_url}"
         area /= 10
       end
 

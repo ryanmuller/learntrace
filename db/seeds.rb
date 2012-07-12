@@ -18,7 +18,10 @@ open(url) do |d|
 
   # (note... key [row, col] values are indexed from 1)
   data.each do |key, value|
-    item = Item.create!({ :name => value[1], :url => value[3] })
+    item = Item.create!({ :name => value[1],
+                          :url => value[3], 
+                          :description => value[5],
+                          :thumb_url => value[6] })
 
     if value[4]
       tags = value[4].split(', ')
