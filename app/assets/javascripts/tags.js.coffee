@@ -5,7 +5,6 @@ jQuery ->
     $("#tag-input").typeahead({ 
       source: d,
       onselect: (e) ->
-        $("#board-header").text("loading...")
         $("#main-board").load('/items/tag_filter', { tag: e }, () -> LearnstreamUtils.initialize_items())
         $("#main-board").addClass('no-load')
       }).keyup((e) ->
