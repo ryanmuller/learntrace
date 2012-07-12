@@ -2,7 +2,8 @@
   <h2>Check out what <%= @user.email %> is learning!</h2>
   <div class="span4">
     <div class="board">
-      <h2>To do</h2>
+      <h2>To learn</h2>
+      <hr />
       <div id="public-todo-items">
         <%= render @pins.todo %>
         <div>&nbsp;</div>
@@ -12,7 +13,8 @@
 
   <div class="span4">
     <div class="board">
-      <h2>Doing</h2>
+      <h2>Learning</h2>
+      <hr />
       <div id="public-doing-items">
         <%= render @pins.doing %>
         <div>&nbsp;</div>
@@ -22,7 +24,8 @@
 
   <div class="span4">
     <div class="board">
-      <h2>Done</h2>
+      <h2>Learned</h2>
+      <hr />
       <div id="public-done-items">
         <%= render @pins.done %>
         <div>&nbsp;</div>
