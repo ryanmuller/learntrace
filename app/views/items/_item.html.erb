@@ -14,5 +14,5 @@
   </div>
   <h3><a href="<%= item.url %>"><%= item.name %></a></h3>
 
-  <p><%= item.description %></p>
+  <p><%= truncate item.description, :length => 160, :separator => ' ' %></p>
 </div>
