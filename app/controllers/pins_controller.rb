@@ -11,6 +11,10 @@ class PinsController < ApplicationController
     end
   end
 
+  def library_items
+    @pins = current_user.pins
+  end
+
   def public_index
     @user = User.find(params[:user_id])
     @pins = @user.pins

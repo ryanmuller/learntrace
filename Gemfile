@@ -11,6 +11,7 @@ gem 'heroku'
 
 gem 'image_size'
 gem 'nokogiri'
+gem 'rabl'
 
 gem "pg", :require => "pg"
 
