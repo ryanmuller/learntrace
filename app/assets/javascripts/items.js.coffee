@@ -25,7 +25,7 @@ window.LearnstreamUtils = {
 
   initialize_items: () ->
     LearnstreamUtils.bind_form()
-    $('.img-container').hover(() ->
+    $('.item').hover(() ->
       $('.actions', this).show()
     , () ->
       $('.actions', this).hide())
