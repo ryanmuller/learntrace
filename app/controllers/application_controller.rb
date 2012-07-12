@@ -6,4 +6,16 @@ class ApplicationController < ActionController::Base
     return true
   end
 
+  def after_sign_in_path_for(resource)
+    # merge data from Facebook with current account
+    if session["facebook_data"] && current_user.uid.nil?
+      current_user.provider = "facebook"
+      current_user.uid = session["facebook_data"]["uid"]
+      current_user.save(:validate => false)
+    end
+    # countermeasure against session fixation
+    session.keys.grep(/^facebook\./).each { |k| session.delete(k) }
+    
+    super
+  end
 end
