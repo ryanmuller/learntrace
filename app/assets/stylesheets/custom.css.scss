@@ -108,7 +108,9 @@ p {
   p {
     padding: 1em;
     /*background: white;*/
-    font-size: .9em;
+    font-size: 1em;
+    line-height: 1.2em;
+    cursor: pointer;
   }
   position: relative;
   .actions {
@@ -121,5 +123,15 @@ p {
     }
   }
   margin-bottom: 1em;
+}
+
+/* modal item styling */
+.modal-body {
+
+  padding-left: 50px;
+  p { font-size: 14px; line-height: 18px; padding: 5px; }
+  img { padding: 10px 20px 10px 0px; float: left; width: 300px }
+
+
 }
 
