@@ -65,7 +65,7 @@ module ScraperUtils
 
       # if looking for the dimension of the image...
       if dimension && image
-        return image.get_size # return [height, width]
+        return image.size # return [height, width]
       elsif dimension
         return nothing # if image was null, abort
       end
