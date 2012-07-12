@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     # merge data from Facebook with current account
-    if session["facebook_data"] && current_user.uid.nil?
+    if facebook? and current_user.uid.nil?
       current_user.provider = "facebook"
-      current_user.uid = session["facebook_data"]["uid"]
+      current_user.uid = session["devise.facebook_data"]["uid"]
       current_user.save(:validate => false)
     end
     # countermeasure against session fixation
