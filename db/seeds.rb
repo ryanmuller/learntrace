@@ -18,10 +18,23 @@ open(url) do |d|
 
   # (note... key [row, col] values are indexed from 1)
   data.each do |key, value|
-    item = Item.create!({ :name => value[1],
+    # skips the first line, which contains headers...
+    next if key == 1
+
+    if item = Item.find_by_url(value[3])
+      # if item exists, update attributes and clear tags
+      item.update_attributes!({ :name => value[1],
+                             :url => value[3], 
+                             :description => value[5],
+                             :thumb_url => value[6] })
+      item.tags = []
+    else
+      # else, create it fresh
+      item = Item.create!({ :name => value[1],
                           :url => value[3], 
                           :description => value[5],
                           :thumb_url => value[6] })
+    end
 
     if value[4]
       tags = value[4].split(', ')
