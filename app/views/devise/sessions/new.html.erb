@@ -1,5 +1,5 @@
 <% if facebook? %>
-  <h2>Welcome <%= session["facebook_data"]["user_info"]["first_name"] %>, you're almost done!</h2>
+  <h2>Welcome <%= session["devise.facebook_data"]["user_info"]["first_name"] %>, you're almost done!</h2>
 <% else %>
   <h2>Sign in</h2>
 <% end %>
