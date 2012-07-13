@@ -1,6 +1,6 @@
 
 <div class="row" id="library-header">
-<a class="btn" data-toggle="modal" href="#addItem" >Add Item</a>
+  <a class="btn" data-toggle="modal" href="#addItem" >Add Item</a>
   <span class="pull-right"><%= link_to "Public Link", public_library_path(:user_id => current_user.id) %></span>
   <br />
   <h2>Drag your pins to the right category!</h2>
@@ -44,14 +44,17 @@
 
 
 <div id="addItem" class="modal hide">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Add an item</h3>
-  </div>
-  <div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="modal-header">
+        <h3>Add an item</h3>
+      </div>
+    </div>
+    <div class="row">
 
-    <%= render 'items/form' %>
+        <%= render 'items/form' %>
 
+    </div>
   </div>
 </div>
 

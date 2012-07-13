@@ -10,7 +10,6 @@ window.LearnstreamUtils = {
       f = this
       return false if $(this).find('button').hasClass('disabled')
       id = $(this).data('item_id')
-      id = $(this).find('input[name="pin[item_id]"]').val()
       $.post($(this).attr('action'), $(this).serialize(), (e) ->
         $('.pin-button-' + id).replaceWith('<button class="btn disabled"><i class="icon-ok"></i> Pinned!</button>')
       )
@@ -42,8 +41,12 @@ window.LearnstreamUtils = {
         $(this).find('.clickable').click((e) ->
             # get item element...
             $item = $(this).parents('.item')
+            $modal = $("#item-modal-" + $item.data('id'))
     
-            $("#item-modal-" + $item.data('id')).modal('show')
+            
+            $modal.modal('show')
+            $modal.on('hide', () -> $('html').css('overflow-y', 'scroll'))
+            $('html').css('overflow', 'hidden')
           
             return false)
   
