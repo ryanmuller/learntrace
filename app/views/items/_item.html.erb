@@ -7,6 +7,8 @@
         <% else %>
           <%= render :partial => 'items/pin', :locals => { :item => item }  %>
         <% end %>
+      <% else %>
+        <%= link_to "<i class='icon-flag'></i> Sign up to pin this to your library!".html_safe, new_user_registration_path, { :class => "btn" } %>
       <% end %>
     </div>
     <a href="<%= item.url %>" class="clickable"><img src="<%= item.thumb_url %>" width="274px"></a>
@@ -35,6 +37,8 @@
               <% else %>
                 <%= render :partial => 'items/pin', :locals => { :item => item, :pin_text => "Save to Library" }  %>
               <% end %>
+            <% else %>
+              <%= link_to "<i class='icon-flag'></i> Sign up to pin this to your library!".html_safe, new_user_registration_path, { :class => "btn" } %>
             <% end %>
           </div>
           <% if item.thumb_url %>
