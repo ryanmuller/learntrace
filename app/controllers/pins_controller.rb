@@ -21,6 +21,7 @@ class PinsController < ApplicationController
     
     respond_to do |format|
       format.html
+      format.json { render 'library_items' }
     end
   end
 
