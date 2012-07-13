@@ -17,11 +17,17 @@
     <%= render "layouts/admin/main_nav" if current_user.admin? %>
 
     <% if notice %>
-      <p id="flash_notice" class="notice"><%= notice %></p>
+      <div id="flash_notice" class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <%= notice %>
+      </div>
     <% end %>
 
     <% if alert %>
-      <p id="flash_alert" class="alert"><%= alert %></p>
+      <div id="flash_notice" class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <%= notice %>
+      </div>
     <% end %>
 
 

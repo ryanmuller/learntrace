@@ -12,13 +12,18 @@
   <div class="container">
 
     <% if notice %>
-      <p id="flash_notice" class="notice"><%= notice %></p>
+      <div class="alert alert-success">
+        <a class="close" data-dismiss="alert" href="#">×</a>
+        <%= notice %>
+      </div>
     <% end %>
 
     <% if alert %>
-      <p id="flash_alert" class="alert"><%= alert %></p>
+      <div  class="alert alert-error">
+        <a class="close" data-dismiss="alert" href="#">×</a>
+        <%= alert %>
+      </div>
     <% end %>
-
     <%= yield %>
   </div>
 
