@@ -10,6 +10,7 @@
               <li><%= link_to "Admin", admin_path %></li>
             <% end %>
             <li><%= link_to "My Library", '/library' %></li>
+            <li><%= link_to "Tools", tools_path %></li>
             <li><%= link_to "Sign out", destroy_user_session_path %></li>
             <li><%= link_to "Settings", edit_user_registration_path %></li>
           <% else %>
@@ -17,7 +18,6 @@
             <li><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></li>
           <% end -%>
           <li><%= link_to "About", about_path %></li>
-          <li><%= link_to "Feedback", feedback_path %></li>
         </ul>
       </nav>
     </div>

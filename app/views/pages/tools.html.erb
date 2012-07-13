@@ -1,0 +1,35 @@
+<div class=row">
+  <div class="span10" id="page-column">
+    <h1>Tools</h1>
+
+    <h3>Bookmarklet</h3>
+
+    <p>Drag the link below to your bookmark toolbar. Click it to add a page to your Learnstream library.</p>
+
+    <p><a href="javascript:(function(){var%20url=encodeURIComponent(document.location.href),name=document.title;window.open('http://learntrace.herokuapp.com/items/new%3Furl='+url+'%26name='+name,'_blank','toolbar=0,scrollbars=no,resizable=1,status=1,width=430,height=400');})();" class="btn disabled">Add to Learnstream</a></p>
+
+    <h3>Data export</h3>
+
+    <p>We realize how important it is these days to own your own data. That is why we are
+    committed to providing you with easy access to your data on this site.</p>
+
+    <p>We are in the process of fleshing out our APIs, but for the time being you can 
+    access your own pins (while logged in) at: </p>
+
+    <pre>http://learntrace.herokuapp.com/library_items.json</pre>
+
+    <p>or share them with others (who aren't logged in) by using the publicly-facing link:</p>
+
+    <pre>
+http://learntrace.herokuapp.com/public/:user_id/library.json
+
+      Note: :user_id can be found by navigating to your library, 
+      and clicking 'Public Link' in the upper-right hand corner.
+      For example, User 6 would use the link
+
+        http://learntrace.herokuapp.com/public/6/library.json</pre>
+
+    <p>These all return a json object. You should be able to explore in your browser!</p>
+
+  </div>
+</div>

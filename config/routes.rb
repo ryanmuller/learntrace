@@ -4,8 +4,8 @@ BaseApp::Application.routes.draw do
   end
 
   get "pages/index"
-  match "/about" => "pages#about", :as => "about"
-  match "/feedback" => "pages#feedback", :as => "feedback"
+  match "/about" => "pages#about"
+  match "/tools" => "pages#tools"
 
   match "/admin" => "admin/base#index", :as => "admin"
 

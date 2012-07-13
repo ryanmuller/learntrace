@@ -2,56 +2,19 @@
   <div class="span10" id="page-column">
     <h1>About Learnstream</h1>
     <hr />
-    <h3>The short of it...</h3>
-    <p>We are a group of hackers passionate about learning. This site is the result of a 
-    weekend 'hackathon', in which we tried to produce a 
-    <%= link_to "minimum-viable product", "http://en.wikipedia.org/wiki/Minimum_viable_product" %> 
-    to kickstart our way into the ed-tech world. We plan to expand this site, and 
-    incorporate feedback from our users to <%= link_to "pivot boldly", "http://theleanstartup.com/principles" %> where no one has pivoted before.</p>
 
-    <h3>About this site</h3>
-    <p>This may look like Yet-Another-Pinterest-Ripoff, because in a way, it is. The point,
-    to put it loosely, is to allow you to explore the universe of online educational resources
-    in an attractive and easy fashion. If you see something interesting, simply 
-    save it to your library. As you watch the video, read the essay, or complete the course, you can move the 'learnit' from
-    "to learn" → "learning" → "learned". At any point, you can share your status 
-    with others, using the public link available in the upper-right hand corner of your 
-    library.
-    </p>
-    <ul class="thumbnails">
-      <li class="thumbnail">
-      <%= image_tag "learntrace-library.jpg" %>
-      </li>
-    </ul>
-    <p>On the homepage, you can filter courses by keyword or have fun with the infinite
-    scroll! Currently, we have over 9000... err... over 900 courses scraped together
-    from a variety of sources including <%= link_to "TED", "http://www.ted.com/" %>, <%= link_to "MIT Open Courseware", "http://ocw.mit.edu/" %>, <%= link_to "Coursera", "https://www.coursera.org/" %>, <%= link_to "Udacity", "http://www.udacity.com/" %>, <%= link_to "Khan Academy", "http://www.khanacademy.org/" %>, <%= link_to "Code School", "http://www.codeschool.com/" %>, <%= link_to "Edge", "http://edge.org/" %>, and the many kind educators on <%= link_to "Youtube", "http://www.youtube.com" %>. We also hope you'll start pinning and tagging new resources you've found, contributing the awareness of their existence to our community! Our only guideline is that they are free to the public. (Although it is only a guideline...)</p>
+    <h3>The dream</h3>
 
-    <p>Finally, we are in the process of adding new features each day. So check back soon to see what's become available! Some of the things we are prioritizing:</p>
-    <ul>
-      <li>Easy way to add tags to existing items</li>
-      <li>Interface for browsing what other users are learning and tagging</li>
-      <li><%= link_to "Suggest a feature!", "mailto:support@learnstream.org" %> We want to incorporate your input... and we promise we won't bite ;)</li>
-    </ul>
+    <p>We want to help you get more out of learning from the web.</p>
 
-    <h3>Our commitment to data portability</h3>
-    <p>We realize how important it is these days to own your own data. That is why we are
-    committed to providing you with easy access to your data on this site.</p>
-    <p>We are in the process of fleshing out our APIs, but for the time being you can 
-    access your own pins (while logged in) at: </p>
-<pre>
-http://learntrace.herokuapp.com/library_items.json
-</pre>
-    <p>or share them with others (who aren't logged in) by using the publicly-facing link:</p>
-<pre>
-  http://learntrace.herokuapp.com/public/:user_id/library.json
+    <h3>The team</h3>
 
-  Note  -- :user_id can be found by navigating to your library, 
-  and clicking 'Public Link' in the upper-right hand corner.
-  For example, User 6 would use the link
+    <p>We are a couple of hackers passionate about learning and learning technology.</p>
+    <p><i class="icon-arrow-right"></i> <strong><%= link_to "Ryan Muller", "http://www.learnstream.org/" %></strong> is a graduate student of Human Computer Interaction at <%= link_to "Carnegie Mellon University", "http://www.hcii.cmu.edu/" %>. He likes to play DDR.</p>
 
-    http://learntrace.herokuapp.com/public/6/library.json
-</pre>
-    <p>These all return a json object. You should be able to explore in your browser!</p>
-  </div>
+    <p><i class="icon-arrow-right"></i> <strong><%= link_to "Neal Pisenti", "http://npisenti.github.com/" %></strong> will be a physics graduate student at the <%= link_to "University of Maryland", "http://physics.umd.edu/" %> come September. He often enjoys crappy movies.</p>
+
+    <br />
+
+    <p><strong>We'd love to hear from you!</strong> Email us at <a href="mailto:support@learnstream.org">support@learnstream.org</a>.
 </div>
