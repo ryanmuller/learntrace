@@ -17,6 +17,7 @@ BaseApp::Application.routes.draw do
 
   resources :items do
     resources :tags, :only => :create
+    resources :comments, :only => :create
     match 'tag_filter' => 'items#tag_filter', :on => :collection
   end
   resources :pins, :only => :update

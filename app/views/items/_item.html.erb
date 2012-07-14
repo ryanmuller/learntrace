@@ -61,7 +61,9 @@
         <%= render comment %>
       <% end %>
 
-      comment form
+      <%= form_for [item, Comment.new], :html => { :class => 'form-inline' } do |f| %>
+        <%= render :partial => 'comments/form', :locals => { :f => f } %>
+      <% end %>
     </div>
     <div class="row">
       <div class="modal-footer">
