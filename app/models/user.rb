@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
       user = User.create(provider: auth.provider,
                          uid: auth.uid,
                          email: auth.info.email,
+                         image: auth.info.image,
                          password: Devise.friendly_token[0,20])
     end
     return user
