@@ -49,6 +49,21 @@
       </div>
     </div>
     <div class="row">
+      <% unless item.pins.empty? %>
+        <p>Pinned by
+        <% item.pins.each do |pin| %>
+          <%= link_to pin.user.email, "/public/#{pin.user.id}/library" %>
+        <% end %>
+        </p>
+      <% end %>
+
+      <% item.comments.each do |comment| %>
+        <%= render comment %>
+      <% end %>
+
+      comment form
+    </div>
+    <div class="row">
       <div class="modal-footer">
         <a class="btn btn-primary" href="<%= item.url %>">Take me there!</a>
         <a href="#" class="btn" data-dismiss="modal">Close</a>
