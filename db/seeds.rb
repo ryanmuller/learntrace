@@ -21,23 +21,23 @@ open(url) do |d|
     # skips the first line, which contains headers...
     next if key == 1
 
-    if item = Item.find_by_url(value[3])
+    if item = Item.find_by_url(value[2])
       # if item exists, update attributes and clear tags
       item.update_attributes!({ :name => value[1],
-                             :url => value[3], 
-                             :description => value[5],
-                             :thumb_url => value[6] })
+                             :url => value[2], 
+                             :description => value[4],
+                             :thumb_url => value[5] })
       item.tags = []
     else
       # else, create it fresh
       item = Item.create!({ :name => value[1],
-                          :url => value[3], 
-                          :description => value[5],
-                          :thumb_url => value[6] })
+                          :url => value[2], 
+                          :description => value[4],
+                          :thumb_url => value[5] })
     end
 
-    if value[4]
-      tags = value[4].split(', ')
+    if value[3]
+      tags = value[3].split(', ')
       tags.each do |tag_name| 
         unless tag = Tag.find_by_name(tag_name)
           tag = Tag.create!({ :name => tag_name })
