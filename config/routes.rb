@@ -25,5 +25,7 @@ BaseApp::Application.routes.draw do
   match '/library_items' => 'pins#library_items'
   match '/public/:user_id/library' => 'pins#public_index', :as => :public_library
 
+  match '/bookmarklet/learned' => 'bookmarklet#learned'
+
   root :to => "items#index"
 end

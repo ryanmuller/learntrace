@@ -29,6 +29,7 @@ class PinsController < ApplicationController
     @pin = current_user.pins.find(params[:id])
     @pin.update_attributes({ :status => params[:pin][:status] })
     respond_to do |format|
+      format.html { render :nothing => true }
       format.js   { render :nothing => true } 
     end
   end

@@ -1,0 +1,6 @@
+Saving <strong><%= @pin.item.name %></strong> as learned.
+
+<%= form_for @pin do |f| %>
+  <%= f.hidden_field :status, :value => "done" %>
+  <%= f.submit "Save", :class => "btn btn-primary"  %>
+<% end %>
