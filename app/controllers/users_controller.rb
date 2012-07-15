@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def index
-    @pins = Pin.limit(10)
+    @pins = Pin.order('updated_at DESC').limit(10)
   end
 
 end

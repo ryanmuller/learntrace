@@ -4,7 +4,7 @@
       <% next unless pin.user %>
 
       <div class="board">
-        <%= pin.user %> 
+        <%= user_image(pin.user) %> <strong><%= link_to pin.user, public_library_url(pin.user) %></strong>
         <% if pin.status == "todo" %>
           wants to learn
         <% elsif pin.status == "doing" %>
