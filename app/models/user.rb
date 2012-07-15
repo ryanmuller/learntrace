@@ -60,6 +60,6 @@ class User < ActiveRecord::Base
   end
 
   def to_s
-    name
+    name || "Anonymous user"
   end
 end
