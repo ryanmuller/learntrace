@@ -13,6 +13,8 @@ BaseApp::Application.routes.draw do
     resources :users
   end
 
+  resources :users
+
   resources :items do
     resources :tags, :only => :create
     match 'tag_filter' => 'items#tag_filter', :on => :collection
