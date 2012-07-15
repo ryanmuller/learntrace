@@ -5,10 +5,21 @@
       <%= devise_error_messages! %>
     </div>
 
+    <div>
+      <img src="<%= resource.image %>" />
+    </div>
+
     <div class="control-group">
       <%= f.label :email, { :class => "control-label" } %>
       <div class="controls">
         <%= f.email_field :email %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :name, { :class => "control-label" } %>
+      <div class="controls">
+        <%= f.text_field :name %>
       </div>
     </div>
 
