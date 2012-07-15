@@ -29,5 +29,5 @@ BaseApp::Application.routes.draw do
 
   match '/bookmarklet/learned' => 'bookmarklet#learned'
 
-  root :to => "items#index"
+  root :to => "pages#index"
 end
