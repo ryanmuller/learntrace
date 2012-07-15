@@ -10,8 +10,4 @@ module ApplicationHelper
   def facebook?
     session["devise.facebook_data"]
   end
-
-  def user_image(user)
-    "<img src=\"#{ user.image }\">".html_safe
-  end
 end
