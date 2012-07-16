@@ -1,5 +1,5 @@
 class Path < ActiveRecord::Base
   belongs_to :user
-  has_many :path_items
-  has_many :items, :through => :path_items
+  has_many :pins
+  has_many :items, :through => :pins
 end

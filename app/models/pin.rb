@@ -3,6 +3,7 @@ class Pin < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :item, :counter_cache => true
+  belongs_to :path
 
   validates :user_id, presence: true
   validates :item_id, presence: true
