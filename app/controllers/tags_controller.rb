@@ -3,6 +3,7 @@ class TagsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
+    params[:tag].update(:name => params[:tag][:name].downcase)
     @item = Item.find(params[:item_id])
     @tag = Tag.find_by_name(params[:tag][:name]) || Tag.create(params[:tag])
     if Tagging.where("user_id = ? AND tag_id = ? AND item_id = ?", current_user.id, @tag.id, @item.id).count > 0
