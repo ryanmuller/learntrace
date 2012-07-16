@@ -7,6 +7,7 @@ class Item < ActiveRecord::Base
       Tagging.with_scope(:create => join_attrs) { self << tag }
     end
   end
+  has_many :comments
 
   scope :featured, order('pins_count DESC').limit(4)
   scope :best, order('pins_count DESC')

@@ -1,0 +1,10 @@
+<div class="comment">
+  <%= link_to public_library_path(comment.user) do %>
+    <img src="<%= comment.user.image %>">
+  <% end %>
+
+  <div class="comment-contents">
+    <strong><%= link_to comment.user, public_library_path(comment.user) %></strong>
+    <p><%= comment.content %></p>
+  </div>
+</div>

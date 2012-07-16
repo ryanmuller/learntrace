@@ -205,7 +205,31 @@ p {
     margin-bottom: .5em;
     font-size: 1.8em;
   }
-  
+}
 
+/* comments */
 
+.pinners {
+  min-height: 50px;
+}
+
+a[rel=tooltip] {
+  display: inline-block;
+  img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.comment {
+  position: relative;
+  min-height: 50px;
+
+  img {
+    position: absolute;
+  }
+
+  .comment-contents {
+    margin-left: 54px;
+  }
 }

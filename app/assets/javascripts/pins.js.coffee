@@ -1,0 +1,2 @@
+jQuery ->
+ $('[rel=tooltip]').tooltip()
