@@ -5,6 +5,9 @@ class CommentsController < ApplicationController
   def create
     @item = Item.find(params[:item_id])
     @comment = Comment.create(:item_id => @item.id, :user_id => current_user.id, :content => params[:comment][:content])
-    redirect_to @item
+
+    respond_to do |format|
+      format.js
+    end
   end
 end

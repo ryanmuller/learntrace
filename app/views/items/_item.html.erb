@@ -61,18 +61,20 @@
 
     </div>
     <div class="row">
-      <div class="model-body">
+      <div class="modal-body">
         
         <hr>
         <h4>Comments</h4>
         <br />
-        <%= form_for [item, Comment.new], :html => { :class => 'form-inline' } do |f| %>
+        <%= form_for [item, Comment.new], :html => { :class => 'form-inline comments-form' } do |f| %>
           <%= render :partial => 'comments/form', :locals => { :f => f } %>
         <% end %>
         <br />
-        <% item.comments.each do |comment| %>
-          <%= render comment %>
-        <% end %>
+        <div id="comments-container-<%= item.id %>">
+          <% item.comments.each do |comment| %>
+            <%= render comment %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="row">
