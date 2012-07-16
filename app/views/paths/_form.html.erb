@@ -1,0 +1,9 @@
+<%= form_for(@path, :html => { :class => "form-horizontal" }) do |f| %>
+  <div class="control-group">
+    <%= f.label :name, "Starting learning about", { :class => 'control-label' } %>
+    <div class="controls">
+      <%= f.text_field :name, { :class => 'input-xlarge', 'data-tags' => @tag_data } %>
+    </div>
+  </div>
+  <%= f.submit "Go!", :class => 'btn btn-primary' %>
+<% end %>
