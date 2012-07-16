@@ -161,6 +161,9 @@ p {
     }
 
   }
+
+  .modal-body.item-tags { padding: 20px 50px 0px 50px; margin-bottom: -20px; }
+
   .modal-footer { padding: 10px 50px; margin-left: -20px;}
 
 
@@ -233,5 +236,15 @@ a[rel=tooltip] {
 
   .comment-contents {
     margin-left: 54px;
+  }
+}
+
+/* tags... */
+.item-tags {
+  .label { 
+    margin: 0px 2px;
+    a { color: white; padding: 0px 1px; }
+    text-transform: lowercase;
+    font-weight: normal;
   }
 }

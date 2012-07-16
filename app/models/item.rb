@@ -11,4 +11,9 @@ class Item < ActiveRecord::Base
 
   scope :featured, order('pins_count DESC').limit(4)
   scope :best, order('pins_count DESC')
+
+  def tags_by_user(user)
+   Tag.joins(:taggings => :user).where('taggings.user_id' => user.id, 'taggings.item_id' => self.id)
+  end
+
 end

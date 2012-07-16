@@ -62,8 +62,22 @@
 
     </div>
     <div class="row">
+      <div class="modal-body item-tags">
+        <p class="tags-container-item-<%= item.id %>">
+        <b>Tags:</b>
+        <%= render :partial => "tags/tag", :collection => item.tags, :as => :tag,  :locals => { :item => item } %>
+        <%= form_for [item, Tag.new], :html => { :class => 'form-inline tag-submit-form' } do |f| %>
+          <%= render :partial => 'tags/form', :locals => { :f => f } %>
+        <% end %>
+        </p>
+      </div>
+    </div>
+
+
+
+    <div class="row">
       <div class="modal-body">
-        
+
         <hr>
         <h4>Comments</h4>
         <br />
