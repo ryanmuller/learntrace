@@ -156,7 +156,9 @@ p {
     height: 100%; 
     padding-left: 50px;
     p { font-size: 14px; line-height: 18px; padding: 5px; }
-    img { padding: 10px 20px 10px 0px; float: left; width: 300px }
+    .img-container {
+        img { padding: 10px 20px 10px 0px; float: left; width: 300px }
+    }
 
   }
   .modal-footer { padding: 10px 50px; margin-left: -20px;}
