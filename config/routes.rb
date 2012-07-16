@@ -13,7 +13,7 @@ BaseApp::Application.routes.draw do
     resources :users
   end
 
-  resources :users
+  resources :users, :only => :show
 
   resources :items do
     resources :tags, :only => :create
@@ -26,7 +26,7 @@ BaseApp::Application.routes.draw do
 
   match '/library' => 'pins#index'
   match '/library_items' => 'pins#library_items'
-  match '/public/:user_id/library' => 'pins#public_index', :as => :public_library
+  match '/public/:user_id/library' => 'users#show', :as => :public_library
 
   match '/bookmarklet/learned' => 'bookmarklet#learned'
 

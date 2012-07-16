@@ -15,16 +15,6 @@ class PinsController < ApplicationController
     @pins = current_user.pins
   end
 
-  def public_index
-    @user = User.find(params[:user_id])
-    @pins = @user.pins
-    
-    respond_to do |format|
-      format.html
-      format.json { render 'library_items' }
-    end
-  end
-
   def update
     @pin = current_user.pins.find(params[:id])
     @pin.update_attributes({ :status => params[:pin][:status] })

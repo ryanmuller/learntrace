@@ -1,17 +1,16 @@
 <% pins.each do |pin| %>
   <% next unless pin.user %>
 
-  <% if pin.user %>
-    <div class="board">
-      <img src="<%= pin.user.image %>"> 
-      <% if pin.status == "todo" %>
-        wants to learn
-      <% elsif pin.status == "doing" %>
-        is learning 
-      <% else %>
-        learned 
-      <% end %>
-      <%= render pin.item %>
-    </div>
-  <% end %>
+  <div class="board">
+    <img src="<%= pin.user.image %>"> 
+    <strong><%= link_to pin.user, user_path(pin.user) %></strong>
+    <% if pin.status == "todo" %>
+      wants to learn
+    <% elsif pin.status == "doing" %>
+      is learning 
+    <% else %>
+      learned 
+    <% end %>
+    <%= render pin.item %>
+  </div>
 <% end %>
