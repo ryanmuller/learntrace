@@ -62,4 +62,9 @@ class User < ActiveRecord::Base
   def to_s
     name || "Anonymous user"
   end
+
+  def username
+    default_username = name.nil? ? id.to_s : name.sub(/\s/, ".").downcase
+    read_attribute(:username) || write_attribute(:username, default_username)
+  end
 end
