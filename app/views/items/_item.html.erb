@@ -47,23 +47,33 @@
         </div>
         <p><%= item.description %></p>
       </div>
+      <% unless item.pins.empty? %>
+        <div class="pinners">
+          <h4><%= pluralize item.pins.count, "person" %> learning this</h4>
+          <br />
+          <% item.pins.each do |pin| %>
+            <%= link_to public_library_path(pin.user), { :rel => "tooltip", :title => pin.user.name } do %>
+              <img src="<%= pin.user.image %>">
+            <% end %>
+        <% end %>
+        </div>
+      <% end %>
+
     </div>
     <div class="row">
-      <% unless item.pins.empty? %>
-        <p>Pinned by
-        <% item.pins.each do |pin| %>
-          <%= link_to pin.user.email, "/public/#{pin.user.id}/library" %>
+      <div class="model-body">
+        
+        <hr>
+        <h4>Comments</h4>
+        <br />
+        <%= form_for [item, Comment.new], :html => { :class => 'form-inline' } do |f| %>
+          <%= render :partial => 'comments/form', :locals => { :f => f } %>
         <% end %>
-        </p>
-      <% end %>
-
-      <% item.comments.each do |comment| %>
-        <%= render comment %>
-      <% end %>
-
-      <%= form_for [item, Comment.new], :html => { :class => 'form-inline' } do |f| %>
-        <%= render :partial => 'comments/form', :locals => { :f => f } %>
-      <% end %>
+        <br />
+        <% item.comments.each do |comment| %>
+          <%= render comment %>
+        <% end %>
+      </div>
     </div>
     <div class="row">
       <div class="modal-footer">
