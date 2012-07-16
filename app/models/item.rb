@@ -8,6 +8,8 @@ class Item < ActiveRecord::Base
     end
   end
   has_many :comments
+  has_many :path_items
+  has_many :paths, :through => :path_items
 
   scope :featured, order('pins_count DESC').limit(4)
   scope :best, order('pins_count DESC')
