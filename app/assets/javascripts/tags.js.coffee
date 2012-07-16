@@ -22,10 +22,3 @@ jQuery ->
     $("#tag-typehead").typeahead({ source: d })
 
 
-  # ajaxify tag submit...
-  $('.tag-submit-form').submit(() ->
-    data = $(this).serialize()
-    $.post($(this).attr('action'), data)
-    $(this).find("#tag-typehead").val('')
-    return false
-  )
