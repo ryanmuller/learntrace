@@ -20,6 +20,7 @@ class TagsController < ApplicationController
 
   end
 
+
   def show
     @tag = Tag.find_by_name(params[:name], :include => :items)
     @items = @tag.items.best

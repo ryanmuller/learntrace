@@ -1,2 +1,2 @@
-$(".tags-container-item-<%= @item.id %>").append('<%= escape_javascript(link_to @tag.name, tag_name_path(@tag.name)) %>\n');
+$(".tags-container-item-<%= @item.id %>").append('<%= escape_javascript(render :partial => 'tags/tag', :locals => { :tag => @tag, :item => @item } ) %>\n');
 console.log('doing something');

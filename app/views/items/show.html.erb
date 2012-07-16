@@ -1,10 +1,8 @@
 <%= render :partial => 'item', :locals => { :item => @item } %>
 
-<p class="tags-container-item-<%= @item.id %>">
+<p class="item-tags tags-container-item-<%= @item.id %>">
   <b>Tags:</b>
-  <% @item.tags.each do |tag| %>
-    <%= link_to tag.name, tag_name_path(tag.name) %>
-  <% end %>
+        <%= render :partial => "tags/tag", :collection => @item.tags, :as => :tag,  :locals => { :item => @item } %>
   <%= form_for [@item, Tag.new], :html => { :class => 'form-inline tag-submit-form' } do |f| %>
     <%= render :partial => 'tags/form', :locals => { :f => f } %>
   <% end %>

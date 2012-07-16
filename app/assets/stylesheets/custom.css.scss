@@ -238,3 +238,13 @@ a[rel=tooltip] {
     margin-left: 54px;
   }
 }
+
+/* tags... */
+.item-tags {
+  .label { 
+    margin: 0px 2px;
+    a { color: white; padding: 0px 1px; }
+    text-transform: lowercase;
+    font-weight: normal;
+  }
+}

@@ -21,6 +21,8 @@ BaseApp::Application.routes.draw do
     match 'tag_filter' => 'items#tag_filter', :on => :collection
   end
   resources :pins, :only => :update
+
+  resources :taggings, :only => :destroy
   
   match '/tags/:name' => 'tags#show', :as => "tag_name"
 
