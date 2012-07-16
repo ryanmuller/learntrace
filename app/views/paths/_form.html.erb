@@ -1,4 +1,4 @@
-<%= form_for(@path, :html => { :class => "form-horizontal" }) do |f| %>
+<%= form_for(current_user.paths.build, :html => { :class => "form-horizontal" }) do |f| %>
   <div class="control-group">
     <%= f.label :name, "Starting learning about", { :class => 'control-label' } %>
     <div class="controls">
