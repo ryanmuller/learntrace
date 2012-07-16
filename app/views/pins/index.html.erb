@@ -1,9 +1,14 @@
 
 <div class="row" id="library-header">
-  <a class="btn btn-large" data-toggle="modal" href="#addItem"><i class="icon-plus"></i> Add an item</a>
-  <span class="pull-right">Public URL: <%= link_to public_library_url(:user_id => current_user.id), public_library_path(:user_id => current_user.id) %></span>
-  <br />
-  <h2>Drag your pins to the right category!</h2>
+  <div class="span12">
+    <a class="btn btn-large" data-toggle="modal" href="#addItem"><i class="icon-plus"></i> Add an item</a>
+    <span class="pull-right">
+      Public URL: <%= link_to public_library_url(:user_id => current_user.id), public_library_path(:user_id => current_user.id) %><br>
+      <div class="fb-like" data-href="<%= public_library_url(current_user) %>" data-send="false" data-show-faces="false" data-layout="button_count"></div>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= public_library_url(current_user) %>" data-text="Check out my library on Learnstream">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </span>
+  </div>
 </div>
 
 <div class="row" id="pin-kanban">
