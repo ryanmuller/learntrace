@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120715210056) do
+ActiveRecord::Schema.define(:version => 20120716163402) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -33,6 +33,25 @@ ActiveRecord::Schema.define(:version => 20120715210056) do
     t.integer  "pins_count",  :default => 0
     t.string   "thumb_url"
   end
+
+  create_table "path_items", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "path_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "path_items", ["item_id"], :name => "index_path_items_on_item_id"
+  add_index "path_items", ["path_id"], :name => "index_path_items_on_path_id"
+
+  create_table "paths", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "paths", ["user_id"], :name => "index_paths_on_user_id"
 
   create_table "pins", :force => true do |t|
     t.integer  "user_id"
