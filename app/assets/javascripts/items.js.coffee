@@ -6,6 +6,7 @@ window.LearnstreamUtils = {
   bind_form: () ->
     $("form.new_pin").unbind('submit')
     $("form.edit_pin").unbind('submit')
+    $(".comments-form").unbind('submit')
     $("form.new_pin").submit(() ->
       f = this
       return false if $(this).find('button').hasClass('disabled')
@@ -24,6 +25,13 @@ window.LearnstreamUtils = {
       )
       $("#item-modal-" + id).modal('hide')
       
+      return false
+    )
+
+    $(".comments-form").submit(() ->
+      data = $(this).serialize()
+      $.post($(this).attr('action'), data)
+      $(this).find("#comment_content").val('')
       return false
     )
 

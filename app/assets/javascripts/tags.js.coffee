@@ -20,3 +20,12 @@ jQuery ->
   if $("#tag-typehead").length > 0
     d = $("#tag-typehead").data('tags').split(",")
     $("#tag-typehead").typeahead({ source: d })
+
+
+  # ajaxify tag submit...
+  $('.tag-submit-form').submit(() ->
+    data = $(this).serialize()
+    $.post($(this).attr('action'), data)
+    $(this).find("#tag-typehead").val('')
+    return false
+  )

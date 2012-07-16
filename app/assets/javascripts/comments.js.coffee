@@ -1,10 +1,3 @@
-jQuery -> 
+# note: moved the comment bind javascript to /items.js.cofee, to put in the 
+# 'bind_form' util
 
-  $(".comments-form").submit(() ->
-    data = $(this).serialize()
-    console.log(this)
-    console.log(data)
-    $.post($(this).attr('action'), data)
-    $(this).find("#comment_content").val('')
-    return false
-  )
