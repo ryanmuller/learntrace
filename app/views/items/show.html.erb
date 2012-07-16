@@ -1,6 +1,6 @@
 <%= render :partial => 'item', :locals => { :item => @item } %>
 
-<p id="item-tags-container">
+<p class="tags-container-item-<%= @item.id %>">
   <b>Tags:</b>
   <% @item.tags.each do |tag| %>
     <%= link_to tag.name, tag_name_path(tag) %>
