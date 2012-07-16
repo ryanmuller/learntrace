@@ -4,7 +4,6 @@ class PathsController < ApplicationController
 
   def index
     @paths = current_user.paths
-    @path = current_user.paths.build
     @tag_data = Tag.all.map{|t| t.name }.join(",")
   end
 
@@ -18,6 +17,16 @@ class PathsController < ApplicationController
         format.html { render action: "index" }
         format.json { render json: @path.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @path = Path.find(params[:id])
+    @path.destroy
+
+    respond_to do |format|
+      format.html { redirect_to paths_url }
+      format.json { head :no_content }
     end
   end
 
