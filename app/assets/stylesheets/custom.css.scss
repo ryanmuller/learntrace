@@ -205,7 +205,19 @@ p {
     margin-bottom: .5em;
     font-size: 1.8em;
   }
-  
+}
 
+/* comments */
 
+.comment {
+  position: relative;
+  min-height: 50px;
+
+  img {
+    position: absolute;
+  }
+
+  .comment-contents {
+    margin-left: 54px;
+  }
 }
