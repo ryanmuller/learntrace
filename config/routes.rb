@@ -13,7 +13,9 @@ BaseApp::Application.routes.draw do
     resources :users
   end
 
-  resources :users, :only => :show
+  match '/users/:id' => 'users#show', :as => :user, :constraints => { :id => /\d+/ }
+  match '/users/:username' => 'users#show', :as => :username, :constraints => { :username => /[a-zA-Z0-9_\-\.]+/ }
+ 
 
   resources :items do
     resources :tags, :only => :create

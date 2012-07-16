@@ -24,7 +24,16 @@
     </div>
 
     <div class="control-group">
-      <%= f.label :password, { :class => "control-label" } %> 
+      <%= f.label :username, { :class => "control-label" } %>
+      <div class="controls">
+        <%= f.text_field :username, :value => @user.username %>
+        <p class="help-block">You can change this if you want! It defaults to your user_id.</p>
+      </div>
+    </div>
+
+
+    <div class="control-group">
+      <%= f.label :password, "New Password", { :class => "control-label" } %> 
       <div class="controls">
         <%= f.password_field :password, :autocomplete => "off" %>
         <p class="help-block">Leave blank if you don't want to change it.</p>
