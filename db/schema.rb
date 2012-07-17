@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120716164220) do
+ActiveRecord::Schema.define(:version => 20120717183030) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -34,35 +34,17 @@ ActiveRecord::Schema.define(:version => 20120716164220) do
     t.string   "thumb_url"
   end
 
-  create_table "path_items", :force => true do |t|
-    t.integer  "item_id"
-    t.integer  "path_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "path_items", ["item_id"], :name => "index_path_items_on_item_id"
-  add_index "path_items", ["path_id"], :name => "index_path_items_on_path_id"
-
-  create_table "paths", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "paths", ["user_id"], :name => "index_paths_on_user_id"
-
   create_table "pins", :force => true do |t|
     t.integer  "user_id"
     t.integer  "item_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.string   "status",     :default => "todo"
-    t.integer  "path_id"
+    t.integer  "stream_id"
   end
 
   add_index "pins", ["item_id"], :name => "index_pins_on_item_id"
+  add_index "pins", ["stream_id"], :name => "index_pins_on_stream_id"
   add_index "pins", ["user_id"], :name => "index_pins_on_user_id"
 
   create_table "roles", :force => true do |t|
@@ -75,6 +57,15 @@ ActiveRecord::Schema.define(:version => 20120716164220) do
     t.integer "role_id"
     t.integer "user_id"
   end
+
+  create_table "streams", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "streams", ["user_id"], :name => "index_paths_on_user_id"
 
   create_table "taggings", :force => true do |t|
     t.integer  "user_id"

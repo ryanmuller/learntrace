@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   
   has_many :pins
   has_many :items, :through => :pins
-  has_many :paths
+  has_many :streams
 
   def role?(role)
     return !!self.roles.find_by_name(role.to_s)
