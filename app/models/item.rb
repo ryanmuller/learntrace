@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
   has_many :pins
   has_many :users, :through => :pins
-  has_many :paths, :through => :pins
+  has_many :streams, :through => :pins
 
   has_many :taggings, :dependent => :destroy
   has_many :tags, :uniq => true, :through => :taggings do

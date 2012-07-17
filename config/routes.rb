@@ -24,7 +24,7 @@ BaseApp::Application.routes.draw do
   end
   resources :pins, :only => :update
   resources :taggings, :only => :destroy
-  resources :paths
+  resources :streams
   
   match '/tags/:name' => 'tags#show', :as => "tag_name"
 
