@@ -16,6 +16,14 @@ class Item < ActiveRecord::Base
   scope :featured, order('pins_count DESC').limit(4)
   scope :best, order('pins_count DESC')
 
+  def pinned_by_user?(user)
+    users.include?(user)
+  end
+
+  def user_pin(user)
+    pins.where('pins.user_id = ?', user.id).first
+  end
+
   private
   def add_thumb
     require 'scraper_utils'
