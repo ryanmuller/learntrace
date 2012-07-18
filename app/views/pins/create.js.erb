@@ -1,1 +1,3 @@
 LearnstreamUtils.bind_form();
+
+$('.pin-stream-' + <%= @item.id %>).replaceWith("<%= @stream.nil? ? "<span class='label label-inverse'>Library</span>".html_safe : "<span class='label label-inverse'>#{@stream.name}-stream</span>".html_safe %>")

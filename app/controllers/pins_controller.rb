@@ -26,7 +26,15 @@ class PinsController < ApplicationController
 
   def create
     @item = Item.find(params[:pin][:item_id])
-    current_user.pin!(@item)
+    if params[:pin][:stream]
+      @stream = Stream.find_by_name(params[:pin][:stream], :conditions => { :user_id => current_user })
+      current_user.pin!(@item, @stream)
+    elsif params[:pin][:stream_id]
+      @stream = Stream.find(params[:pin][:stream_id])
+      current_user.pin!(@item, @stream)
+    else
+      current_user.pin!(@item)
+    end
 
     respond_to do |format|
       format.js
