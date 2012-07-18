@@ -58,9 +58,7 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    require 'scraper_utils'
     @item = Item.new(params[:item])
-    @item.thumb_url = ScraperUtils.find_thumb(params[:item][:url])
 
     respond_to do |format|
       if @item.save

@@ -22,7 +22,7 @@ gem "omniauth-facebook"
 
 gem "kaminari"
 gem "carrierwave"
-gem "jquery-rails"
+gem "jquery-rails", '>= 1.0.12'
 gem "meta_search"
 
 group :test, :development do
