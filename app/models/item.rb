@@ -16,17 +16,16 @@ class Item < ActiveRecord::Base
   scope :featured, order('pins_count DESC').limit(4)
   scope :best, order('pins_count DESC')
 
-<<<<<<< HEAD
   def tags_by_user(user)
    Tag.joins(:taggings => :user).where('taggings.user_id' => user.id, 'taggings.item_id' => self.id)
-=======
+  end
+
   def pinned_by_user?(user)
     users.include?(user)
   end
 
   def user_pin(user)
     pins.where('pins.user_id = ?', user.id).first
->>>>>>> ujs for pin/unpin
   end
 
   private

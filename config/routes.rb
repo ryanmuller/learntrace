@@ -23,7 +23,10 @@ BaseApp::Application.routes.draw do
     match 'tag_filter' => 'items#tag_filter', :on => :collection
   end
   resources :pins, :only => :update
+<<<<<<< HEAD
   resources :taggings, :only => :destroy
+=======
+>>>>>>> 95ead889831111d4ace5c648557e6cbdcdc7e942
   resources :streams do
     match 'items' => 'stream_pins#create'
     resources :forks, :only => [:create, :destroy]

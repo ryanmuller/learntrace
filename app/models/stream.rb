@@ -18,5 +18,4 @@ class Stream < ActiveRecord::Base
   def dam!(source)
     forks.find_by_source_id(source.id).destroy
   end
-
 end
