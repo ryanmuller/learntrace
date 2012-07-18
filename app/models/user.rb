@@ -64,7 +64,13 @@ class User < ActiveRecord::Base
     return user
   end
 
+  def stream_options
+    streams.map { |s| [s.name, s.id] }
+  end
+
+
   def to_s
     name || "Anonymous user"
   end
+
 end

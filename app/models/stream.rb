@@ -4,4 +4,6 @@ class Stream < ActiveRecord::Base
   has_many :items, :through => :pins
 
   validates :name, :presence => true
+
+
 end
