@@ -12,4 +12,5 @@ class Pin < ActiveRecord::Base
   scope :doing, where(:status => "doing")
   scope :done, where(:status => "done")
 
+
 end

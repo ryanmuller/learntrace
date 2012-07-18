@@ -3,5 +3,7 @@
     <button class="btn btn-small"><i class="icon-remove"></i> Remove</button>
   <% end %>
 <% else %>
+  <% pin = current_user.pins.find_by_item_id(item) %>
+  <%= pin.stream.nil? ? "<span class='label label-inverse'>Library</span>".html_safe : "<span class='label label-inverse'>#{pin.stream.name}-stream</span>".html_safe %>
   <button class="btn disabled"><i class="icon-ok"></i> Pinned!</button>
 <% end %>

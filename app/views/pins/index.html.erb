@@ -1,7 +1,10 @@
-
 <div class="row" id="library-header">
   <div class="span12">
     <a class="btn btn-large" data-toggle="modal" href="#addItem"><i class="icon-plus"></i> Add an item</a>
+    <%= link_to items_path, :class => 'btn btn-large' do %>
+      <i class="icon-random"></i> Explore
+    <% end %>
+
     <span class="pull-right">
       Public URL: <%= link_to user_url(current_user), user_path(current_user) %><br>
       <div class="fb-like" data-href="<%= user_url(current_user) %>" data-send="false" data-show-faces="false" data-layout="button_count"></div>
