@@ -1,9 +1,8 @@
 <h1><%= @stream.name %></h1>
 
-<%= form_for [@stream, Fork.new] do |f| %>
+<%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
   <div class="control-group">
-    <%= f.label :target_id, "Flow into", class: 'control-label' %>
-    <label class="control-label" for="">
+    <%= f.label :target_id, "Begin receiving items from "+@stream.name+" in", class: 'control-label' %>
     <div class="controls">
       <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]} %>
     </div>
