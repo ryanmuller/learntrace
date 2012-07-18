@@ -76,6 +76,10 @@ class User < ActiveRecord::Base
     streams.map { |s| [s.name, s.id] }
   end
 
+  def stream_names
+    streams.map { |s| s.name }
+  end
+
 
   def to_s
     name || "Anonymous user"
