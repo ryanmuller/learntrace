@@ -26,6 +26,7 @@ BaseApp::Application.routes.draw do
   resources :taggings, :only => :destroy
   resources :streams do
     match 'items' => 'stream_pins#create'
+    resources :forks, :only => [:create, :destroy]
   end
   
   match '/tags/:name' => 'tags#show', :as => "tag_name"

@@ -6,4 +6,16 @@ class Stream < ActiveRecord::Base
   has_many :sources, through: :forks, source: :source
 
   validates :name, :presence => true
+
+  def upstream?(source)
+    forks.find_by_source_id(source.id)
+  end
+
+  def fork!(source)
+    forks.create!(source_id: source.id, target_id: id)
+  end
+
+  def dam!(source)
+    forks.find_by_source_id(source.id).destroy
+  end
 end
