@@ -6,5 +6,5 @@ jQuery ->
                       $('.scroll-col').eq(2).height())
     if not ($('#loader').hasClass('loading') || $("#main-board").hasClass("no-load"))  and $(window).scrollTop() > height - $(window).height() - 50
       $('#loader').addClass('loading')
-      $.getScript('/items', () -> LearnstreamUtils.initialize_items())
+      $.getScript('/items')
    $(window).scroll
