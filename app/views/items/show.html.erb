@@ -5,7 +5,7 @@
   <% @item.tags.each do |tag| %>
     <%= link_to tag.name, "/tags/#{tag.name}" %>
   <% end %>
-  <%= form_for [@item, Tag.new], :html => { :class => 'form-inline' } do |f| %>
+  <%= form_for [@item, Tag.new], :html => { :class => 'form-inline' }, :remote => true do |f| %>
     <%= render :partial => 'tags/form', :locals => { :f => f } %>
   <% end %>
 </p>

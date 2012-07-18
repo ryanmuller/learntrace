@@ -67,7 +67,7 @@
         <hr>
         <h4>Comments</h4>
         <br />
-        <%= form_for [item, Comment.new], :html => { :class => 'form-inline comments-form' } do |f| %>
+        <%= form_for [item, Comment.new], :html => { :class => 'form-inline comments-form' }, :remote => true do |f| %>
           <%= render :partial => 'comments/form', :locals => { :f => f } %>
         <% end %>
         <br />
