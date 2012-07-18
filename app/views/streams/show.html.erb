@@ -1,5 +1,22 @@
 <h1><%= @stream.name %></h1>
 
+<%= form_for [@stream, Fork.new] do |f| %>
+  <div class="control-group">
+    <%= f.label :target_id, "Flow into", class: 'control-label' %>
+    <label class="control-label" for="">
+    <div class="controls">
+      <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]} %>
+    </div>
+  </div>
+  <%= f.submit 'Create flow', class: 'btn btn-primary' %>
+<% end %>
+  
+<h2>Sources</h2>
+
+<% @stream.sources.each do |source| %>
+  <%= source.name %>
+<% end %>
+
 <h2>Items</h2>
 
 <div class="row">
