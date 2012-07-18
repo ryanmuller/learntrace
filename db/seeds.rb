@@ -3,6 +3,13 @@ unless User.find_by_email('support@learnstream.org')
   superuser = User.create({ :email => 'support@learnstream.org', :password => 'adminpass', :password_confirmation => 'adminpass' })
 end
 
+superuser = User.find_by_email('support@learnstream.org')
+
+# set up streams
+stream = Stream.find_or_create_by_id(1)
+stream.update_attributes({ name: "MIT 18.06 Linear Algebra", user_id: superuser.id })
+
+
 
 require 'xmlsimple'
 require 'open-uri'
@@ -38,6 +45,10 @@ open(url) do |d|
                           :thumb_url => value[5] })
     end
 
+    if value[6]
+      stream = Stream.find(value[6])
+    end
+
     if value[3]
       tags = value[3].split(', ')
       tags.each do |tag_name| 
@@ -49,6 +60,8 @@ open(url) do |d|
     end
   end
 end
+
+
 
 =begin
 Item.create([{ :name => "Khan Academy Algebra", 
