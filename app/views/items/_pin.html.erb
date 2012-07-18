@@ -1,4 +1,5 @@
 <%= form_for(current_user.pins.build(item_id: item.id), { :html => { "data-item_id" => item.id }}) do |f| %>
   <div><%= f.hidden_field :item_id %></div>
+  <div><%= f.text_field :stream_id  %></div>
   <button class="btn pin-button-<%= item.id %>"><i class="icon-flag"></i> <%= pin_text ||= "Save" %></button>
 <% end %>
