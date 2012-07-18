@@ -14,7 +14,13 @@
   <div class="span12">
     <span class="search-text">I wanna learn about</span>
     <input id="tag-input" type="text" data-tags="<%= @tag_data %>" placeholder="everything!" />
+    <div class="pull-right">
+      <%= link_to library_path, :class => 'btn btn-large' do %>
+        <i class="icon-book"></i> Library
+      <% end %>
+    </div>
   </div>
+
   
 </div>
 <div id="main-board" class="row">
