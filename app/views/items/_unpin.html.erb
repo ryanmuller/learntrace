@@ -1,9 +1,8 @@
 <% if controller.class.to_s == "PinsController" && controller.action_name.to_s == "index" %>
-  <%= form_for(current_user.pins.find_by_item_id(item), { :html => { "data-item_id" => item.id }, method: :delete}) do |f| %>
-    <button class="btn btn-small"><i class="icon-remove"></i> Remove</button>
+  <%= form_for(item.user_pin(current_user), { :html => { "data-item_id" => item.id }, method: :delete, :remote => true}) do |f| %>
+    <button class="btn btn-small unpin-button-<%= item.id %>"><i class="icon-remove"></i> Remove</button>
   <% end %>
 <% else %>
-  <% pin = current_user.pins.find_by_item_id(item) %>
-  <%= pin.stream.nil? ? "<span class='label label-inverse'>Library</span>".html_safe : "<span class='label label-inverse'>#{pin.stream.name}-stream</span>".html_safe %>
+  <span class='label label-inverse'><%= item.user_pin(current_user).stream_name %></span>
   <button class="btn disabled"><i class="icon-ok"></i> Pinned!</button>
 <% end %>
