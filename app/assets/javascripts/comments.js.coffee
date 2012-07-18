@@ -1,3 +1,3 @@
-# note: moved the comment bind javascript to /items.js.cofee, to put in the 
-# 'bind_form' util
+jQuery ->
+	console.log('remove comments.js? old content refactored into ujs');
 
