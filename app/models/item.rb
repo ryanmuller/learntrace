@@ -11,6 +11,8 @@ class Item < ActiveRecord::Base
   end
   has_many :comments
 
+  before_create :add_thumb
+
   scope :featured, order('pins_count DESC').limit(4)
   scope :best, order('pins_count DESC')
 
@@ -18,4 +20,9 @@ class Item < ActiveRecord::Base
    Tag.joins(:taggings => :user).where('taggings.user_id' => user.id, 'taggings.item_id' => self.id)
   end
 
+  private
+  def add_thumb
+    require 'scraper_utils'
+    self.thumb_url = ScraperUtils.find_thumb(self.url)
+  end
 end

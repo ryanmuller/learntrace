@@ -271,7 +271,7 @@ DEPENDENCIES
   factory_girl_rails
   heroku
   image_size
-  jquery-rails
+  jquery-rails (>= 1.0.12)
   json
   kaminari
   meta_search
