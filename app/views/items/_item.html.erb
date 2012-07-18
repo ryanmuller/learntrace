@@ -66,7 +66,7 @@
         <p class="tags-container-item-<%= item.id %>">
         <b>Tags:</b>
         <%= render :partial => "tags/tag", :collection => item.tags, :as => :tag,  :locals => { :item => item } %>
-        <%= form_for [item, Tag.new], :html => { :class => 'form-inline tag-submit-form' } do |f| %>
+        <%= form_for [item, Tag.new], :html => { :class => 'form-inline tag-submit-form' }, :remote => true do |f| %>
           <%= render :partial => 'tags/form', :locals => { :f => f } %>
         <% end %>
         </p>
