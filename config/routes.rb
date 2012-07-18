@@ -21,7 +21,9 @@ BaseApp::Application.routes.draw do
     match 'tag_filter' => 'items#tag_filter', :on => :collection
   end
   resources :pins, :only => :update
-  resources :streams
+  resources :streams do
+    match 'items' => 'stream_pins#create'
+  end
   
   match '/tags/:name' => 'tags#show'
 

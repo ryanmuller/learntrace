@@ -32,5 +32,10 @@ class StreamsController < ApplicationController
 
   def show
     @stream = Stream.find(params[:id]) 
+    @item = Item.new
+    @tag = Tag.find_by_name(@stream.name.downcase)
+    if @tag
+      @suggested = @tag.items.featured
+    end
   end
 end
