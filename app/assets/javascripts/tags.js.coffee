@@ -5,13 +5,13 @@ jQuery ->
     $("#tag-input").typeahead({ 
       source: d,
       onselect: (e) ->
-        $("#main-board").load('/items/tag_filter', { tag: e }, () -> LearnstreamUtils.initialize_items())
+        $("#main-board").load('/items/tag_filter', { tag: e })
         $("#main-board").addClass('no-load')
       }).keyup((e) ->
         if e.keyCode == 27
           $("#tag-input").val('')
         if ($("#tag-input").val() == "" and $("#main-board").hasClass("no-load"))
-          $("#main-board").load('/items/tag_filter', {tag: ""}, () -> LearnstreamUtils.initialize_items())
+          $("#main-board").load('/items/tag_filter', {tag: ""})
           $("#main-board").removeClass("no-load")
       )
         
