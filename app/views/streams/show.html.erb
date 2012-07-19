@@ -8,7 +8,7 @@
 
       <% unless @stream.sources.empty? %>
         <p>
-        Receiving items from 
+        Flowing items from 
         <% @stream.sources.each do |source| %>
           <%= link_to source.name, source %>
         <% end %>
@@ -22,7 +22,7 @@
       <hr>
       <p>
       <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
-        Learning about <%= @stream.name %> in
+        This stream is currently flowing into 
         <ul>
           <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
             <li><%= link_to target.name, target %></li>
@@ -30,18 +30,22 @@
         </ul>
       <% else %>
         <% if @stream.user != current_user %>
-          You aren't learning <%= @stream.name %> yet!
+          You aren't learning <%= @stream.name %> yet! You should fork <%= @stream.name %> below to receive its study items in one of your own streams.
         <% end %>
       <% end %>
       </p>
-        
+
 
       <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
         <div class="control-group">
-          <%= f.label :target_id, "Send items from "+@stream.name+" to", class: 'control-label' %>
+          <%= f.label :target_id, "Flow items from "+@stream.name+" to one of your existing streams:", class: 'control-label' %>
           <div class="controls">
-            <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]} %>
+            <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
           </div>
+        </div>
+        <div class="control-group">
+          <p>Or, fork into a new stream of your own!</p>
+          <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
         </div>
         <%= f.submit 'Create flow', class: 'btn btn-primary' %>
       <% end %>
@@ -50,56 +54,58 @@
 
   <div class="span8">
 
-    <h2>Items</h2>
+    <h3>Items</h3>
+    <br />
 
     <h4>To learn</h4>
     <ul id="stream-pins">
       <% @stream.pins.todo.each do |pin| %>
         <li>
-          <span class="schedule-time"><%= pin.scheduled_at.to_s(:short) if pin.scheduled_at %></span>
-          <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
+        <span class="schedule-time"><%= pin.scheduled_at.to_s(:short) if pin.scheduled_at %></span>
+        <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
       <% end %>
     </ul>
 
     <h4>Learned</h4>
-    
+
     <ul>
       <% @stream.pins.done.each do |pin| %>
         <li>
-          <span class="schedule-time"><%= pin.scheduled_at.to_s(:short) if pin.scheduled_at %></span>
-          <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
+        <span class="schedule-time"><%= pin.scheduled_at.to_s(:short) if pin.scheduled_at %></span>
+        <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
       <% end %>
     </ul>
 
     <% if @stream.user == current_user %>
-    <h2>Add item</h2>
+      <h3>Add item</h3>
 
-    <%= form_for [@stream, Item.new], remote: true do |f| %>
-      <div class="control-group">
-        <%= f.label :name, { :class => "control-label" } %>
-        <div class="controls">
-          <%= f.text_field :name, {:class => 'input-xlarge'} %>
+      <%= form_for [@stream, Item.new], remote: true do |f| %>
+        <div class="control-group">
+          <%= f.label :name, { :class => "control-label" } %>
+          <div class="controls">
+            <%= f.text_field :name, {:class => 'input-xlarge'} %>
+          </div>
         </div>
-      </div>
-      <div class="control-group">
-        <%= f.label :description, { :class => "control-label" } %>
-        <div class="controls">
-          <%= f.text_area :description, { :rows => "3", :class => "input-xlarge"} %>
+        <div class="control-group">
+          <%= f.label :description, { :class => "control-label" } %>
+          <div class="controls">
+            <%= f.text_area :description, { :rows => "3", :class => "input-xlarge"} %>
+          </div>
         </div>
-      </div>
-      <div class="control-group">
-        <%= f.label :url, { :class => "control-label" }%>
-        <div class="controls">
-          <%= f.text_field :url, {:class => 'input-xlarge'}  %>
+        <div class="control-group">
+          <%= f.label :url, { :class => "control-label" }%>
+          <div class="controls">
+            <%= f.text_field :url, {:class => 'input-xlarge'}  %>
+          </div>
         </div>
-      </div>
-      <%= f.submit  :class => "btn btn-primary"  %>
+        <%= f.submit  :class => "btn btn-primary"  %>
+
+      <% end %>
 
     <% end %>
 
-    <% end %>
-
-    <h2>Recommendations</h2>
+    <h3>Recommendations</h3>
+    <br />
 
     <% if @suggested %>
       <p>Here are some items that you may want to start learning:</p>

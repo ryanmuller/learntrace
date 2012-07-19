@@ -3,7 +3,11 @@ class ForksController < ApplicationController
 
   def create
     @source = Stream.find(params[:stream_id])
-    @target = current_user.streams.find(params[:fork][:target_id])
+    if params[:new_stream] && !params[:new_stream].blank?
+      @target = current_user.streams.create(:name => params[:new_stream])
+    else
+      @target = current_user.streams.find(params[:fork][:target_id])
+    end
     @target.fork!(@source)
     redirect_to @target
   end
@@ -14,4 +18,5 @@ class ForksController < ApplicationController
     @target.dam!(@fork.source)
     redirect_to @target
   end
+
 end
