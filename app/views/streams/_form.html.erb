@@ -1,9 +1,5 @@
-<%= form_for(current_user.streams.build, :html => { :class => "form-horizontal" }) do |f| %>
-  <div class="control-group">
-    <%= f.label :name, "Starting learning about", { :class => 'control-label' } %>
-    <div class="controls">
-      <%= f.text_field :name, { :class => 'input-xlarge', 'data-provide' => "tag-typeahead" } %>
-    </div>
-  </div>
-  <%= f.submit "Go!", :class => 'btn btn-primary' %>
+<%= form_for(current_user.streams.build, :html => { :class => "form-search" }) do |f| %>
+  <%= f.label :name, "Starting learning about", { :class => 'control-label' } %>
+  <%= f.text_field :name, { :class => 'input-medium' } %>
+  <%= f.submit "Create stream", :class => 'btn btn-primary' %>
 <% end %>
