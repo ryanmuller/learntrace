@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120718140957) do
+ActiveRecord::Schema.define(:version => 20120719010644) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -48,10 +48,11 @@ ActiveRecord::Schema.define(:version => 20120718140957) do
   create_table "pins", :force => true do |t|
     t.integer  "user_id"
     t.integer  "item_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.string   "status",     :default => "todo"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.string   "status",       :default => "todo"
     t.integer  "stream_id"
+    t.datetime "scheduled_at"
   end
 
   add_index "pins", ["item_id"], :name => "index_pins_on_item_id"
@@ -113,11 +114,9 @@ ActiveRecord::Schema.define(:version => 20120718140957) do
     t.string   "provider"
     t.string   "image"
     t.string   "name"
-    t.string   "username"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-  add_index "users", ["username"], :name => "index_users_on_username"
 
 end
