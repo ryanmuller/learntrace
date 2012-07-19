@@ -23,9 +23,4 @@ class Pin < ActiveRecord::Base
       user.pin!(item, target)
     end
   end
-
-  # faking this for now...
-  def fake_scheduled_at
-    "2012,7,#{rand(30) + 1}"
-  end
 end
