@@ -21,6 +21,8 @@
      </script>
    </head>
    <body>
+     <div id="tag-data" data-tags="<%= Tag.name_array.join(",") %>" ></div>
+     <div id="current-user-stream-data" data-streams="<%= current_user.stream_names.join(",") %>"></div>
      <div id="fb-root"></div>
      <script>(function(d, s, id) {
        var js, fjs = d.getElementsByTagName(s)[0];

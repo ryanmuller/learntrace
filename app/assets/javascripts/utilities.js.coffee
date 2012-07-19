@@ -11,11 +11,23 @@ jQuery ->
 
 	$('.item').find('.clickable').live("click", (e) ->
 		$item = $(this).parents('.item')
-		console.log($item)
 		$modal = $("#item-modal-" + $item.data('id'))
-		console.log($modal)
 		$modal.modal('show')
 		$modal.on('hide', () -> $('html').css('overflow-y', 'scroll'))
 		$('html').css('overflow', 'hidden')
 		return false
+	)
+
+	$('body').on('focus.customtypeahead.tags', '[data-provide="tag-typeahead"]',  (e) ->
+		$this = $(this)
+		return if $this.data('typeahead')
+		e.preventDefault()
+		$this.typeahead({ source: $("#tag-data").data('tags').split(",") })
+	)
+
+	$('body').on('focus.customtypeahead.streams', '[data-provide="stream-typeahead"]',  (e) ->
+		$this = $(this)
+		return if $this.data('typeahead')
+		e.preventDefault()
+		$this.typeahead({ source: $("#current-user-stream-data").data('streams').split(",") })
 	)

@@ -15,5 +15,9 @@ class Tag < ActiveRecord::Base
     Tagging.where(:user_id => user.id, :tag_id => self.id, :item_id => item.id).first
   end
 
+  def self.name_array
+    Tag.all.map { |t| t.name }
+  end
+
   
 end

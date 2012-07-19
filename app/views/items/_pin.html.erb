@@ -8,7 +8,7 @@
   <%= form_for(current_user.pins.build(item_id: item.id), { :html => { "data-item_id" => item.id }, :remote => true}) do |f| %>
     <div><%= f.hidden_field :item_id %></div>
     <div class="controls">
-      <%= f.text_field :stream, { :class => "input-medium pin-stream-#{item.id}", :style => "margin-bottom: 0px", "data-provide" => "typeahead", "data-source" => current_user.stream_names.to_s, :placeholder => "add to a stream!" }  %>
+      <%= f.text_field :stream, { :class => "input-medium pin-stream-#{item.id}", :style => "margin-bottom: 0px", "data-provide" => "stream-typeahead", :placeholder => "add to a stream!" }  %>
       <button class="btn pin-button-<%= item.id %>"><i class="icon-flag"></i> <%= pin_text ||= "Save" %></button>
     </div>
   <% end %>

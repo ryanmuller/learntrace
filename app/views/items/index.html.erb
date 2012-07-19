@@ -13,7 +13,10 @@
 
   <div class="span12">
     <span class="search-text">I wanna learn about</span>
-    <input id="tag-input" type="text" data-tags="<%= @tag_data %>" placeholder="everything!" />
+    <%= form_tag '/items/tag_filter',  { :remote => true, :id => "tag-search-form", :class => "form-search form-inline", :style => "display: inline; margin-left: 10px;" } do %>
+      <input id="tag-search-input" class="search-query" type="text" name="tag" data-provide="tag-typeahead" placeholder="everything!" />
+      <span id="tag-search-loading" class="hidden" >Loading...</span>
+    <% end %>
     <div class="pull-right">
       <%= link_to library_path, :class => 'btn btn-large' do %>
         <i class="icon-book"></i> Library
