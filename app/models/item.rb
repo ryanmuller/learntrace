@@ -11,7 +11,7 @@ class Item < ActiveRecord::Base
   end
   has_many :comments
 
-  #before_create :add_thumb
+  before_create :add_thumb
 
   scope :featured, order('pins_count DESC').limit(4)
   scope :best, order('pins_count DESC')

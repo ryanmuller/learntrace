@@ -4,7 +4,7 @@ unless User.find_by_email('support@learnstream.org')
   superuser.save!
 end
 
-#superuser = User.find_by_email('support@learnstream.org')
+superuser = User.find_by_email('support@learnstream.org')
 
 # set up streams
 stream = Stream.find_or_create_by_id(1)

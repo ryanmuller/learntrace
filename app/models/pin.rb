@@ -1,5 +1,5 @@
 class Pin < ActiveRecord::Base
-  attr_accessible :item_id, :status, :stream_id
+  attr_accessible :item_id, :status, :stream_id, :scheduled_at
 
   belongs_to :user
   belongs_to :item, :counter_cache => true
