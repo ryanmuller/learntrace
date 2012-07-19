@@ -18,7 +18,9 @@ class Item < ActiveRecord::Base
 
   private
   def add_thumb
-    require 'scraper_utils'
-    self.thumb_url = ScraperUtils.find_thumb(self.url)
+    unless self.thumb_url
+      require 'scraper_utils'
+      self.thumb_url = ScraperUtils.find_thumb(self.url)
+    end
   end
 end

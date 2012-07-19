@@ -26,6 +26,7 @@
   </div>
 </div>
 
+<% if @stream.user == current_user %>
 <h2>Add item</h2>
 
 <%= form_for [@stream, Item.new], remote: true do |f| %>
@@ -52,7 +53,7 @@
 <% end %>
 
 <%= render 'delete' %>
-
+<% end %>
 
 <h3>Recommendations</h3>
 

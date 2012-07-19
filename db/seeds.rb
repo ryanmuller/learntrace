@@ -47,6 +47,7 @@ open(url) do |d|
 
     if value[6]
       stream = Stream.find(value[6])
+      superuser.pin!(item, stream)
     end
 
     if value[3]

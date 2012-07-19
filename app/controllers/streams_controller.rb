@@ -3,7 +3,7 @@ class StreamsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @streams = current_user.streams
+    @streams = Stream.all
     @tag_data = Tag.all.map{|t| t.name }.join(",")
   end
 
