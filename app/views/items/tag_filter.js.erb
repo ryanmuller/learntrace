@@ -1,14 +1,9 @@
 $(".scroll-col").html('');
-
-<% unless @tag.blank? %>
-  <% @col_array.each_with_index do |col, index| %>
-    <% col.each do |item| %>
-      $('.scroll-col').eq(<%= index %>).append("<div class='board'><%= j render item %></div>");
-
-    <% end %>
+<% @col_array.each_with_index do |col, index| %>
+  <% col.each do |item| %>
+    $('.scroll-col').eq(<%= index %>).append("<div class='board'><%= j render item %></div>");
   <% end %>
-  $("#main-board").addClass('no-load');
 <% end %>
-
+$("#main-board").addClass('no-load');
 $("#tag-search-loading").hide();
-$("#main-board").show()
+$("#main-board").show();
