@@ -22,12 +22,6 @@ jQuery ->
 		$this.typeahead({ source: $("#tag-data").data('tags').split(",") })
 	)
 
-	$('body').on('focus.customtypeahead.streams', '[data-provide="stream-typeahead"]',  (e) ->
-		$this = $(this)
-		return if $this.data('typeahead')
-		e.preventDefault()
-		$this.typeahead({ source: $("#current-user-stream-data").data('streams').split(",") })
-	)
 
 	$('body').on('click', ".dropdown-menu input", (e) ->
 		# prevent it from submitting the form... instead must hit enter.

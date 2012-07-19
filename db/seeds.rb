@@ -1,9 +1,10 @@
 # note: password 'test' was too short; changed it to adminpass
 unless User.find_by_email('support@learnstream.org')
-  superuser = User.create({ :email => 'support@learnstream.org', :password => 'adminpass', :password_confirmation => 'adminpass' })
+  superuser = User.create({ :name => "Admin", :username => "admin", :email => 'support@learnstream.org', :password => 'adminpass', :password_confirmation => 'adminpass' })
+  superuser.save!
 end
 
-superuser = User.find_by_email('support@learnstream.org')
+#superuser = User.find_by_email('support@learnstream.org')
 
 # set up streams
 stream = Stream.find_or_create_by_id(1)
