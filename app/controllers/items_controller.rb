@@ -27,10 +27,17 @@ class ItemsController < ApplicationController
       render :partial => 'item_board', :layout => false
       return false
     else
+      @col_array = [[],[],[]] # 3 col layout
       @tag = Tag.find_by_name(params[:tag], :include => :items)
+      if @tag.nil?
+        # do something more intelligent here...?
+        redirect_to items_path
+        return 
+      end
       @items = @tag.items.best
-      division = (@items.count / 3).to_i
-      @col_array = [@items[0..division], @items[division+1..2*division], @items[2*division+1..-1]]
+      @items.each_with_index do |item, index|
+        @col_array[index % 3] << item
+      end
     end
 
     respond_to do |format|

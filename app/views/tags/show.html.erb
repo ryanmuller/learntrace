@@ -1,14 +1,14 @@
 <div class="row">
-<h2>Item tagged "<%= @tag.name %>"</h2>
+  <h2>Item tagged "<%= @tag.name %>"</h2>
   <% @col_array.each do |col| %>
 
     <div class="span4 scroll-col">
-    <span class="test"></span>
-    <% col.each do |i| %>
-      <div class="board">
-      <%= render i %>
-      </div>
-    <% end %>
+      <span class="test"></span>
+      <% col.each do |i| %>
+        <div class="board">
+          <%= render i %>
+        </div>
+      <% end %>
     </div>
 
   <% end %>

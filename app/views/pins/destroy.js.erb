@@ -1,1 +1,3 @@
+$('.unpin-button-' + <%= @item.id %>).replaceWith('<button class="btn disabled"><i class="icon-ok"></i> Unpinned!</button>')
 $("div.pin[data-id='<%= @pin.id %>']").fadeOut();
+$("#item-modal-" + <%= @item.id %>).modal('hide')

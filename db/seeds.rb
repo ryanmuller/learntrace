@@ -53,8 +53,8 @@ open(url) do |d|
     if value[3]
       tags = value[3].split(', ')
       tags.each do |tag_name| 
-        unless tag = Tag.find_by_name(tag_name)
-          tag = Tag.create!({ :name => tag_name })
+        unless tag = Tag.find_by_name(tag_name.downcase)
+          tag = Tag.create!({ :name => tag_name.downcase })
         end
         item.tags.push_with_attributes(tag, :user => superuser)
       end

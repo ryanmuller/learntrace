@@ -13,7 +13,9 @@ BaseApp::Application.routes.draw do
     resources :users
   end
 
-  resources :users, :only => :show
+  match '/users/:id' => 'users#show', :as => :user, :constraints => { :id => /\d+/ }
+  match '/users/:username' => 'users#show', :as => :username, :constraints => { :username => /[a-zA-Z0-9_\-\.]+/ }
+ 
 
   resources :items do
     resources :tags, :only => :create
@@ -21,12 +23,13 @@ BaseApp::Application.routes.draw do
     match 'tag_filter' => 'items#tag_filter', :on => :collection
   end
   resources :pins, :only => :update
+  resources :taggings, :only => :destroy
   resources :streams do
     match 'items' => 'stream_pins#create'
     resources :forks, :only => [:create, :destroy]
   end
   
-  match '/tags/:name' => 'tags#show'
+  match '/tags/:name' => 'tags#show', :as => "tag_name"
 
   match '/library' => 'pins#index'
   match '/library_items' => 'pins#library_items'

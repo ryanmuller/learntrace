@@ -12,6 +12,10 @@ class Pin < ActiveRecord::Base
   scope :doing, where(:status => "doing")
   scope :done, where(:status => "done")
 
+  def stream_name
+    stream.nil? ? "Library" : stream.name
+  end
+
 
   def copy_to_forks
     stream.targets.each do |target|

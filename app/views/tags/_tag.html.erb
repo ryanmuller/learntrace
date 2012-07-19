@@ -1,0 +1,9 @@
+  <% if current_user && item && tag.tagging_by_user_item(current_user, item) %>
+    <% tagging = tag.tagging_by_user_item(current_user, item)%>
+  <% end %>
+  <span class='label label-info <%= "tagging-#{tagging.id}" if tagging %>'>
+  <%= link_to tag.name, tag_name_path(tag.name) %>
+  <% if tagging %>
+    <%= link_to 'x', tagging, :confirm => 'Are you sure you want to delete your tag?', :method => :delete, :remote => true %>
+  <% end %>
+</span>

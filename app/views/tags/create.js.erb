@@ -1,0 +1,2 @@
+$(".tags-container-item-<%= @item.id %>").append('<%= escape_javascript(render :partial => 'tags/tag', :locals => { :tag => @tag, :item => @item } ) %>\n');
+$(".tag-submit-form .new-tag-input").val('');

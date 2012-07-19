@@ -1,2 +1,2 @@
 $('#comments-container-<%= @item.id %>').prepend('<%= escape_javascript(render @comment) %>');
-
+$('.comments-form #comment_content').val('');

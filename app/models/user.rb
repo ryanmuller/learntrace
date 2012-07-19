@@ -7,13 +7,21 @@ class User < ActiveRecord::Base
   devise :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid, :image, :name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid, :image, :name, :username
 
   has_and_belongs_to_many :roles
   
   has_many :pins
   has_many :items, :through => :pins
   has_many :streams
+
+
+  validates_uniqueness_of :username, :on => :update
+  validates_presence_of :username, :on => :update
+  validates_format_of :username, :with => /[a-zA-Z0-9_\-\.]/
+  before_create :default_username
+
+  #validates_presence_of :name, :on => :update
 
   def role?(role)
     return !!self.roles.find_by_name(role.to_s)
@@ -82,4 +90,12 @@ class User < ActiveRecord::Base
     name || "Anonymous user"
   end
 
+  def username
+    read_attribute(:username) || self.id.to_s
+  end
+
+  private
+  def default_username
+    self.username = self.name.nil? ? self.id.to_s : self.name.sub(/[^a-zA-Z0-9_\-\.]/, ".").downcase
+  end
 end
