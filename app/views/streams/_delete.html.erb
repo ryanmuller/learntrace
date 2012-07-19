@@ -1,3 +1,3 @@
 <%= form_for(current_user.streams.find(@stream), html: { method: :delete }) do |f| %>
-  <%= f.submit "Delete this stream", class: "btn" %>
+  <%= f.submit "Delete this stream", class: "btn btn-danger", confirm: "Are you sure you want to delete this stream?" %>
 <% end %>

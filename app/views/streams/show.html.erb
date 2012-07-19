@@ -1,69 +1,103 @@
 <h1><%= @stream.name %></h1>
 <%= link_to "View in timeline", timeline_stream_path(@stream), {:class => "btn pull-right"} %>
 
-<%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
-  <div class="control-group">
-    <%= f.label :target_id, "Begin receiving items from "+@stream.name+" in", class: 'control-label' %>
-    <div class="controls">
-      <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]} %>
-    </div>
-  </div>
-  <%= f.submit 'Create flow', class: 'btn btn-primary' %>
-<% end %>
-  
-<h2>Sources</h2>
-
-<% @stream.sources.each do |source| %>
-  <%= source.name %>
-<% end %>
-
-<h2>Items</h2>
-
-<ul id="stream-pins">
-  <% @stream.pins.each do |pin| %>
-    <li>
-      <span class="schedule-time"><%= pin.scheduled_at.to_s(:short) if pin.scheduled_at %></span>
-      <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
-  <% end %>
-</ul>
-
-<% if @stream.user == current_user %>
-<h2>Add item</h2>
-
-<%= form_for [@stream, Item.new], remote: true do |f| %>
-  <div class="control-group">
-    <%= f.label :name, { :class => "control-label" } %>
-    <div class="controls">
-      <%= f.text_field :name, {:class => 'input-xlarge'} %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :description, { :class => "control-label" } %>
-    <div class="controls">
-      <%= f.text_area :description, { :rows => "3", :class => "input-xlarge"} %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :url, { :class => "control-label" }%>
-    <div class="controls">
-      <%= f.text_field :url, {:class => 'input-xlarge'}  %>
-    </div>
-  </div>
-  <%= f.submit  :class => "btn btn-primary"  %>
-
-<% end %>
-
-<%= render 'delete' %>
-<% end %>
-
-<h3>Recommendations</h3>
-
-<% if @suggested %>
-  <p>Here are some items that you may want to start learning:</p>
+<div class="row">
   <div class="span4">
-    <%= render @suggested %>
-  </div>
-<% else %>
-  No recommendations for you. Try <%= link_to "looking for some items", items_path %>. Remember you can add any web page with the <%= link_to "bookmarklet", tools_path %>.
-<% end %>
+    <div class="well">
+      <p>Owned by <%= link_to @stream.user, @stream.user %></p>
 
+      <% unless @stream.sources.empty? %>
+        <p>
+        Receiving items from 
+        <% @stream.sources.each do |source| %>
+          <%= link_to source.name, source %>
+        <% end %>
+        </p>
+      <% end %>
+
+      <% if @stream.user == current_user %>
+        <%= render 'delete' %>
+      <% end %>
+
+      <hr>
+      <p>
+      <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
+        Learning about <%= @stream.name %> in
+        <ul>
+          <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
+            <li><%= link_to target.name, target %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <% if @stream.user != current_user %>
+          You aren't learning <%= @stream.name %> yet!
+        <% end %>
+      <% end %>
+      </p>
+        
+
+      <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
+        <div class="control-group">
+          <%= f.label :target_id, "Send items from "+@stream.name+" to", class: 'control-label' %>
+          <div class="controls">
+            <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]} %>
+          </div>
+        </div>
+        <%= f.submit 'Create flow', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="span8">
+
+    <h2>Items</h2>
+
+    <ul id="stream-pins">
+      <% @stream.pins.each do |pin| %>
+        <li>
+          <span class="schedule-time"><%= pin.scheduled_at.to_s(:short) if pin.scheduled_at %></span>
+          <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
+      <% end %>
+    </ul>
+
+    <% if @stream.user == current_user %>
+    <h2>Add item</h2>
+
+    <%= form_for [@stream, Item.new], remote: true do |f| %>
+      <div class="control-group">
+        <%= f.label :name, { :class => "control-label" } %>
+        <div class="controls">
+          <%= f.text_field :name, {:class => 'input-xlarge'} %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :description, { :class => "control-label" } %>
+        <div class="controls">
+          <%= f.text_area :description, { :rows => "3", :class => "input-xlarge"} %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :url, { :class => "control-label" }%>
+        <div class="controls">
+          <%= f.text_field :url, {:class => 'input-xlarge'}  %>
+        </div>
+      </div>
+      <%= f.submit  :class => "btn btn-primary"  %>
+
+    <% end %>
+
+    <% end %>
+
+    <h2>Recommendations</h2>
+
+    <% if @suggested %>
+      <p>Here are some items that you may want to start learning:</p>
+      <div class="span4">
+        <%= render @suggested %>
+      </div>
+    <% else %>
+      No recommendations for you. Try <%= link_to "looking for some items", items_path %>. Remember you can add any web page with the <%= link_to "bookmarklet", tools_path %>.
+    <% end %>
+
+  </div>
+</div>
