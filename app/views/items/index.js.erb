@@ -1,10 +1,12 @@
-<% unless @tags.blank? %>
-  <% [0,1,2].each do |i| %>
-    <% @tags[i*3..i*3+2].each do |tag| %>
-      $('.scroll-col').eq(<%= i %>).append("<%= j render :partial => 'tags/board', :locals => { :tag => tag } %>");
-    <% end %>
+<% if defined?(@clear_board) %>
+  $(".scroll-col").html('');
+<% end %>
+
+<% @col_array.each_with_index do |col, index| %>
+  <% col.each do |tag| %>
+    $('.scroll-col').eq(<%= index %>).append("<%= j render :partial => 'tags/board', :locals => { :tag => tag } %>");
   <% end %>
 <% end %>
+
 $('#loader').removeClass('loading');
-
-
+$("#tag-search-loading").hide();

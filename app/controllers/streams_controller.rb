@@ -4,7 +4,6 @@ class StreamsController < ApplicationController
 
   def index
     @streams = current_user.streams
-    @tag_data = Tag.all.map{|t| t.name }.join(",")
   end
 
   def create

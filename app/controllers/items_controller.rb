@@ -2,8 +2,13 @@ class ItemsController < ApplicationController
   before_filter :authenticate_user!, :except => [ :index, :show, :tag_filter ]
 
   def index
+    @col_array = [[],[],[]] # 3 col layout
     @tags = Tag.order("RANDOM()").limit(12)
-    @tag_data = Tag.all.map{|t| t.name }.join(",")
+
+
+    @tags.each_with_index do |tag, index|
+      @col_array[index % 3] << tag
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -21,13 +26,16 @@ class ItemsController < ApplicationController
   end
 
   def tag_filter
-    # user has cleared tag search; render main objects
+    @col_array = [[],[],[]] # 3 col layout
     if params[:tag].empty?
+      @clear_board = true
       @tags = Tag.order("RANDOM()").limit(12)
-      render :partial => 'item_board', :layout => false
-      return false
+      @tags.each_with_index do |tag, index|
+        @col_array[index % 3] << tag
+      end
+      render 'index.js.erb', :layout => false, :format => :js
+      return 
     else
-      @col_array = [[],[],[]] # 3 col layout
       @tag = Tag.find_by_name(params[:tag], :include => :items)
       if @tag.nil?
         # do something more intelligent here...?
