@@ -18,13 +18,13 @@
 
 <h2>Items</h2>
 
-<div class="row">
-  <div class="span4" id="stream-pins">
-    <% @stream.pins.each do |pin| %>
-      <%= render pin.item %>
-    <% end %>
-  </div>
-</div>
+<ul id="stream-pins">
+  <% @stream.pins.each do |pin| %>
+    <li>
+      <span class="schedule-time"><%= time_ago_in_words pin.scheduled_at if pin.scheduled_at %> ago</span>
+      <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
+  <% end %>
+</ul>
 
 <% if @stream.user == current_user %>
 <h2>Add item</h2>
