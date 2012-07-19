@@ -10,14 +10,14 @@ class Stream < ActiveRecord::Base
   validates :name, :presence => true
 
   def upstream?(source)
-    forks.find_by_source_id(source.id)
+    back_forks.find_by_source_id(source.id)
   end
 
   def fork!(source)
-    forks.create!(source_id: source.id, target_id: id)
+    back_forks.create!(source_id: source.id, target_id: id)
   end
 
   def dam!(source)
-    forks.find_by_source_id(source.id).destroy
+    back_forks.find_by_source_id(source.id).destroy
   end
 end
