@@ -26,10 +26,10 @@ class PinsController < ApplicationController
 
   def create
     @item = Item.find(params[:pin][:item_id])
-    if ! params[:pin][:stream].empty?
+    if params[:pin][:stream] && !params[:pin][:stream].empty?
       @stream = current_user.streams.create(:name => params[:pin][:stream])
       @pin = current_user.pin!(@item, @stream)
-    elsif ! params[:pin][:stream_id].empty?
+    elsif params[:pin][:stream_id] && !params[:pin][:stream_id].empty?
       @stream = Stream.find(params[:pin][:stream_id])
       @pin = current_user.pin!(@item, @stream)
     else
