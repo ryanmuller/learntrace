@@ -4,6 +4,11 @@ class StreamsController < ApplicationController
 
   def index
     @streams = Stream.all
+    
+    respond_to do |format|
+      format.html
+      format.json { render json: @streams }
+    end
   end
 
   def create
@@ -35,6 +40,11 @@ class StreamsController < ApplicationController
     @tag = Tag.find_by_name(@stream.name.downcase)
     if @tag
       @suggested = @tag.items.featured
+    end
+
+    respond_to do |format|
+      format.html
+      format.json 
     end
   end
 end

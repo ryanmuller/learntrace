@@ -23,4 +23,9 @@ class Pin < ActiveRecord::Base
       user.pin!(item, target)
     end
   end
+
+  # faking this for now...
+  def scheduled_at
+    read_attribute(:scheduled_at) || "2012,7,#{rand(30) + 1}"
+  end
 end
