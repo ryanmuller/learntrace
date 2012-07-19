@@ -21,7 +21,7 @@
 <ul id="stream-pins">
   <% @stream.pins.each do |pin| %>
     <li>
-      <span class="schedule-time"><%= time_ago_in_words pin.scheduled_at if pin.scheduled_at %> ago</span>
+      <span class="schedule-time"><%= pin.scheduled_at.to_s(:short) if pin.scheduled_at %></span>
       <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
   <% end %>
 </ul>

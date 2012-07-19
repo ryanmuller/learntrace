@@ -12,5 +12,13 @@ class Pin < ActiveRecord::Base
   scope :doing, where(:status => "doing")
   scope :done, where(:status => "done")
 
+  after_create :copy_to_forks
 
+  private
+  def copy_to_forks
+    stream.targets.each do |target|
+      user = target.user
+      user.pin!(item, target)
+    end
+  end
 end

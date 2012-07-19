@@ -2,8 +2,10 @@ class Stream < ActiveRecord::Base
   belongs_to :user
   has_many :pins
   has_many :items, :through => :pins
-  has_many :forks, foreign_key: "target_id", dependent: :destroy
-  has_many :sources, through: :forks, source: :source
+  has_many :forks, foreign_key: "source_id"
+  has_many :targets, through: :forks
+  has_many :back_forks, class_name: "Fork", foreign_key: "target_id"
+  has_many :sources, through: :back_forks, source: :source
 
   validates :name, :presence => true
 
