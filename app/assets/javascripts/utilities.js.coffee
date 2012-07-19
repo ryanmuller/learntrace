@@ -1,15 +1,12 @@
 jQuery ->
 	console.log('initializing from utilities.js')
 
-  # bind item hover, which updates using jquery "live" for 
+	# bind item hover, which updates using jquery "on" for 
 	# new elements added to DOM later.
-	$('.item').live({
-		mouseenter: () -> $('.actions', this).show(),
-		mouseleave: () ->
-			$('.actions', this).hide()
-	})
+	$('body').on("mouseenter", ".item", () -> $('.actions', this).show())
+	$('body').on("mouseleave", ".item", () -> $('.actions', this).hide())
 
-	$('.item').find('.clickable').live("click", (e) ->
+	$('body').on('click', '.clickable', (e) ->
 		$item = $(this).parents('.item')
 		$modal = $("#item-modal-" + $item.data('id'))
 		$modal.modal('show')
@@ -30,4 +27,16 @@ jQuery ->
 		return if $this.data('typeahead')
 		e.preventDefault()
 		$this.typeahead({ source: $("#current-user-stream-data").data('streams').split(",") })
+	)
+
+	$('body').on('click', ".dropdown-menu input", (e) ->
+		# prevent it from submitting the form... instead must hit enter.
+		console.log('clicked yo')
+		return false
+	)
+	$('body').on('click', '.dropdown-menu > li > a', (e) ->
+		$form = $(this).parents('form')
+		$form.find('[name="pin[stream_id]"]').val($(this).data('stream'))
+		$form.submit()
+		return false
 	)
