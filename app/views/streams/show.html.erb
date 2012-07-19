@@ -52,8 +52,19 @@
 
     <h2>Items</h2>
 
+    <h4>To learn</h4>
     <ul id="stream-pins">
-      <% @stream.pins.each do |pin| %>
+      <% @stream.pins.todo.each do |pin| %>
+        <li>
+          <span class="schedule-time"><%= pin.scheduled_at.to_s(:short) if pin.scheduled_at %></span>
+          <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
+      <% end %>
+    </ul>
+
+    <h4>Learned</h4>
+    
+    <ul>
+      <% @stream.pins.done.each do |pin| %>
         <li>
           <span class="schedule-time"><%= pin.scheduled_at.to_s(:short) if pin.scheduled_at %></span>
           <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
