@@ -30,6 +30,8 @@ open(url) do |d|
     # skips the first line, which contains headers...
     next if key == 1
 
+    item = nil
+
     if item = Item.find_by_url(value[2])
       # if item exists, update attributes and clear tags
       item.update_attributes!({ :name => value[1],
@@ -47,7 +49,10 @@ open(url) do |d|
 
     if value[6]
       stream = Stream.find(value[6])
-      superuser.pin!(item, stream)
+      p = superuser.pins.find_by_item_id(item.id) || superuser.pin!(item, stream)
+      time = value[7].split(',')
+      p.update_attributes({ scheduled_at: Time.new(time[0],time[1],time[2],time[3]) })
+      
     end
 
     if value[3]
