@@ -4,7 +4,7 @@ class StreamPinsController < ApplicationController
   def create
     @stream = current_user.streams.find(params[:stream_id])
     @item = Item.create!(params[:item])
-    current_user.pin!(@item, @stream)
+    current_user.pin_and_copy!(@item, @stream)
 
     respond_to do |format|
       format.js

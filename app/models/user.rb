@@ -39,6 +39,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def pin_and_copy!(item, stream)
+    pin=pin!(item, stream)
+    pin.copy_to_forks
+  end
+
   def unpin!(item)
     pins.find_by_item_id(item.id).destroy
   end
