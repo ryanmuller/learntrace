@@ -17,8 +17,8 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :username, :on => :update
   validates_presence_of :username, :on => :update
-  validates_format_of :username, :with => /[a-zA-Z0-9_\-\.]+/
-  before_create :default_username
+  validates_format_of :username, :with => /^[a-zA-Z0-9_\-\.]+$/, :on => :update
+  after_create :default_username
 
   #validates_presence_of :name, :on => :update
 
@@ -77,6 +77,7 @@ class User < ActiveRecord::Base
 
   private
   def default_username
-    self.username = self.name.nil? ? (rand()*10000).to_i.to_s : self.name.sub(/[^a-zA-Z0-9_\-\.]/, ".").downcase
+    self.username = self.name.nil? ? self.id.to_s : self.name.sub(/[^a-zA-Z0-9_\-\.]/, ".").downcase
+    self.save!
   end
 end
