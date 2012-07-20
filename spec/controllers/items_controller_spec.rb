@@ -4,21 +4,7 @@ describe ItemsController do
 
   login_user
 
-  def valid_attributes
-    { 
-      :name => "How to play starcraft 2",
-      :description => "Pros only",
-      :url => "http://www.youtube.com/watch?v=vzjC3rbzQVc"
-    }
-  end
-
-  describe "GET index" do
-    it "assigns all items as @items" do
-      item = Item.create! valid_attributes
-      get :index, {}
-      assigns(:items).should eq([item])
-    end
-  end
+  let(:valid_attributes) { FactoryGirl.attributes_for(:item) }
 
   describe "GET show" do
     it "assigns the requested item as @item" do

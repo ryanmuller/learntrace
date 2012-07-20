@@ -15,10 +15,6 @@ class User < ActiveRecord::Base
   has_many :items, :through => :pins
   has_many :streams
 
-
-  validates_uniqueness_of :username, :on => :update
-  validates_presence_of :username, :on => :update
-  validates_format_of :username, :with => /[a-zA-Z0-9_\-\.]+/
   before_create :default_username
 
   #validates_presence_of :name, :on => :update
