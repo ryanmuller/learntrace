@@ -15,7 +15,7 @@ child @stream => :timeline do
       p.item.name
     end
     node(:startDate) do |p|
-      p.scheduled_at
+      p.scheduled_at.strftime("%Y,%m,%d")
     end
     node(:asset) do |p|
       { :media => p.item.url, :thumbnail => p.item.thumb_url, :caption => "yep" }
