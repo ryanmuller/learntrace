@@ -10,9 +10,20 @@ FactoryGirl.define do
   end
 
   factory :item do
-    name        "Google"
+    sequence(:name) { |n| "Google #{n}" }
     url         "http://google.com"
     description "search"
+  end
+
+  factory :stream do
+    sequence(:name) { |n| "Linear algebra #{n}" }
+    user
+  end
+
+  factory :pin do
+    user
+    stream
+    item
   end
 end
 

@@ -21,7 +21,6 @@ describe "Pages" do
     let(:user) { FactoryGirl.create :user }
     
     it "should be accessible and have stuff" do
-
       sign_in user
       visit '/'
       click_link 'Tools'
