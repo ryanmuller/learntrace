@@ -50,11 +50,4 @@ class StreamsController < ApplicationController
     end
   end
 
-  def timeline
-    @stream = Stream.find(params[:id])
-
-    respond_to do |format|
-      format.html { render :layout => false }
-    end
-  end
 end

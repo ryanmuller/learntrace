@@ -28,7 +28,7 @@ BaseApp::Application.routes.draw do
   resources :streams do
     match 'items' => 'stream_pins#create'
     resources :forks, :only => [:create, :destroy]
-    match 'timeline' => 'streams#timeline', :on => :member, :as => :timeline
+    resources :timeline, :only => :index
   end
   
   match '/tags/:name' => 'tags#show', :as => "tag_name"
