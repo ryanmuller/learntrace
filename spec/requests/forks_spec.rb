@@ -6,8 +6,8 @@ describe "Forks" do
   let!(:source) { FactoryGirl.create(:stream, user: creator) }
   let!(:item) { FactoryGirl.create(:item) }
   let!(:target) { FactoryGirl.create(:stream, user: user) }
+  let!(:pin) { FactoryGirl.create(:due_today_pin, user: user, item: item, stream: source) }
 
-  before { creator.pin!(item, source) }
   before { sign_in user }
 
   describe "create fork" do

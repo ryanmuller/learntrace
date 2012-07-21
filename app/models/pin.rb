@@ -12,6 +12,12 @@ class Pin < ActiveRecord::Base
   scope :doing, where(:status => "doing")
   scope :done, where(:status => "done")
 
+  scope :before_today, where("scheduled_at < ?", Date.today.beginning_of_day)
+  scope :today, where("scheduled_at between ? and ?", Date.today.beginning_of_day, Date.tomorrow.beginning_of_day)
+  scope :overdue, todo.before_today
+  scope :due_today, todo.today
+  scope :done_today, done.today
+
   scope :timeline, where("scheduled_at IS NOT NULL").order('scheduled_at')
 
   def stream_name

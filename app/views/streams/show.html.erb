@@ -1,5 +1,5 @@
 <h1><%= @stream.name %></h1>
-<%= link_to "View in timeline", timeline_stream_path(@stream), {:class => "btn pull-right"} %>
+<%= link_to "View in timeline", stream_timeline_index_path(@stream), {:class => "btn pull-right"} %>
 
 <div class="row">
   <div class="span4">
@@ -54,27 +54,27 @@
 
   <div class="span8">
 
-    <h3>Items</h3>
-    <br />
+    <h2><%= Date.today.strftime("%B %e, %Y") %></h2>
 
-    <h4>To learn</h4>
     <ul id="stream-pins">
-      <% @stream.pins.todo.each do |pin| %>
-        <li>
-        <span class="schedule-time"><%= pin.scheduled_at.to_s(:short) if pin.scheduled_at %></span>
-        <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
+      <% @stream.pins.done_today.each do |pin| %>
+        <li class="complete">
+          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
+        </li>
+      <% end %>
+      <% @stream.pins.overdue.each do |pin| %>
+        <li class="overdue">
+          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
+        </li>
+      <% end %>
+      <% @stream.pins.due_today.each do |pin| %>
+        <li class="incomplete">
+          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
+        </li>
       <% end %>
     </ul>
 
-    <h4>Learned</h4>
-
-    <ul>
-      <% @stream.pins.done.each do |pin| %>
-        <li>
-        <span class="schedule-time"><%= pin.scheduled_at.to_s(:short) if pin.scheduled_at %></span>
-        <%= render partial: 'items/item_task', locals: { item: pin.item } %></li>
-      <% end %>
-    </ul>
+    <hr>
 
     <% if @stream.user == current_user %>
       <h3>Add item</h3>
