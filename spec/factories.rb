@@ -24,6 +24,33 @@ FactoryGirl.define do
     user
     stream
     item
+
+    trait :today do
+      scheduled_at { Time.now }
+    end
+
+    trait :yesterday do
+      scheduled_at { 1.day.ago }
+    end
+
+    trait :tomorrow do
+      scheduled_at { 1.day.from_now }
+    end
+
+    trait :done do
+      status "done"
+    end
+
+    trait :todo do
+      status "todo"
+    end
+
+    factory :due_yesterday_pin, traits: [:yesterday, :todo]
+    factory :due_today_pin, traits: [:today, :todo]
+    factory :due_tomorrow_pin, traits: [:tomorrow, :todo]
+    factory :completed_pin, traits: [:yesterday, :done]
+    factory :completed_today_pin, traits: [:today, :done]
+    factory :completed_early_pin, traits: [:tomorrow, :done]
   end
 end
 
