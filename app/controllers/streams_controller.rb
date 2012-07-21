@@ -42,17 +42,12 @@ class StreamsController < ApplicationController
       @suggested = @tag.items.featured
     end
 
+    @pins = @stream.pins.timeline
+
     respond_to do |format|
       format.html
       format.json 
     end
   end
 
-  def timeline
-    @stream = Stream.find(params[:id])
-
-    respond_to do |format|
-      format.html { render :layout => false }
-    end
-  end
 end

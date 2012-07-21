@@ -12,6 +12,8 @@ class Pin < ActiveRecord::Base
   scope :doing, where(:status => "doing")
   scope :done, where(:status => "done")
 
+  scope :timeline, where("scheduled_at IS NOT NULL").order('scheduled_at')
+
   def stream_name
     stream.nil? ? "Library" : stream.name
   end

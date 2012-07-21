@@ -7,7 +7,7 @@ child @stream => :timeline do
     { :media => "", :credit => "", :caption => "test caption!" }
   end 
 
-  child :pins => :date  do
+  child @pins => :date  do
     node(:text) do |p|
       p.item.description
     end
