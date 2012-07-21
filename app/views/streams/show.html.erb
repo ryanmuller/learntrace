@@ -1,7 +1,73 @@
 <h1><%= @stream.name %></h1>
-<%= link_to "View in timeline", stream_timeline_index_path(@stream), {:class => "btn pull-right"} %>
 
 <div class="row">
+  <div class="span8">
+
+    <h2><%= Date.today.strftime("%B %e, %Y") %></h2>
+
+    <ul id="stream-pins">
+      <% @stream.pins.done_today.each do |pin| %>
+        <li class="complete">
+          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
+        </li>
+      <% end %>
+      <% @stream.pins.overdue.each do |pin| %>
+        <li class="overdue">
+          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
+        </li>
+      <% end %>
+      <% @stream.pins.due_today.each do |pin| %>
+        <li class="incomplete">
+          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
+        </li>
+      <% end %>
+    </ul>
+
+    <%= link_to "Start learning!", stream_timeline_index_path(@stream), {:class => "btn"} %>
+
+    <hr>
+
+    <% if @stream.user == current_user %>
+      <h3>Add item</h3>
+
+      <%= form_for [@stream, Item.new], remote: true do |f| %>
+        <div class="control-group">
+          <%= f.label :name, { :class => "control-label" } %>
+          <div class="controls">
+            <%= f.text_field :name, {:class => 'input-xlarge'} %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :description, { :class => "control-label" } %>
+          <div class="controls">
+            <%= f.text_area :description, { :rows => "3", :class => "input-xlarge"} %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :url, { :class => "control-label" }%>
+          <div class="controls">
+            <%= f.text_field :url, {:class => 'input-xlarge'}  %>
+          </div>
+        </div>
+        <%= f.submit  :class => "btn btn-primary"  %>
+
+      <% end %>
+
+    <% end %>
+
+    <h3>Recommendations</h3>
+    <br />
+
+    <% if @suggested %>
+      <p>Here are some items that you may want to start learning:</p>
+      <div class="span4">
+        <%= render @suggested %>
+      </div>
+    <% else %>
+      No recommendations for you. Try <%= link_to "looking for some items", items_path %>. Remember you can add any web page with the <%= link_to "bookmarklet", tools_path %>.
+    <% end %>
+
+  </div>
   <div class="span4">
     <div class="well">
       <p>Owned by <%= link_to @stream.user, @stream.user %></p>
@@ -52,69 +118,4 @@
     </div>
   </div>
 
-  <div class="span8">
-
-    <h2><%= Date.today.strftime("%B %e, %Y") %></h2>
-
-    <ul id="stream-pins">
-      <% @stream.pins.done_today.each do |pin| %>
-        <li class="complete">
-          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
-        </li>
-      <% end %>
-      <% @stream.pins.overdue.each do |pin| %>
-        <li class="overdue">
-          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
-        </li>
-      <% end %>
-      <% @stream.pins.due_today.each do |pin| %>
-        <li class="incomplete">
-          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
-        </li>
-      <% end %>
-    </ul>
-
-    <hr>
-
-    <% if @stream.user == current_user %>
-      <h3>Add item</h3>
-
-      <%= form_for [@stream, Item.new], remote: true do |f| %>
-        <div class="control-group">
-          <%= f.label :name, { :class => "control-label" } %>
-          <div class="controls">
-            <%= f.text_field :name, {:class => 'input-xlarge'} %>
-          </div>
-        </div>
-        <div class="control-group">
-          <%= f.label :description, { :class => "control-label" } %>
-          <div class="controls">
-            <%= f.text_area :description, { :rows => "3", :class => "input-xlarge"} %>
-          </div>
-        </div>
-        <div class="control-group">
-          <%= f.label :url, { :class => "control-label" }%>
-          <div class="controls">
-            <%= f.text_field :url, {:class => 'input-xlarge'}  %>
-          </div>
-        </div>
-        <%= f.submit  :class => "btn btn-primary"  %>
-
-      <% end %>
-
-    <% end %>
-
-    <h3>Recommendations</h3>
-    <br />
-
-    <% if @suggested %>
-      <p>Here are some items that you may want to start learning:</p>
-      <div class="span4">
-        <%= render @suggested %>
-      </div>
-    <% else %>
-      No recommendations for you. Try <%= link_to "looking for some items", items_path %>. Remember you can add any web page with the <%= link_to "bookmarklet", tools_path %>.
-    <% end %>
-
-  </div>
 </div>
