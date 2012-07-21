@@ -52,7 +52,8 @@ open(url) do |d|
       stream = Stream.find(value[6])
       p = superuser.pins.find_by_item_id(item.id) || superuser.pin!(item, stream)
       time = value[7].split(',')
-      p.update_attributes({ scheduled_at: Time.new(time[0],time[1],time[2],time[3]) })
+      p.update_attributes({ scheduled_at: Time.new(time[0],time[1],time[2],time[3]),
+                            completed_at: Time.new(time[0],time[1],time[2],time[3])})
       
     end
 

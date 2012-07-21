@@ -38,11 +38,11 @@ FactoryGirl.define do
     end
 
     trait :done do
-      status "done"
+      completed_at { Time.now }
     end
 
     trait :todo do
-      status "todo"
+      completed_at { nil }
     end
 
     factory :due_yesterday_pin, traits: [:yesterday, :todo]
