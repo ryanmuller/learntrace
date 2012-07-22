@@ -1,1 +1,8 @@
-<%= item.description %>: <%= item.name %>
+<div class="item-task" data-id="<%= pin.id %>">
+  <%= pin.item.description %>: <%= pin.item.name %>
+  <% if @stream.user == current_user %>
+    <%= link_to stream_stream_pin_path(@stream, pin), method: :delete, remote: true, confirm: "Are you sure you want to remove this item?" do %>
+      <i class="icon-remove"></i>
+    <% end %>
+  <% end %>
+</div>

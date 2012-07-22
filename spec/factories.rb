@@ -29,8 +29,8 @@ FactoryGirl.define do
       scheduled_at { Time.now }
     end
 
-    trait :yesterday do
-      scheduled_at { 1.day.ago }
+    trait :earlier do
+      scheduled_at { 2.days.ago }
     end
 
     trait :tomorrow do
@@ -45,10 +45,10 @@ FactoryGirl.define do
       completed_at { nil }
     end
 
-    factory :due_yesterday_pin, traits: [:yesterday, :todo]
+    factory :due_earlier_pin, traits: [:earlier, :todo]
     factory :due_today_pin, traits: [:today, :todo]
     factory :due_tomorrow_pin, traits: [:tomorrow, :todo]
-    factory :completed_pin, traits: [:yesterday, :done]
+    factory :completed_pin, traits: [:earlier, :done]
     factory :completed_today_pin, traits: [:today, :done]
     factory :completed_early_pin, traits: [:tomorrow, :done]
   end

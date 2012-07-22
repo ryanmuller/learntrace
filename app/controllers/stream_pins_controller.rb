@@ -10,4 +10,14 @@ class StreamPinsController < ApplicationController
       format.js
     end
   end
+
+  def destroy
+    @pin = Pin.find(params[:id])
+    @item = @pin.item
+    current_user.unpin!(@item)
+
+    respond_to do |format|
+      format.js 
+    end
+  end
 end

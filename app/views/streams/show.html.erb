@@ -8,17 +8,17 @@
     <ul id="stream-pins">
       <% @stream.pins.done_today.each do |pin| %>
         <li class="complete">
-          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
+          <%= render partial: 'items/item_task', locals: { pin: pin } %>
         </li>
       <% end %>
       <% @stream.pins.overdue.each do |pin| %>
         <li class="overdue">
-          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
+          <%= render partial: 'items/item_task', locals: { pin: pin } %>
         </li>
       <% end %>
       <% @stream.pins.due_today.each do |pin| %>
         <li class="incomplete">
-          <%= render partial: 'items/item_task', locals: { item: pin.item } %>
+          <%= render partial: 'items/item_task', locals: { pin: pin } %>
         </li>
       <% end %>
     </ul>
@@ -30,7 +30,7 @@
     <% if current_user and @stream.user == current_user %>
       <h3>Add item</h3>
 
-      <%= form_for [@stream, Item.new], remote: true do |f| %>
+      <%= form_for stream_stream_pins_path(@stream), remote: true do |f| %>
         <div class="control-group">
           <%= f.label :name, { :class => "control-label" } %>
           <div class="controls">
@@ -49,7 +49,7 @@
             <%= f.text_field :url, {:class => 'input-xlarge'}  %>
           </div>
         </div>
-        <%= f.submit  :class => "btn btn-primary"  %>
+        <%= f.submit "Save item", :class => "btn btn-primary"  %>
 
       <% end %>
 

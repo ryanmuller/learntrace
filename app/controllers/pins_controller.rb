@@ -47,7 +47,6 @@ class PinsController < ApplicationController
     current_user.unpin!(@item)
 
     respond_to do |format|
-      logger.debug(format.js)
       format.html { redirect_to @item }
       format.js 
     end

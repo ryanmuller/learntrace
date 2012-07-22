@@ -26,7 +26,7 @@ BaseApp::Application.routes.draw do
   resources :pins, :only => :update
   resources :taggings, :only => :destroy
   resources :streams do
-    match 'items' => 'stream_pins#create'
+    resources :stream_pins, :only => [:create, :destroy]
     resources :forks, :only => [:create, :destroy]
     resources :timeline, :only => :index
   end
