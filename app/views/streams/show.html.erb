@@ -27,7 +27,7 @@
 
     <hr>
 
-    <% if @stream.user == current_user %>
+    <% if current_user and @stream.user == current_user %>
       <h3>Add item</h3>
 
       <%= form_for [@stream, Item.new], remote: true do |f| %>
@@ -81,39 +81,43 @@
         </p>
       <% end %>
 
-      <% if @stream.user == current_user %>
+      <% if current_user and @stream.user == current_user %>
         <%= render 'delete' %>
       <% end %>
 
-      <hr>
-      <p>
-      <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
-        This stream is currently flowing into 
-        <ul>
-          <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
-            <li><%= link_to target.name, target %></li>
+      <% if current_user %>
+        <hr>
+        <p>
+        <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
+          This stream is currently flowing into 
+          <ul>
+            <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
+              <li><%= link_to target.name, target %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <% if @stream.user != current_user %>
+            You aren't learning <%= @stream.name %> yet! You can start receiving its items in one of your own streams.
           <% end %>
-        </ul>
-      <% else %>
-        <% if @stream.user != current_user %>
-          You aren't learning <%= @stream.name %> yet! You should fork <%= @stream.name %> below to receive its study items in one of your own streams.
         <% end %>
+        </p>
       <% end %>
-      </p>
 
 
-      <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
-        <div class="control-group">
-          <%= f.label :target_id, "Flow items from "+@stream.name+" to one of your existing streams:", class: 'control-label' %>
-          <div class="controls">
-            <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
+      <% if current_user %>
+        <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
+          <div class="control-group">
+            <%= f.label :target_id, "Flow items from "+@stream.name+" to one of your existing streams:", class: 'control-label' %>
+            <div class="controls">
+              <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
+            </div>
           </div>
-        </div>
-        <div class="control-group">
-          <p>Or, fork into a new stream of your own!</p>
-          <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
-        </div>
-        <%= f.submit 'Create flow', class: 'btn btn-primary' %>
+          <div class="control-group">
+            <p>or into a new stream</p>
+            <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
+          </div>
+          <%= f.submit 'Create flow', class: 'btn btn-primary' %>
+        <% end %>
       <% end %>
     </div>
   </div>

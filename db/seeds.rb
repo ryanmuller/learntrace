@@ -6,14 +6,44 @@ end
 
 superuser = User.find_by_email('support@learnstream.org')
 
-# set up streams
-stream = Stream.find_or_create_by_id(1)
-stream.update_attributes({ name: "MIT 18.06 Linear Algebra", user_id: superuser.id })
-
-
 
 require 'xmlsimple'
 require 'open-uri'
+
+
+url = "https://spreadsheets.google.com/feeds/cells/0Aip67rN0jLtfdHVuWjZsd1poaDlsVFRxWHNwN1RHbnc/2/public/values"
+
+open(url) do |d|
+  xml = XmlSimple.xml_in(d.read)
+  data = Hash.new{ |hash, key| hash[key] = {} }
+
+  # Parses the xml hash into a data hash.
+  # for example, the contents of cell [3,5] ([row, col]) can be accessed as "data[3][5]"
+  xml['entry'].each {|x| data[x['cell'][0]['row'].to_i].merge!({ x['cell'][0]['col'].to_i =>  x['cell'][0]['content'] } ) }
+
+  # (note... key [row, col] values are indexed from 1)
+  data.each do |key, value|
+
+    next if value[2].nil?
+
+    unless user = User.find_by_name(value[2])
+      user = User.create!({ name: value[2], 
+                            username: value[2],
+                            email: "#{value[2]}-support@learnstream.org", 
+                            password: "#{value[2]}pass",
+                            password_confirmation: "#{value[2]}pass" })
+    end
+
+    if stream = Stream.find_by_id(value[1].to_i)
+      stream.update_attributes({ user_id: user.id, name: value[3] })
+    else
+      stream = Stream.new({ user_id: user.id, name: value[3] })
+      stream.id = value[1].to_i
+      stream.save!
+    end
+  end
+end
+
 
 # Gets data from server, initializes parsed hash
 url = "https://spreadsheets.google.com/feeds/cells/0Aip67rN0jLtfdHVuWjZsd1poaDlsVFRxWHNwN1RHbnc/1/public/values"
@@ -50,11 +80,16 @@ open(url) do |d|
 
     if value[6]
       stream = Stream.find(value[6])
-      p = superuser.pins.find_by_item_id(item.id) || superuser.pin!(item, stream)
-      time = value[7].split(',')
-      p.update_attributes({ scheduled_at: Time.new(time[0],time[1],time[2],time[3]),
-                            completed_at: Time.new(time[0],time[1],time[2],time[3])})
-      
+      user = stream.user
+      p = user.pins.find_by_item_id(item.id) || user.pin!(item, stream)
+      unless value[7].nil?
+        time = value[7].split(',')
+        p.update_attributes({ scheduled_at: Time.new(time[0],time[1],time[2],time[3]),
+                              completed_at: Time.new(time[0],time[1],time[2],time[3])})
+      else
+        p.update_attributes({ scheduled_at: value[8].to_i.days.from_now,
+                              completed_at: value[8].to_i.days.from_now })
+      end
     end
 
     if value[3]

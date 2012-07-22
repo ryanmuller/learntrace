@@ -4,6 +4,8 @@
       <%= render @streams %>
     </ul>
 
-    <%= render 'form' %>
+    <% if current_user %>
+      <%= render 'form' %>
+    <% end %>
   </div>
 </div
