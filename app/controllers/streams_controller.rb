@@ -1,9 +1,9 @@
 class StreamsController < ApplicationController
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, only: [:create, :destroy]
 
   def index
-    @streams = Stream.all
+    @streams = Stream.popular
     
     respond_to do |format|
       format.html

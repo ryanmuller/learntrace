@@ -9,6 +9,8 @@ class Stream < ActiveRecord::Base
 
   validates :name, :presence => true
 
+  scope :popular, joins('LEFT OUTER JOIN forks ON forks.source_id = streams.id').order('forks.created_at ASC')
+
   def upstream?(source)
     back_forks.find_by_source_id(source.id)
   end

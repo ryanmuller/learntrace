@@ -8,9 +8,14 @@ class Pin < ActiveRecord::Base
   validates :user_id, presence: true
   validates :item_id, presence: true
 
-  scope :todo, where(:status => "todo")
-  scope :doing, where(:status => "doing")
-  scope :done, where(:status => "done")
+  scope :todo, where("completed_at IS NULL")
+  scope :done, where("completed_at IS NOT NULL")
+
+  scope :before_today, where("scheduled_at < ?", Date.today.beginning_of_day)
+  scope :today, where("scheduled_at between ? and ?", Date.today.beginning_of_day, Date.tomorrow.beginning_of_day)
+  scope :overdue, todo.before_today
+  scope :due_today, todo.today
+  scope :done_today, done.today
 
   scope :timeline, where("scheduled_at IS NOT NULL").order('scheduled_at')
 

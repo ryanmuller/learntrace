@@ -27,8 +27,10 @@ Spork.prefork do
     config.include Devise::TestHelpers, :type => :controller
     config.extend ControllerMacros, :type => :controller
 
+    config.use_transactional_fixtures = false
+
     config.before(:suite) do
-      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.clean_with(:truncation)
     end
 

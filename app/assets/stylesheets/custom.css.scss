@@ -268,3 +268,18 @@ ul.dropdown-menu { text-align: left; }
   }
 
 
+/* stream */
+  #stream-pins {
+    li.complete { text-decoration: line-through; }
+    li.overdue { color: red; }
+  }
+
+  .pin-mini {
+    text-align: center;
+    display: inline-block;
+    img {
+      width: 130px;
+    }
+  }
+
+
