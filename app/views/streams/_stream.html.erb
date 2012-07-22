@@ -1,1 +1,13 @@
-<li><strong><%= link_to stream.name, stream %></strong></li>
+<div class="board">
+  <h2><%= link_to stream.name, stream %></h2>
+  <% @stream = stream %>
+  <% if stream.user == current_user %>
+    <% stream.pins.todo.limit(5).each do |pin|  %>
+      <%= render partial: 'pins/pin_mini', locals: { pin: pin } %>
+    <% end %>
+  <% else %>
+    <% stream.pins.limit(5).each do |pin|  %>
+      <%= render partial: 'pins/pin_mini', locals: { pin: pin } %>
+    <% end %>
+  <% end %>
+</div>
