@@ -34,7 +34,7 @@ class Pin < ActiveRecord::Base
   end
 
   def display_date
-    completed_at || scheduled_at
+    completed_at || scheduled_at || Time.now + 1.day # ugh, still have some pins with no completed/scheduled_at...
   end
 
   def complete!

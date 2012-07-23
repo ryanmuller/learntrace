@@ -4,10 +4,11 @@
   <div class="span4">
 
     <div id="stream-pins">
-      <div class="date">
-        <% last_date = @stream.pins.first.display_date unless @stream.pins.empty? %>
-        <%= last_date.strftime("%B %e") %>
-      </div>
+
+      <% unless @stream.pins.empty? %>
+        <% last_date = @stream.pins.first.display_date %>
+        <div class="date"><%= last_date.strftime("%B %e") %></div>
+      <% end %>
       <% @stream.pins.each do |pin| %>
         <% if pin.display_date.to_date > last_date.to_date %>
           <% last_date = pin.display_date %>
@@ -22,7 +23,11 @@
   </div>
 
   <div class="span8" id="item-area">
-    <%= render partial: 'pins/stream_pin', locals: { pin: @stream.pins.todo.first } %>
+    <% unless @stream.pins.empty? %>
+      <%= render partial: 'pins/stream_pin', locals: { pin: @stream.pins.todo.first } %>
+    <% else %>
+      Add some items to this course!
+    <% end %>
   </div>
 </div>
 <div class="row">

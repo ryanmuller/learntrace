@@ -1,1 +1,2 @@
-$('.item-task[data-id="<%= @pin.id %>"]').remove();
+$('.item-task[data-id=<%= @pin.id %>]').nextAll('.item-task').first().find('a').click();
+$('.item-task[data-id=<%= @pin.id %>]').remove();
