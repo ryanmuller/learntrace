@@ -20,4 +20,13 @@ class StreamPinsController < ApplicationController
       format.js 
     end
   end
+
+  def update
+    @pin = current_user.pins.find(params[:id])
+    @pin.complete!
+
+    respond_to do |format|
+      format.js
+    end
+  end
 end

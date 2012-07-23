@@ -273,8 +273,8 @@ ul.dropdown-menu { text-align: left; }
 
 /* stream */
   #stream-pins {
-    li.complete { text-decoration: line-through; }
-    li.overdue { color: red; }
+    .completed { text-decoration: line-through; }
+    .overdue { color: red; }
   }
 
   .pin-mini {

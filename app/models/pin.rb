@@ -1,5 +1,5 @@
 class Pin < ActiveRecord::Base
-  attr_accessible :item_id, :status, :stream_id, :scheduled_at
+  attr_accessible :item_id, :status, :stream_id, :scheduled_at, :completed_at
 
   belongs_to :user
   belongs_to :item, :counter_cache => true
@@ -19,6 +19,8 @@ class Pin < ActiveRecord::Base
 
   scope :timeline, where("scheduled_at IS NOT NULL").order('scheduled_at')
 
+  default_scope order('completed_at, scheduled_at')
+
   def stream_name
     stream.nil? ? "Library" : stream.name
   end
@@ -29,5 +31,17 @@ class Pin < ActiveRecord::Base
       user = target.user
       user.pin!(item, target)
     end
+  end
+
+  def display_date
+    completed_at || scheduled_at
+  end
+
+  def complete!
+    update_attributes!({ completed_at: Time.now })
+  end
+
+  def complete?
+    not completed_at.nil?
   end
 end
