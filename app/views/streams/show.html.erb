@@ -1,125 +1,57 @@
 <h1><%= @stream.name %></h1>
+<p>Owned by <%= link_to @stream.user, @stream.user %></p>
 
 <div class="row">
   <div class="span8">
-
-    <h2><%= Date.today.strftime("%B %e, %Y") %></h2>
-
-    <ul id="stream-pins">
-      <% @stream.pins.done_today.each do |pin| %>
-        <li class="complete">
-          <%= render partial: 'items/item_task', locals: { pin: pin } %>
-        </li>
-      <% end %>
-      <% @stream.pins.overdue.each do |pin| %>
-        <li class="overdue">
-          <%= render partial: 'items/item_task', locals: { pin: pin } %>
-        </li>
-      <% end %>
-      <% @stream.pins.due_today.each do |pin| %>
-        <li class="incomplete">
-          <%= render partial: 'items/item_task', locals: { pin: pin } %>
-        </li>
-      <% end %>
-    </ul>
-
-    <%= link_to "Start learning!", stream_timeline_index_path(@stream), {:class => "btn"} %>
-
-    <hr>
-
-    <% if current_user and @stream.user == current_user %>
-      <h3>Add item</h3>
-
-      <%= form_for stream_stream_pins_path(@stream), remote: true do |f| %>
-        <div class="control-group">
-          <%= f.label :name, { :class => "control-label" } %>
-          <div class="controls">
-            <%= f.text_field :name, {:class => 'input-xlarge'} %>
-          </div>
-        </div>
-        <div class="control-group">
-          <%= f.label :description, { :class => "control-label" } %>
-          <div class="controls">
-            <%= f.text_area :description, { :rows => "3", :class => "input-xlarge"} %>
-          </div>
-        </div>
-        <div class="control-group">
-          <%= f.label :url, { :class => "control-label" }%>
-          <div class="controls">
-            <%= f.text_field :url, {:class => 'input-xlarge'}  %>
-          </div>
-        </div>
-        <%= f.submit "Save item", :class => "btn btn-primary"  %>
-
-      <% end %>
-
+    <% @stream.pins.each do |pin| %>
+      <%= render partial: 'pins/pin_mini', locals: { pin: pin } %>
     <% end %>
-
-    <h3>Recommendations</h3>
-    <br />
-
-    <% if @suggested %>
-      <p>Here are some items that you may want to start learning:</p>
-      <div class="span4">
-        <%= render @suggested %>
-      </div>
-    <% else %>
-      No recommendations for you. Try <%= link_to "looking for some items", items_path %>. Remember you can add any web page with the <%= link_to "bookmarklet", tools_path %>.
-    <% end %>
-
+      
   </div>
   <div class="span4">
-    <div class="well">
-      <p>Owned by <%= link_to @stream.user, @stream.user %></p>
-
-      <% unless @stream.sources.empty? %>
-        <p>
-        Flowing items from 
-        <% @stream.sources.each do |source| %>
-          <%= link_to source.name, source %>
-        <% end %>
-        </p>
+    <h2>Learn about <%= @stream.name %></h2>
+    <% unless @stream.sources.empty? %>
+      <p>
+      Flowing items from 
+      <% @stream.sources.each do |source| %>
+        <%= link_to source.name, source %>
       <% end %>
+      </p>
+    <% end %>
 
-      <% if current_user and @stream.user == current_user %>
-        <%= render 'delete' %>
-      <% end %>
-
-      <% if current_user %>
-        <hr>
-        <p>
-        <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
-          This stream is currently flowing into 
-          <ul>
-            <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
-              <li><%= link_to target.name, target %></li>
-            <% end %>
-          </ul>
-        <% else %>
-          <% if @stream.user != current_user %>
-            You aren't learning <%= @stream.name %> yet! You can start receiving its items in one of your own streams.
+    <% if current_user %>
+      <p>
+      <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
+        This stream is currently flowing into 
+        <ul>
+          <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
+            <li><%= link_to target.name, target %></li>
           <% end %>
-        <% end %>
-        </p>
-      <% end %>
-
-
-      <% if current_user %>
-        <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
-          <div class="control-group">
-            <%= f.label :target_id, "Flow items from "+@stream.name+" to one of your existing streams:", class: 'control-label' %>
-            <div class="controls">
-              <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
-            </div>
-          </div>
-          <div class="control-group">
-            <p>or into a new stream</p>
-            <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
-          </div>
-          <%= f.submit 'Create flow', class: 'btn btn-primary' %>
+        </ul>
+      <% else %>
+        <% if @stream.user != current_user %>
+          You aren't learning <%= @stream.name %> yet! You can start receiving its items in one of your own streams.
         <% end %>
       <% end %>
-    </div>
+      </p>
+    <% end %>
+
+
+    <% if current_user %>
+      <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
+        <div class="control-group">
+          <%= f.label :target_id, "Flow items from "+@stream.name+" to one of your existing streams:", class: 'control-label' %>
+          <div class="controls">
+            <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
+          </div>
+        </div>
+        <div class="control-group">
+          <p>or into a new stream</p>
+          <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
+        </div>
+        <%= f.submit 'Create flow', class: 'btn btn-primary' %>
+      <% end %>
+    <% end %>
   </div>
 
 </div>

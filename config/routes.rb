@@ -30,6 +30,8 @@ BaseApp::Application.routes.draw do
     resources :forks, :only => [:create, :destroy]
     resources :timeline, :only => :index
   end
+
+  resources :my_streams, :only => :show
   
   match '/tags/:name' => 'tags#show', :as => "tag_name"
 

@@ -36,17 +36,14 @@ class StreamsController < ApplicationController
 
   def show
     @stream = Stream.find(params[:id]) 
-    @item = Item.new
-    @tag = Tag.find_by_name(@stream.name.downcase)
-    if @tag
-      @suggested = @tag.items.featured
-    end
 
-    @pins = @stream.pins.timeline
-
-    respond_to do |format|
-      format.html
-      format.json 
+    if @stream.user == current_user
+      redirect_to my_stream_path(@stream)
+    else
+      respond_to do |format|
+        format.html
+        format.json 
+      end
     end
   end
 
