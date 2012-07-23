@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
   end
 
   def thumb_url
-    read_attribute(:thumb_url) || write_attribute(:thumb_url, "/assets/no-thumbnail.png")
+    read_attribute(:thumb_url) || write_attribute(:thumb_url, calculate_thumb())
   end
 
   def update_thumb
@@ -51,7 +51,16 @@ class Item < ActiveRecord::Base
     end
   end
 
-  private
+  private 
+
+  def calculate_thumb
+    if ["pdf", "doc", "docx"].include?(URI.parse(url).path[-3..-1])
+      "/assets/doc-thumbnail.jpg"
+    else
+      "/assets/no-thumbnail.png"
+    end
+  end
+
   def add_thumb
     unless self.thumb_url
       begin 
