@@ -1,12 +1,15 @@
 <h1><%= @stream.name %></h1>
 <p>Owned by <%= link_to @stream.user, @stream.user %></p>
 
-<div class="row">
+<div class="row-fluid">
   <div class="span8">
-    <% @stream.pins.each do |pin| %>
-      <%= render partial: 'pins/pin_mini', locals: { pin: pin } %>
+    <% @stream.pins.each_slice(4) do |slice| %>
+      <div class="row-fluid">
+        <% slice.each do |pin| %>
+          <%= render partial: 'pins/pin_mini', locals: { pin: pin } %>
+        <% end %>
+      </div>
     <% end %>
-      
   </div>
   <div class="span4">
     <h2>Learn about <%= @stream.name %></h2>
