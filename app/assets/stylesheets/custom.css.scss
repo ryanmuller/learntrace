@@ -100,6 +100,9 @@ p {
 
   .img-container {
     text-align: center;
+    img {
+      min-width: 100%;
+    }
   }
   h3 {
     margin-left: 1em;
