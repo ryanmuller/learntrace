@@ -28,20 +28,28 @@ class Item < ActiveRecord::Base
     pins.where('pins.user_id = ?', user.id).first
   end
 
+  def thumb_url
+    read_attribute(:thumb_url) || write_attribute(:thumb_url, "/assets/no-thumbnail.png")
+  end
+
   private
   def add_thumb
     unless self.thumb_url
-      require 'open-uri'
-      require 'json'
+      begin 
+        require 'open-uri'
+        require 'json'
 
-      api_call = "http://api.embed.ly/1/oembed?key=309c8f118a624159a31ec483f7ae5ceb&url=#{URI.escape(self.url)}"
+        api_call = "http://api.embed.ly/1/oembed?key=309c8f118a624159a31ec483f7ae5ceb&url=#{URI.escape(self.url)}"
 
-      resp = JSON.parse(open(api_call).read)
-      if resp['thumbnail_url']
-        self.thumb_url = resp['thumbnail_url']
-      else
-        require 'scraper_utils'
-        self.thumb_url = ScraperUtils.find_thumb(self.url)
+        resp = JSON.parse(open(api_call).read)
+        if resp['thumbnail_url']
+          self.thumb_url = resp['thumbnail_url']
+        else
+          require 'scraper_utils'
+          self.thumb_url = ScraperUtils.find_thumb(self.url)
+        end
+      rescue
+        puts "no thumb available: #{self.url}"
       end
     end
   end
