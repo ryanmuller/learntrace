@@ -1,6 +1,6 @@
-<% [0,1,2].each do |i| %>
-  <div class="span4 scroll-col">
-    <% @tags[i*3..i*3+2].each do |tag| %>
+<% [0,1,2,3].each do |i| %>
+  <div class="span3 scroll-col">
+    <% @tags[i*4..i*4+3].each do |tag| %>
       <%= render :partial => 'tags/board', :locals => { :tag => tag } %>
     <% end %>
   </div>

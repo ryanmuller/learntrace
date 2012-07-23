@@ -20,10 +20,8 @@ $(window).load(() ->
   $('#todo-items, #doing-items, #done-items').each(() ->
     if $(this).height() > max_height
       max_height = $(this).height()
-    console.log($(this).height())
   )
   $('#todo-items, #doing-items, #done-items').each(() ->
-    console.log(max_height)
     $(this).css('min-height', max_height)
   )
 ) 

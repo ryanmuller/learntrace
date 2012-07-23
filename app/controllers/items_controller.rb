@@ -2,12 +2,12 @@ class ItemsController < ApplicationController
   before_filter :authenticate_user!, :except => [ :index, :show, :tag_filter ]
 
   def index
-    @col_array = [[],[],[]] # 3 col layout
-    @tags = Tag.order("RANDOM()").limit(12)
+    @col_array = [[],[],[],[]] # 3 col layout
+    @tags = Tag.order("RANDOM()").limit(16)
 
 
     @tags.each_with_index do |tag, index|
-      @col_array[index % 3] << tag
+      @col_array[index % 4] << tag
     end
 
     respond_to do |format|
