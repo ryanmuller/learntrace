@@ -1,30 +1,27 @@
 <h1><%= @stream.name %></h1>
 
-<div class="row">
-  <div class="span3">
-
-    <h2><%= Date.today.strftime("%B %e, %Y") %></h2>
+<div class="row-fluid">
+  <div class="span4">
 
     <div id="stream-pins">
-      <% @stream.pins.done_today.each do |pin| %>
-        <div class="complete">
-          <%= render partial: 'items/item_task', locals: { pin: pin } %>
-        </div>
-      <% end %>
-      <% @stream.pins.overdue.each do |pin| %>
-        <div class="overdue">
-          <%= render partial: 'items/item_task', locals: { pin: pin } %>
-        </div>
-      <% end %>
-      <% @stream.pins.due_today.each do |pin| %>
-        <div class="incomplete">
-          <%= render partial: 'items/item_task', locals: { pin: pin } %>
-        </div>
+      <div class="date">
+        <% last_date = @stream.pins.first.display_date unless @stream.pins.empty? %>
+        <%= last_date.strftime("%B %e") %>
+      </div>
+      <% @stream.pins.each do |pin| %>
+        <% if pin.display_date.to_date > last_date.to_date %>
+          <% last_date = pin.display_date %>
+          <div class="date">
+            <%= last_date.strftime("%B %e") %>
+          </div>
+        <% end %>
+
+        <%= render partial: 'items/item_task', locals: { pin: pin } %>
       <% end %>
     </div>
   </div>
 
-  <div class="span9">
+  <div class="span8">
     <%= render partial: 'pins/stream_pin', locals: { pin: @stream.pins.first } %>
   </div>
 </div>

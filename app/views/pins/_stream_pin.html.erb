@@ -2,5 +2,12 @@
   <%= link_to pin.item.name, pin.item.url %>
 </div>
 
-<%= link_to "Mark complete", "#" %>
-<%= link_to "Remove", "#" %>
+
+<% unless pin.complete? %>
+  <%= link_to stream_stream_pin_path(@stream, pin), method: :put, remote: true, class: 'btn' do %>
+    <i class="icon-ok"></i> Complete!
+  <% end %>
+<% end %>
+<%= link_to stream_stream_pin_path(@stream, pin), method: :delete, remote: true, confirm: "Are you sure you want to remove this item?", class: 'btn' do %>
+  <i class="icon-remove"></i> Remove
+<% end %>

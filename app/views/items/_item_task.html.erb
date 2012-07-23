@@ -1,10 +1,3 @@
-<div class="item-task" data-id="<%= pin.id %>">
-  <%= link_to '#' do %>
-    <i class="icon-ok"></i> 
-  <% end %>
-  <%= link_to stream_stream_pin_path(@stream, pin), method: :delete, remote: true, confirm: "Are you sure you want to remove this item?" do %>
-    <i class="icon-remove"></i>
-  <% end %>
+<div class="item-task<%- if pin.completed_at %> completed<% end %>" data-id="<%= pin.id %>">
   <%= link_to pin.item.name, '#' %>
-
 </div>
