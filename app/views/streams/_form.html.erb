@@ -1,5 +1,7 @@
+<h2>Make your own course</h2>
+<div style="text-align:center;">
 <%= form_for(current_user.streams.build, :html => { :class => "form-search" }) do |f| %>
-  <%= f.label :name, "Starting learning about", { :class => 'control-label' } %>
   <%= f.text_field :name, { :class => 'input-medium' } %>
-  <%= f.submit "Create stream", :class => 'btn btn-primary' %>
+  <%= f.submit "Create", :class => 'btn btn-primary' %>
 <% end %>
+</div>
