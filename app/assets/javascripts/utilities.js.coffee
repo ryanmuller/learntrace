@@ -1,6 +1,4 @@
 jQuery ->
-	console.log('initializing from utilities.js')
-
 	# bind item hover, which updates using jquery "on" for 
 	# new elements added to DOM later.
 	$('body').on("mouseenter", ".item", () -> $('.actions', this).show())
@@ -25,7 +23,6 @@ jQuery ->
 
 	$('body').on('click', ".dropdown-menu input", (e) ->
 		# prevent it from submitting the form... instead must hit enter.
-		console.log('clicked yo')
 		return false
 	)
 	$('body').on('click', '.dropdown-menu > li > a', (e) ->

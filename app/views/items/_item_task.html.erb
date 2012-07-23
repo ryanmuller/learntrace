@@ -1,3 +1,3 @@
 <div class="item-task<%- if pin.completed_at %> completed<% end %>" data-id="<%= pin.id %>">
-  <%= link_to pin.item.name, '#' %>
+  <%= link_to pin.item.name, stream_stream_pin_path(@stream, pin), remote: true %>
 </div>

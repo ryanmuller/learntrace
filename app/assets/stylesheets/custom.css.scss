@@ -275,6 +275,13 @@ ul.dropdown-menu { text-align: left; }
   #stream-pins {
     .completed { text-decoration: line-through; }
     .overdue { color: red; }
+    .current { background: #eee; }
+    .date { 
+      border-top: 1px solid #e5e5e5;
+      font-weight: bold;
+      margin-top: 1em;
+      color: #999;
+    }
   }
 
   .pin-mini {

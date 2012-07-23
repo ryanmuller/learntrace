@@ -11,6 +11,15 @@ class StreamPinsController < ApplicationController
     end
   end
 
+  def show
+    @stream = Stream.find(params[:stream_id])
+    @pin = Pin.find(params[:id])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def destroy
     @pin = Pin.find(params[:id])
     @item = @pin.item
