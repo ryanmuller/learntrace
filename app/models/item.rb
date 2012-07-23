@@ -31,8 +31,18 @@ class Item < ActiveRecord::Base
   private
   def add_thumb
     unless self.thumb_url
-      require 'scraper_utils'
-      self.thumb_url = ScraperUtils.find_thumb(self.url)
+      require 'open-uri'
+      require 'json'
+
+      api_call = "http://api.embed.ly/1/oembed?key=309c8f118a624159a31ec483f7ae5ceb&url=#{URI.escape(self.url)}"
+
+      resp = JSON.parse(open(api_call).read)
+      if resp['thumbnail_url']
+        self.thumb_url = resp['thumbnail_url']
+      else
+        require 'scraper_utils'
+        self.thumb_url = ScraperUtils.find_thumb(self.url)
+      end
     end
   end
 end
