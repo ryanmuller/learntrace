@@ -1,8 +1,8 @@
 <div class="item-task" data-id="<%= pin.id %>">
-  <%= link_to '#', class: 'btn btn-small' do %>
+  <%= link_to '#' do %>
     <i class="icon-ok"></i> 
   <% end %>
-  <%= link_to stream_stream_pin_path(@stream, pin), method: :delete, remote: true, confirm: "Are you sure you want to remove this item?", class: 'btn btn-small' do %>
+  <%= link_to stream_stream_pin_path(@stream, pin), method: :delete, remote: true, confirm: "Are you sure you want to remove this item?" do %>
     <i class="icon-remove"></i>
   <% end %>
   <%= link_to pin.item.name, '#' %>

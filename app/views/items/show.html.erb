@@ -1,14 +1,2 @@
-<%= render :partial => 'item', :locals => { :item => @item } %>
+<%= render :partial => 'items/item_expanded', :locals => { :item => @item } %>
 
-<p class="item-tags tags-container-item-<%= @item.id %>">
-  <b>Tags:</b>
-  <% @item.tags.each do |tag| %>
-    <%= link_to tag.name, "/tags/#{tag.name}" %>
-  <% end %>
-  <%= form_for [@item, Tag.new], :html => { :class => 'form-inline' }, :remote => true do |f| %>
-    <%= render :partial => 'tags/form', :locals => { :f => f } %>
-  <% end %>
-</p>
-
-
-<%= link_to 'Edit', edit_item_path(@item) %>
