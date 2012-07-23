@@ -1,6 +1,12 @@
 <div class="row-fluid">
   <div class="span2">
-    <h2 style="text-align:right;"><%= link_to stream.name, stream %></h2>
+    <div style="text-align:right;">
+      <h2 style="text-align:right;"><%= link_to stream.name, stream %></h2>
+      <div class="stream-info">
+        <div>Owned by <%= link_to stream.user, stream.user %></div>
+        <% if stream.forks.count > 0 %><div><%= stream.forks.count %> studying</div><% end %>
+      </div>
+    </div>
   </div>
 
   <div class="span8">

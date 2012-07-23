@@ -9,7 +9,6 @@ class UsersController < ApplicationController
     else
       @user = User.find(params[:id])
     end
-    @pins = @user.pins
     
     respond_to do |format|
       format.html
