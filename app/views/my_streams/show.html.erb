@@ -36,7 +36,7 @@
     <% if current_user and @stream.user == current_user %>
       <h3>Add item</h3>
 
-      <%= form_for stream_stream_pins_path(@stream), remote: true do |f| %>
+      <%= form_for Item.new, url: stream_stream_pins_path(@stream), remote: true do |f| %>
         <div class="control-group">
           <%= f.label :name, { :class => "control-label" } %>
           <div class="controls">
