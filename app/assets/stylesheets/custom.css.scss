@@ -295,6 +295,15 @@ ul.dropdown-menu { text-align: left; }
     img {
       width: 130px;
     }
-  }
 
+  }
+.pin-micro {
+  display: inline-block;
+  img { width: 30px; }
+}
+
+.stream-items {
+  overflow-y:scroll;
+  height: 500px;
+}
 
