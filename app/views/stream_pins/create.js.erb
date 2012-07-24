@@ -1,2 +1,1 @@
-$('#stream-pins').append('<%=j render @item %>');
-console.log('<%=j render @item %>');
+$('#stream-pins').append('<%=j render partial: 'items/item_task', locals: { pin: @pin } %>');

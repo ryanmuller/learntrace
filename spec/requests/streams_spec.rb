@@ -81,5 +81,21 @@ describe 'Streams' do
       visit stream_path(stream)
       page.should have_css(".item-task.completed[data-id=\"#{due_today_pin.id}\"]")
     end
+
+    it "should allow items to be added", js: true do
+      new_item_attributes = FactoryGirl.attributes_for(:item)
+
+      visit stream_path(stream)
+      within("#new_item") do
+        fill_in "Name", with: new_item_attributes[:name]
+        fill_in "Description", with: new_item_attributes[:description]
+        fill_in "Url", with: new_item_attributes[:url]
+        click_button "Save item"
+      end
+
+      within("#stream-pins") do
+        page.should have_content(new_item_attributes[:name])
+      end
+    end
   end
 end
