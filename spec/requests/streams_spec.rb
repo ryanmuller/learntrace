@@ -83,18 +83,15 @@ describe 'Streams' do
     end
 
     it "should allow items to be added", js: true do
-      new_item_attributes = FactoryGirl.attributes_for(:item)
-
       visit stream_path(stream)
+      new_item = {}
       within("#new_item") do
-        fill_in "Name", with: new_item_attributes[:name]
-        fill_in "Description", with: new_item_attributes[:description]
-        fill_in "Url", with: new_item_attributes[:url]
-        click_button "Save item"
+        new_item = fill_in_item
+        click_button "Create Item"
       end
 
       within("#stream-pins") do
-        page.should have_content(new_item_attributes[:name])
+        page.should have_content(new_item[:name])
       end
     end
   end

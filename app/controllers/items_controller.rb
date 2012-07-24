@@ -18,6 +18,7 @@ class ItemsController < ApplicationController
 
   def new 
     @item = Item.new({ :url => params[:url], :description => params[:description], :name => params[:name] })
+    @item.pins.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -74,15 +75,16 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(params[:item])
+    @stream = current_user.streams.find(params[:stream_id])
 
     respond_to do |format|
       if @item.save
-        current_user.pin!(@item)
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
-        format.json { render json: @item, status: :created, location: @item }
+        @pin = current_user.pin_and_copy!(@item, @stream)
+        format.html { redirect_to @stream, notice: 'Item was successfully created.' }
+        format.js 
       else
         format.html { render action: "new" }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        format.js { render nothing: true }
       end
     end
   end

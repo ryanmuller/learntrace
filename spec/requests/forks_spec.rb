@@ -29,4 +29,26 @@ describe "Forks" do
       page.should have_content item.name
     end
   end
+
+  describe "create item in source" do
+
+    it "should be copied to the target" do
+      visit stream_path(source)
+      click_button "Create flow"
+      sign_out
+
+      sign_in creator
+      visit stream_path(source)
+      new_item = {}
+      within("#new_item") do
+        new_item = fill_in_item
+        click_button "Create Item"
+      end
+      sign_out
+
+      sign_in user
+      visit stream_path(target)
+      page.should have_content(new_item[:name])
+    end
+  end
 end
