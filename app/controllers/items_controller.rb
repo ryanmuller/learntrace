@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_filter :authenticate_user!, :except => [ :index, :show, :tag_filter ]
 
   def index
-    @col_array = [[],[],[],[]] # 3 col layout
+    @col_array = [[],[],[],[]] # 4 col layout
     @tags = Tag.order("RANDOM()").limit(16)
 
 
@@ -27,12 +27,12 @@ class ItemsController < ApplicationController
   end
 
   def tag_filter
-    @col_array = [[],[],[]] # 3 col layout
+    @col_array = [[],[],[],[]] # 3 col layout
     if params[:tag].empty?
       @clear_board = true
       @tags = Tag.order("RANDOM()").limit(12)
       @tags.each_with_index do |tag, index|
-        @col_array[index % 3] << tag
+        @col_array[index % 4] << tag
       end
       render 'index.js.erb', :layout => false, :format => :js
       return 
@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
       end
       @items = @tag.items.best
       @items.each_with_index do |item, index|
-        @col_array[index % 3] << item
+        @col_array[index % 4] << item
       end
     end
 
