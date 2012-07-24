@@ -31,12 +31,9 @@ BaseApp::Application.routes.draw do
     resources :timeline, :only => :index
   end
 
-  resources :my_streams, :only => :show
+  resources :my_streams, :only => [:show, :index]
   
   match '/tags/:name' => 'tags#show', :as => "tag_name"
-
-  match '/library_items' => 'pins#library_items'
-  match '/public/:user_id/library' => 'users#show', :as => :public_library
 
   match '/bookmarklet/learned' => 'bookmarklet#learned'
 
