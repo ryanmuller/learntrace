@@ -3,6 +3,6 @@
     <button class="btn btn-small unpin-button-<%= item.id %>"><i class="icon-remove"></i> Remove</button>
   <% end %>
 <% else %>
-  <span class='label label-inverse'><%= item.user_pin(current_user).stream_name %></span>
+  <%= link_to item.user_pin(current_user).stream_name, stream_path(item.user_pin(current_user).stream), class: 'label label-inverse' %>
   <button class="btn disabled"><i class="icon-ok"></i> Pinned!</button>
 <% end %>
