@@ -35,7 +35,6 @@ BaseApp::Application.routes.draw do
   
   match '/tags/:name' => 'tags#show', :as => "tag_name"
 
-  match '/library' => 'pins#index'
   match '/library_items' => 'pins#library_items'
   match '/public/:user_id/library' => 'users#show', :as => :public_library
 

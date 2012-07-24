@@ -1,16 +1,6 @@
 class PinsController < ApplicationController
   before_filter :authenticate_user!, :except => [:public_index]
 
-  def index
-    @pins = current_user.pins
-    @item = Item.new
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @pins }
-    end
-  end
-
   def library_items
     @pins = current_user.pins
   end
