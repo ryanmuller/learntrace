@@ -30,80 +30,54 @@
     <% end %>
   </div>
 </div>
-<div class="row">
-  <div class="span12">
-
-    <hr>
-
-    <% if current_user and @stream.user == current_user %>
-      <h3>Add item</h3>
-      <%= render 'items/form' %>
-    <% end %>
-
-    <h3>Recommendations</h3>
-    <br />
-
-    <% if @suggested %>
-      <p>Here are some items that you may want to start learning:</p>
-      <div class="span4">
-        <%= render @suggested %>
-      </div>
-    <% else %>
-      No recommendations for you. Try <%= link_to "looking for some items", items_path %>. Remember you can add any web page with the <%= link_to "bookmarklet", tools_path %>.
-    <% end %>
-
-    <hr>
-
+<hr>
+<div class="row-fluid">
+  <div class="span6">
+    <h3>Add item</h3>
+    <%= render 'items/form' %>
+  </div>
+  <div class="span6">
     <h3>Settings</h3>
 
-    <div>
-      <p>Owned by <%= link_to @stream.user, @stream.user %></p>
-
-      <% unless @stream.sources.empty? %>
-        <p>
-        Flowing items from 
-        <% @stream.sources.each do |source| %>
-          <%= link_to source.name, source %>
-        <% end %>
-        </p>
+    <% unless @stream.sources.empty? %>
+      <p>
+      Flowing items from 
+      <% @stream.sources.each do |source| %>
+        <%= link_to source.name, source %>
       <% end %>
+      </p>
+    <% end %>
 
-      <%= render 'streams/delete' %>
+    <%= render 'streams/delete' %>
 
-      <% if current_user %>
-        <hr>
-        <p>
-        <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
-          This stream is currently flowing into 
-          <ul>
-            <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
-              <li><%= link_to target.name, target %></li>
-            <% end %>
-          </ul>
-        <% else %>
-          <% if @stream.user != current_user %>
-            You aren't learning <%= @stream.name %> yet! You can start receiving its items in one of your own streams.
-          <% end %>
+    <hr>
+    <p>
+    <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
+      This stream is currently flowing into 
+      <ul>
+        <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
+          <li><%= link_to target.name, target %></li>
         <% end %>
-        </p>
+      </ul>
+    <% else %>
+      <% if @stream.user != current_user %>
+        You aren't learning <%= @stream.name %> yet! You can start receiving its items in one of your own streams.
       <% end %>
+    <% end %>
+    </p>
 
-
-      <% if current_user %>
-        <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
-          <div class="control-group">
-            <%= f.label :target_id, "Flow items from "+@stream.name+" to one of your existing streams:", class: 'control-label' %>
-            <div class="controls">
-              <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
-            </div>
-          </div>
-          <div class="control-group">
-            <p>or into a new stream</p>
-            <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
-          </div>
-          <%= f.submit 'Create flow', class: 'btn btn-primary' %>
-        <% end %>
-      <% end %>
-    </div>
+    <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
+      <div class="control-group">
+        <%= f.label :target_id, "Flow items from "+@stream.name+" to one of your existing streams:", class: 'control-label' %>
+        <div class="controls">
+          <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
+        </div>
+      </div>
+      <div class="control-group">
+        <p>or into a new stream</p>
+        <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
+      </div>
+      <%= f.submit 'Create flow', class: 'btn btn-primary' %>
+    <% end %>
   </div>
 </div>
