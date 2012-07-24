@@ -2,7 +2,6 @@ class DefaultStreamAndScheduledAt < ActiveRecord::Migration
   def up
     Pin.all.each do |pin|
       unless pin.stream
-        puts "need stream #{pin.id}"
         item = pin.item
         user = pin.user
         stream = user.streams.find_by_name("Unsorted items") || Stream.create!(user: user, name: "Unsorted items")
