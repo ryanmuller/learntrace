@@ -1,1 +1,2 @@
+$('#stream-pins').append('<div class="date"><%= @pin.scheduled_at.strftime("%B %e") %></div>');
 $('#stream-pins').append('<%=j render partial: 'items/item_task', locals: { pin: @pin } %>');

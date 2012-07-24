@@ -1,5 +1,13 @@
 class MyStreamsController < ApplicationController
 
+  def index
+    @streams = current_user.streams
+
+    respond_to do |format|
+      format.json
+    end
+  end
+
   def show
     @stream = current_user.streams.find(params[:id]) 
     @item = Item.new

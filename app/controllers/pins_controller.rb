@@ -1,10 +1,6 @@
 class PinsController < ApplicationController
   before_filter :authenticate_user!, :except => [:public_index]
 
-  def library_items
-    @pins = current_user.pins
-  end
-
   def update
     @pin = current_user.pins.find(params[:id])
     @pin.update_attributes({ :status => params[:pin][:status] })

@@ -35,12 +35,8 @@ class User < ActiveRecord::Base
     role?(:admin)
   end
 
-  def pin!(item, stream=nil)
-    if stream
-      pins.create!(item_id: item.id, stream_id: stream.id)
-    else
-      pins.create!(item_id: item.id, stream_id: nil)
-    end
+  def pin!(item, stream)
+    pins.create!(item_id: item.id, stream_id: stream.id)
   end
 
   def pin_and_copy!(item, stream)
