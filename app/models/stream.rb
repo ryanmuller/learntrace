@@ -9,9 +9,11 @@ class Stream < ActiveRecord::Base
 
   validates :name, :presence => true
 
-  scope :popular, joins('LEFT OUTER JOIN forks ON forks.source_id = streams.id').order('forks.created_at ASC') 
+  #scope :popular, joins('LEFT OUTER JOIN forks ON forks.source_id = streams.id').order('forks.created_at ASC') 
+ 
                                                                                                               # note... doesn't select unique! Having trouble getting
                                                                                                               # .uniq to work with postgres... 
+  scope :popular, order('forks_count DESC')
                                                                                                                
 
   def upstream?(source)
