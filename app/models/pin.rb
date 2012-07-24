@@ -7,6 +7,8 @@ class Pin < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :item_id, presence: true
+  validates :scheduled_at, presence: true
+  validates :stream_id, presence: true
 
   scope :todo, where("completed_at IS NULL")
   scope :done, where("completed_at IS NOT NULL")
@@ -21,6 +23,8 @@ class Pin < ActiveRecord::Base
 
   default_scope order('completed_at, scheduled_at')
 
+  before_validation :default_scheduled_at
+
   def stream_name
     stream.nil? ? "Library" : stream.name
   end
@@ -34,7 +38,7 @@ class Pin < ActiveRecord::Base
   end
 
   def display_date
-    completed_at || scheduled_at || Time.now + 1.day # ugh, still have some pins with no completed/scheduled_at...
+    completed_at || scheduled_at
   end
 
   def complete!
@@ -43,5 +47,13 @@ class Pin < ActiveRecord::Base
 
   def complete?
     not completed_at.nil?
+  end
+
+  def default_scheduled_at
+    if stream.pins.where('scheduled_at IS NOT NULL').length > 0 
+      self.scheduled_at ||= stream.pins.where('scheduled_at IS NOT NULL').last.scheduled_at + 1.day
+    else
+      self.scheduled_at ||= Time.now + 1.day
+    end
   end
 end

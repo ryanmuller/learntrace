@@ -82,15 +82,18 @@ describe 'Streams' do
       page.should have_css(".item-task.completed[data-id=\"#{due_today_pin.id}\"]")
     end
 
-    it "should allow items to be added", js: true do
+    it "should allow new items to be added", js: true do
       visit stream_path(stream)
+
       new_item = {}
+
       within("#new_item") do
         new_item = fill_in_item
         click_button "Create Item"
       end
 
-      within("#stream-pins") do
+      # new item shows up on page, scheduled after the latest item
+      within("#stream-pins .item-task:last") do
         page.should have_content(new_item[:name])
       end
     end
