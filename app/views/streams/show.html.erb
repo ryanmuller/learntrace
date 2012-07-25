@@ -48,7 +48,7 @@
             <p>
             Copying items from 
             <% @stream.sources.each do |source| %>
-              <%= link_to source.name, source %>
+              <%= link_to source.user.display_name, source.user %>'s <%= link_to source.name, source %>
             <% end %>
             </p>
           <% end %>
@@ -56,7 +56,7 @@
           <% if current_user %>
             <p>
             <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
-              This stream is currently forked to 
+              This stream is currently forked to your following streams:
               <ul>
                 <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
                   <li><%= link_to target.name, target %></li>
@@ -76,11 +76,11 @@
               <div class="control-group">
                 <%= f.label :target_id, "Copy current and future items to one of your existing streams:", class: 'control-label' %>
                 <div class="controls">
-                  <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
+                  <%= f.select :target_id, current_user.streams.reject { |s| s == @stream || @stream.forks.map { |f| f.target_id }.include?(s.id) }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
                 </div>
               </div>
               <div class="control-group">
-                <p>or into a new stream</p>
+                <%= label_tag :new_stream, "or into a new stream:" %>
                 <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
               </div>
               <%= f.submit 'Create fork', class: 'btn btn-primary' %>

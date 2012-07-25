@@ -35,9 +35,11 @@
         <% unless @stream.sources.empty? %>
           <p>
           Flowing items from 
+          <ul>
           <% @stream.sources.each do |source| %>
-            <%= link_to source.user.name, source.user %>'s <%= link_to source.name, source %>
+            <li><%= link_to source.user.display_name, source.user %>'s <%= link_to source.name, source %></li>
           <% end %>
+        </ul>
           </p>
         <% end %>
 

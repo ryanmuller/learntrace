@@ -31,6 +31,14 @@ class User < ActiveRecord::Base
     read_attribute(:image) || write_attribute(:image, "/assets/gravatar-holder.jpg")
   end
 
+  def display_name
+    if name.blank?
+      "Anonymous Learner"
+    else
+      name
+    end
+  end
+
   def revoke_admin
     self.roles.delete(Role.admin)
   end
