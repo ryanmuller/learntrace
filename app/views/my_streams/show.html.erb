@@ -33,6 +33,16 @@
       </div>
 
       <div class="tab-pane" id="settings">
+        <p>Do you want to share this stream? (Other people will be able to see what you're learning)
+        <%= form_for(@stream, remote: true) do |f| %>
+          <%= f.radio_button("public", true) %> Yes
+          <%= f.radio_button("public", false) %> No
+          <%= f.submit class: 'btn btn-small' %>
+        <% end %>
+
+        </p>
+
+        <%= render 'streams/delete' %>
 
         <% unless @stream.sources.empty? %>
           <p>
@@ -42,8 +52,6 @@
           <% end %>
           </p>
         <% end %>
-
-        <%= render 'streams/delete' %>
 
         <hr>
         <p>
