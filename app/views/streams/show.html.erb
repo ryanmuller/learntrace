@@ -46,7 +46,7 @@
           <h2>Learn about <%= @stream.name %></h2>
           <% unless @stream.sources.empty? %>
             <p>
-            Flowing items from 
+            Copying items from 
             <% @stream.sources.each do |source| %>
               <%= link_to source.name, source %>
             <% end %>
@@ -56,7 +56,7 @@
           <% if current_user %>
             <p>
             <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
-              This stream is currently flowing into 
+              This stream is currently forked to 
               <ul>
                 <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
                   <li><%= link_to target.name, target %></li>
@@ -74,7 +74,7 @@
           <% if current_user %>
             <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
               <div class="control-group">
-                <%= f.label :target_id, "Flow items from "+@stream.name+" to one of your existing streams:", class: 'control-label' %>
+                <%= f.label :target_id, "Copy current and future items to one of your existing streams:", class: 'control-label' %>
                 <div class="controls">
                   <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
                 </div>
@@ -83,7 +83,7 @@
                 <p>or into a new stream</p>
                 <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
               </div>
-              <%= f.submit 'Create flow', class: 'btn btn-primary' %>
+              <%= f.submit 'Create fork', class: 'btn btn-primary' %>
             <% end %>
           <% end %>
 
