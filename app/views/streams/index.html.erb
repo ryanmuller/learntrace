@@ -11,7 +11,9 @@
     <h2>or <%= link_to "explore learning resources on Learnstream", items_path %></h2>
   </div>
   <hr>
+  <h2>Courses on Learnstream</h2>
+  <%= render @streams.where('user_id != ?', current_user.id) %>
+<% else %>
+  <h2>Courses on Learnstream</h2>
+  <%= render @streams %>
 <% end %>
-
-<h2>Courses on Learnstream</h2>
-<%= render @streams %>
