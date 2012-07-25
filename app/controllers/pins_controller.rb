@@ -1,12 +1,15 @@
 class PinsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:public_index]
+  before_filter :authenticate_user!
 
   def update
     @pin = current_user.pins.find(params[:id])
-    @pin.update_attributes({ :status => params[:pin][:status] })
+    @stream = @pin.stream
+    if new_time = params[:pin][:scheduled_at] and not new_time.empty?
+      @pin.update_attributes({ scheduled_at: Time.at(new_time.to_i), completed_at: nil })
+    end
+      
     respond_to do |format|
-      format.html { render :nothing => true }
-      format.js   { render :nothing => true } 
+      format.js
     end
   end
 

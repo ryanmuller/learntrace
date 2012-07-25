@@ -1,4 +1,4 @@
 $('.item-task').removeClass('current');
 $('.item-task[data-id=<%= @pin.id %>]').addClass('current');
 $('#item-area').html('<%=j render partial: 'pins/stream_pin', locals: { pin: @pin } %>');
-embedly();
+window.renderPin();

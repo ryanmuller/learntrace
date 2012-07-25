@@ -10,19 +10,7 @@
     <div class="tab-content">
       <div class="tab-pane active" id="stream-items">
         <div id="stream-pins">
-          <% unless @stream.pins.empty? %>
-            <% last_date = @stream.pins.first.display_date %>
-            <div class="date"><%= last_date.strftime("%B %e") %></div>
-          <% end %>
-          <% @stream.pins.each do |pin| %>
-            <% if pin.display_date.to_date > last_date.to_date %>
-              <% last_date = pin.display_date %>
-              <div class="date">
-                <%= last_date.strftime("%B %e") %>
-              </div>
-            <% end %>
-            <%= render partial: 'items/item_task', locals: { pin: pin } %>
-          <% end %>
+          <%= render 'stream_pins' %>
         </div>
       </div>
 
