@@ -293,6 +293,8 @@ ul.dropdown-menu { text-align: left; }
     text-align: center;
     display: inline-block;
     img {
+      max-height: 96px;
+      min-height: 96px;
       width: 130px;
     }
 
