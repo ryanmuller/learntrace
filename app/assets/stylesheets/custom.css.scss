@@ -283,7 +283,16 @@ ul.dropdown-menu { text-align: left; }
       margin-top: 1em;
       color: #999;
     }
+    max-height: 350px;
+    overflow-y: scroll;
   }
+
+/* cooler scrollbar for stream items */
+#stream-items ::-webkit-scrollbar{width:9px;height:9px;}
+#stream-items ::-webkit-scrollbar-button:start:decrement,#stream-items ::-webkit-scrollbar-button:end:increment{display:block;height:0;background-color:transparent;}
+#stream-items ::-webkit-scrollbar-track-piece{background-color:#FAFAFA;-webkit-border-radius:0;-webkit-border-bottom-right-radius:8px;-webkit-border-bottom-left-radius:8px;}
+#stream-items ::-webkit-scrollbar-thumb:vertical{height:50px;background-color:#999;-webkit-border-radius:8px;}
+#stream-items ::-webkit-scrollbar-thumb:horizontal{width:50px;background-color:#999;-webkit-border-radius:8px;}
 
   .stream-info {
     color: #999;
@@ -308,4 +317,6 @@ ul.dropdown-menu { text-align: left; }
   overflow-y:scroll;
   height: 500px;
 }
+
+/* embedly */
 
