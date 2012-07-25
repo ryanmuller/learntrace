@@ -6,6 +6,7 @@
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
     <link href='http://fonts.googleapis.com/css?family=Swanky+and+Moo+Moo' rel='stylesheet' type='text/css'>
+    <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -21,6 +22,7 @@
      </script>
    </head>
    <body>
+     <div id="tag-data" data-tags="<%= Tag.name_array.join(",") %>" ></div>
      <div id="fb-root"></div>
      <script>(function(d, s, id) {
        var js, fjs = d.getElementsByTagName(s)[0];
@@ -30,7 +32,7 @@
        fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));</script>
      <%= render "layouts/application/header" %>
-     <div class="container">
+     <div class="container-fluid">
 
        <% if notice %>
          <div class="alert alert-success">

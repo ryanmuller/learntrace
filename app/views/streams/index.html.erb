@@ -1,0 +1,17 @@
+<% if current_user %>
+<h2>Your courses</h2>
+  <% if current_user.streams.count > 0 %>
+    <%= render current_user.streams %>
+  <% else %>
+    Nothing yet!
+  <% end %>
+
+  <div class="row-fluid">
+    <%= render 'form' %>
+    <h2>or <%= link_to "explore learning resources on Learnstream", items_path %></h2>
+  </div>
+  <hr>
+<% end %>
+
+<h2>Courses on Learnstream</h2>
+<%= render @streams %>

@@ -1,0 +1,8 @@
+<div class="row-fluid item-task<%- if pin.completed_at %> completed<% end %>" data-id="<%= pin.id %>">
+  <div class="span2 pin-micro">
+    <img src="<%= pin.item.thumb_url %>">
+  </div>
+  <div class="span10">
+    <%= link_to pin.item.name, stream_stream_pin_path(@stream, pin), remote: true %>
+  </div>
+</div>

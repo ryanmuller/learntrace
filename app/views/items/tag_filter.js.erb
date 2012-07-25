@@ -1,14 +1,9 @@
-<% unless @tag.blank? %>
-  <% @col_array.each do |col| %>
-
-    <div class="span4 scroll-col">
-    <span class="test"></span>
-    <% col.each do |i| %>
-      <div class="board">
-      <%= render i %>
-      </div>
-    <% end %>
-    </div>
-
+$(".scroll-col").html('');
+<% @col_array.each_with_index do |col, index| %>
+  <% col.each do |item| %>
+    $('.scroll-col').eq(<%= index %>).append("<div class='board'><%= j render item %></div>");
   <% end %>
 <% end %>
+$("#main-board").addClass('no-load');
+$("#tag-search-loading").hide();
+$("#main-board").show();

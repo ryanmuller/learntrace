@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120716232602) do
+ActiveRecord::Schema.define(:version => 20120725141610) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(:version => 20120716232602) do
 
   add_index "comments", ["item_id"], :name => "index_comments_on_item_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "forks", :force => true do |t|
+    t.integer  "source_id"
+    t.integer  "target_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "forks", ["source_id", "target_id"], :name => "index_forks_on_source_id_and_target_id", :unique => true
+  add_index "forks", ["source_id"], :name => "index_forks_on_source_id"
+  add_index "forks", ["target_id"], :name => "index_forks_on_target_id"
 
   create_table "items", :force => true do |t|
     t.string   "name"
@@ -37,12 +48,16 @@ ActiveRecord::Schema.define(:version => 20120716232602) do
   create_table "pins", :force => true do |t|
     t.integer  "user_id"
     t.integer  "item_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.string   "status",     :default => "todo"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.string   "status",       :default => "todo"
+    t.integer  "stream_id"
+    t.datetime "scheduled_at"
+    t.datetime "completed_at"
   end
 
   add_index "pins", ["item_id"], :name => "index_pins_on_item_id"
+  add_index "pins", ["stream_id"], :name => "index_pins_on_stream_id"
   add_index "pins", ["user_id"], :name => "index_pins_on_user_id"
 
   create_table "roles", :force => true do |t|
@@ -55,6 +70,17 @@ ActiveRecord::Schema.define(:version => 20120716232602) do
     t.integer "role_id"
     t.integer "user_id"
   end
+
+  create_table "streams", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "forks_count", :default => 0
+    t.boolean  "public",      :default => true
+  end
+
+  add_index "streams", ["user_id"], :name => "index_paths_on_user_id"
 
   create_table "taggings", :force => true do |t|
     t.integer  "user_id"

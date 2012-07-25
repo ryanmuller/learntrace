@@ -11,14 +11,11 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :roles
   
-  has_many :pins
+  has_many :pins, dependent: :destroy
   has_many :items, :through => :pins
+  has_many :streams, dependent: :destroy
 
-
-  validates_uniqueness_of :username, :on => :update
-  validates_presence_of :username, :on => :update
-  validates_format_of :username, :with => /^[a-zA-Z0-9_\-\.]+$/, :on => :update
-  after_create :default_username
+  before_create :default_username
 
   #validates_presence_of :name, :on => :update
 
@@ -38,8 +35,14 @@ class User < ActiveRecord::Base
     role?(:admin)
   end
 
-  def pin!(item)
-    pins.create!(item_id: item.id)
+  def pin!(item, stream)
+    pins.create!(item_id: item.id, stream_id: stream.id)
+  end
+
+  def pin_and_copy!(item, stream)
+    pin=pin!(item, stream)
+    pin.copy_to_forks
+    return pin
   end
 
   def unpin!(item)
@@ -67,6 +70,15 @@ class User < ActiveRecord::Base
     return user
   end
 
+  def stream_options
+    streams.map { |s| [s.name, s.id] }
+  end
+
+  def stream_names
+    streams.map { |s| s.name }
+  end
+
+
   def to_s
     name || "Anonymous user"
   end
@@ -77,7 +89,6 @@ class User < ActiveRecord::Base
 
   private
   def default_username
-    self.username = self.name.nil? ? self.id.to_s : self.name.sub(/[^a-zA-Z0-9_\-\.]/, ".").downcase
-    self.save!
+    self.username = self.name.nil? ? (rand()*10000).to_i.to_s : self.name.sub(/[^a-zA-Z0-9_\-\.]/, ".").downcase
   end
 end

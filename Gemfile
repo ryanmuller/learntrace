@@ -22,11 +22,12 @@ gem "omniauth-facebook"
 
 gem "kaminari"
 gem "carrierwave"
-gem "jquery-rails"
+gem "jquery-rails", '>= 1.0.12'
 gem "meta_search"
 
 group :test, :development do
   gem "rspec-rails"
+  gem "guard-rspec"
   gem "spork", "~> 1.0.0rc1"
   gem "ruby-debug19"
   gem "awesome_print"
@@ -46,6 +47,8 @@ group :test do
   gem "capybara"
   gem "shoulda"
   gem "email_spec"
+  gem 'rb-fsevent', '0.4.3.1', :require => false
+  gem 'growl', '1.0.3'
 end
 
 group :production do

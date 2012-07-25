@@ -2,8 +2,13 @@ class ItemsController < ApplicationController
   before_filter :authenticate_user!, :except => [ :index, :show, :tag_filter ]
 
   def index
-    @tags = Tag.order("RANDOM()").limit(12)
-    @tag_data = Tag.all.map{|t| t.name }.join(",")
+    @col_array = [[],[],[],[]] # 4 col layout
+    @tags = Tag.order("RANDOM()").limit(16)
+
+
+    @tags.each_with_index do |tag, index|
+      @col_array[index % 4] << tag
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,24 +18,35 @@ class ItemsController < ApplicationController
 
   def new 
     @item = Item.new({ :url => params[:url], :description => params[:description], :name => params[:name] })
+    @item.pins.build
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html 
       format.json { render json: @item }
     end
   end
 
   def tag_filter
-    # user has cleared tag search; render main objects
+    @col_array = [[],[],[],[]] # 3 col layout
     if params[:tag].empty?
+      @clear_board = true
       @tags = Tag.order("RANDOM()").limit(12)
-      render :partial => 'item_board', :layout => false
-      return false
+      @tags.each_with_index do |tag, index|
+        @col_array[index % 4] << tag
+      end
+      render 'index.js.erb', :layout => false, :format => :js
+      return 
     else
       @tag = Tag.find_by_name(params[:tag], :include => :items)
+      if @tag.nil?
+        # do something more intelligent here...?
+        redirect_to items_path
+        return 
+      end
       @items = @tag.items.best
-      division = (@items.count / 3).to_i
-      @col_array = [@items[0..division], @items[division+1..2*division], @items[2*division+1..-1]]
+      @items.each_with_index do |item, index|
+        @col_array[index % 4] << item
+      end
     end
 
     respond_to do |format|
@@ -58,18 +74,22 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    require 'scraper_utils'
     @item = Item.new(params[:item])
-    @item.thumb_url = ScraperUtils.find_thumb(params[:item][:url])
+
+    if params[:stream_name] and not params[:stream_name].empty?
+      @stream = current_user.streams.create(name: params[:stream_name])
+    else
+      @stream = current_user.streams.find(params[:stream_id])
+    end
 
     respond_to do |format|
       if @item.save
-        current_user.pin!(@item)
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
-        format.json { render json: @item, status: :created, location: @item }
+        @pin = current_user.pin_and_copy!(@item, @stream)
+        format.html { redirect_to @stream, notice: 'Item was successfully created.' }
+        format.js 
       else
         format.html { render action: "new" }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        format.js { render nothing: true }
       end
     end
   end

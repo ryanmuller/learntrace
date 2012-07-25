@@ -1,4 +1,19 @@
-<%= form_for(current_user.pins.build(item_id: item.id), { :html => { "data-item_id" => item.id }}) do |f| %>
-  <div><%= f.hidden_field :item_id %></div>
-  <button class="btn pin-button-<%= item.id %>"><i class="icon-flag"></i> <%= pin_text ||= "Save" %></button>
-<% end %>
+<div class="pin-form-item-<%= item.id %>">
+  <%= form_for(current_user.pins.build(item_id: item.id), { :html => { "data-item_id" => item.id }, :remote => true}) do |f| %>
+    <div><%= f.hidden_field :item_id %></div>
+    <div><%= f.hidden_field :stream_id %></div>
+    <div class="btn-group">
+      <button class="btn btn-small"><%= pin_text ||= "Add to stream..." %></button>
+      <a class="btn dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <% current_user.stream_options.each do |s| %>
+          <li><a data-stream="<%= s[1] %>" href="#"><%= s[0] %></a></li>
+        <% end %>
+        <li class="divider"></li>
+        <li><%= f.text_field :stream, { :placeholder => "new stream", :class => "dropdown-input-field", :style => "margin-left: 10px; margin-bottom: 2px; width: 120px;" } %></li>
+      </ul>
+    </div>
+  <% end %>
+</div>

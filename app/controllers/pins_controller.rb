@@ -1,32 +1,29 @@
 class PinsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:public_index]
-
-  def index
-    @pins = current_user.pins
-    @item = Item.new
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @pins }
-    end
-  end
-
-  def library_items
-    @pins = current_user.pins
-  end
+  before_filter :authenticate_user!
 
   def update
     @pin = current_user.pins.find(params[:id])
-    @pin.update_attributes({ :status => params[:pin][:status] })
+    @stream = @pin.stream
+    if new_time = params[:pin][:scheduled_at] and not new_time.empty?
+      @pin.update_attributes({ scheduled_at: Time.at(new_time.to_i), completed_at: nil })
+    end
+      
     respond_to do |format|
-      format.html { render :nothing => true }
-      format.js   { render :nothing => true } 
+      format.js
     end
   end
 
   def create
     @item = Item.find(params[:pin][:item_id])
-    current_user.pin!(@item)
+    # new stream
+    if params[:pin][:stream] && !params[:pin][:stream].empty?
+      @stream = current_user.streams.create(:name => params[:pin][:stream])
+      @pin = current_user.pin_and_copy!(@item, @stream)
+    # existing stream
+    elsif params[:pin][:stream_id] && !params[:pin][:stream_id].empty?
+      @stream = current_user.streams.find(params[:pin][:stream_id])
+      @pin = current_user.pin_and_copy!(@item, @stream)
+    end
 
     respond_to do |format|
       format.js
@@ -39,7 +36,6 @@ class PinsController < ApplicationController
     current_user.unpin!(@item)
 
     respond_to do |format|
-      logger.debug(format.js)
       format.html { redirect_to @item }
       format.js 
     end

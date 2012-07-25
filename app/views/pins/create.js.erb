@@ -1,1 +1,1 @@
-LearnstreamUtils.bind_form();
+$('.pin-form-item-' + <%= @item.id %>).replaceWith('<%=j render partial: 'items/unpin', locals: { item: @item } %>');

@@ -1,5 +1,3 @@
-<h1>New item</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', items_path %>
+<%= form_for(@item, html: { class: "form-horizontal" }) do |f| %>
+  <%= render partial: 'items/form', locals: { f: f } %>
+<% end %>

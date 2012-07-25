@@ -16,11 +16,17 @@ module ScraperUtils
 
   def ScraperUtils.get_response_with_redirect(uri)
      # gets page
-    http = Net::HTTP.new(uri.host, uri.port)
+    begin
+      http = Net::HTTP.new(uri.host, uri.port)
+    rescue URI::InvalidURIError
+      host = uri.match(".+\:\/\/([^\/]+)")[1]
+      path = uri.partition(host)[2] || "/"
+      http = Net::HTTP.get host, path
+    end
+
     http.use_ssl = true if uri.scheme == "https"  # enable SSL/TLS
     res = http.start {
-      http.request_get(uri.request_uri) {|res|
-    }
+      http.request_get(uri.request_uri) { |res| }
     }
 
     if res.code == "301"
@@ -38,7 +44,6 @@ module ScraperUtils
   # otherwise, returns [content_type, content]
   def ScraperUtils.fetch_url(url, referer = nil, retries = 1, dimension = false)
     cur_try = 0
-    p "fetching #{url}"
     nothing = dimension ? nil : [nil, nil]
 
     # cleans url and parses into URI object
@@ -117,7 +122,11 @@ module ScraperUtils
         else
           images = @doc.css('img')
           images.each do |i|
-            image_url = URI.join(@url, URI.escape(i['src']))
+            begin
+              image_url = URI.join(@url, URI.escape(i['src']))
+            rescue URI::InvalidURIError
+              image_url = @url.to_s + URI.escape(i['src'])
+            end
             yield image_url.to_s
           end
         end
@@ -145,24 +154,20 @@ module ScraperUtils
           next
         end
 
-        p size
         area = size[0]*size[1]
 
         # ignore little images
         if area < 5000
-          p "ignore little #{image_url}"
           next
         end
 
         # ignore excessively long/wide images
         if size.max / size.min > 1.5
-          p "ignore dimensions #{image_url}"
           next
         end
 
         # penalize images with 'sprite' in their name
         if image_url.to_s.downcase.include?("sprite")
-          p "penalizing sprite #{image_url}"
           area /= 10
         end
 

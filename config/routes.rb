@@ -1,5 +1,6 @@
 BaseApp::Application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } 
+  devise_scope :users do
     resources :pins, :only => [ :create, :destroy ] 
   end
 
@@ -23,16 +24,18 @@ BaseApp::Application.routes.draw do
     match 'tag_filter' => 'items#tag_filter', :on => :collection
   end
   resources :pins, :only => :update
-
   resources :taggings, :only => :destroy
+  resources :streams do
+    resources :stream_pins, :only => [:create, :destroy, :update, :show]
+    resources :forks, :only => [:create, :destroy]
+    resources :timeline, :only => :index
+  end
+
+  resources :my_streams, :only => [:show, :index]
   
   match '/tags/:name' => 'tags#show', :as => "tag_name"
 
-  match '/library' => 'pins#index'
-  match '/library_items' => 'pins#library_items'
-  match '/public/:user_id/library' => 'users#show', :as => :public_library
-
   match '/bookmarklet/learned' => 'bookmarklet#learned'
 
-  root :to => "pages#index"
+  root :to => "streams#index"
 end
