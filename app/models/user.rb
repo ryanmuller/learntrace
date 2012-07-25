@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     self.roles << Role.admin
   end
 
+  def image
+    read_attribute(:image) || write_attribute(:image, "/assets/gravatar-holder.jpg")
+  end
+
   def revoke_admin
     self.roles.delete(Role.admin)
   end

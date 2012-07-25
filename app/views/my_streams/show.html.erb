@@ -36,7 +36,7 @@
           <p>
           Flowing items from 
           <% @stream.sources.each do |source| %>
-            <%= link_to source.name, source %>
+            <%= link_to source.user.name, source.user %>'s <%= link_to source.name, source %>
           <% end %>
           </p>
         <% end %>
