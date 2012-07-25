@@ -43,54 +43,16 @@
         </div>
 
         <div class="tab-pane" id="settings">
-          <h2>Learn about <%= @stream.name %></h2>
-          <% unless @stream.sources.empty? %>
-            <p>This stream is currently flowing items from:</p> 
-            <ul>
-            <% @stream.sources.each do |source| %>
-              <% if source.user == current_user %>
-                <li>Your stream, <%= link_to source.name, source %></li>
-              <% else %>
-                <li><%= link_to source.user.display_name, source.user %>'s <%= link_to source.name, source %></li>
-              <% end %>
-            <% end %>
-          </ul>
-          <% end %>
+          <h3>Learn about <%= @stream.name %></h3>
+          <br />
+          <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.sources, :message => ["This stream is currently flowing items from:", ""] } %>
 
           <% if current_user %>
-            <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
-              <p>This stream is currently forked to your following streams:</p>
-              <ul>
-                <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
-                  <li><%= link_to target.name, target %></li>
-                <% end %>
-              </ul>
-            <% else %>
-              <% if @stream.user != current_user %>
-                You aren't learning <%= @stream.name %> yet! You can start receiving its items in one of your own streams.
-              <% end %>
-            <% end %>
+            <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.targets.where(:user_id => current_user), :message => ["This stream is currently forked into some of your streams:", ""] } %>
+            <hr />
+            <%= render :partial => 'forks/form', :locals => {:stream => @stream } %>
           <% end %>
-
-
-          <% if current_user %>
-            <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
-              <div class="control-group">
-                <%= f.label :target_id, "Copy current and future items to one of your existing streams:", class: 'control-label' %>
-                <div class="controls">
-                  <%= f.select :target_id, current_user.streams.reject { |s| s == @stream || @stream.forks.map { |f| f.target_id }.include?(s.id) }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
-                </div>
-              </div>
-              <div class="control-group">
-                <%= label_tag :new_stream, "or into a new stream:" %>
-                <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
-              </div>
-              <%= f.submit 'Create fork', class: 'btn btn-primary' %>
-            <% end %>
-          <% end %>
-
         </div>
-
       </div>
     </div>
   </div>
@@ -99,7 +61,3 @@
     <%= render :partial => 'pins/stream_pin',  :locals => { :pin => @stream.pins.first }  %>
   </div>
 </div>
-
-
-
-

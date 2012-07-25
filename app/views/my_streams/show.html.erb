@@ -27,51 +27,13 @@
           <%= f.radio_button("public", false) %> No
           <%= f.submit class: 'btn btn-small' %>
         <% end %>
-
         </p>
 
         <%= render 'streams/delete' %>
-
-        <% unless @stream.sources.empty? %>
-          <p>
-          Flowing items from 
-          <ul>
-          <% @stream.sources.each do |source| %>
-            <li><%= link_to source.user.display_name, source.user %>'s <%= link_to source.name, source %></li>
-          <% end %>
-        </ul>
-          </p>
-        <% end %>
-
-        <hr>
-        <p>
-        <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
-          This stream is currently flowing into 
-          <ul>
-            <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
-              <li><%= link_to target.name, target %></li>
-            <% end %>
-          </ul>
-        <% else %>
-          <% if @stream.user != current_user %>
-            You aren't learning <%= @stream.name %> yet! You can start receiving its items in one of your own streams.
-          <% end %>
-        <% end %>
-        </p>
-
-        <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
-          <div class="control-group">
-            <%= f.label :target_id, "Flow items from "+@stream.name+" to one of your existing streams:", class: 'control-label' %>
-            <div class="controls">
-              <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
-            </div>
-          </div>
-          <div class="control-group">
-            <p>or into a new stream</p>
-            <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
-          </div>
-          <%= f.submit 'Create flow', class: 'btn btn-primary' %>
-        <% end %>
+        <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.targets, :message => ["This stream receives items forked from:", ""] } %>
+        <hr />    
+        <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.sources, :message => ["This stream is currently flowing into:", ""] } %>
+        <%= render :partial => 'forks/form', :locals => {:stream => @stream } %>
       </div>
     </div>
   </div>
