@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  has_many :pins
+  has_many :pins, dependent: :destroy
 
   has_many :users, :through => :pins
   has_many :streams, :through => :pins

@@ -1,6 +1,6 @@
 class Stream < ActiveRecord::Base
   belongs_to :user
-  has_many :pins
+  has_many :pins, dependent: :destroy
   has_many :items, :through => :pins
   has_many :forks, foreign_key: "source_id"
   has_many :targets, through: :forks
