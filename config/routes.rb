@@ -32,6 +32,7 @@ BaseApp::Application.routes.draw do
   end
 
   resources :my_streams, :only => [:show, :index]
+  resources :comments, :only => [:destroy]
   
   match '/tags/:name' => 'tags#show', :as => "tag_name"
 

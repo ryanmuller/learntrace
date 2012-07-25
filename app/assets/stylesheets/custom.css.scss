@@ -238,13 +238,15 @@ a[rel=tooltip] {
 .comment {
   position: relative;
   min-height: 50px;
+  @extend hr;
+  margin: 0px;
+  padding: 5px 0px;
 
   img {
     position: absolute;
   }
 
   .comment-contents {
-    margin-left: 54px;
   }
 }
 

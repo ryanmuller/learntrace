@@ -1,4 +1,6 @@
-<div class="comment">
+<div class="comment" id="comment-<%= comment.id %>">
+<div class="row-fluid">
+  <div class="span8">
   <%= link_to comment.user do %>
     <img src="<%= comment.user.image %>">
   <% end %>
@@ -7,4 +9,14 @@
     <strong><%= link_to comment.user %></strong>
     <p><%= comment.content %></p>
   </div>
+</div>
+<div class="span4">
+  <% if comment.user == current_user %>
+    <div class="pull-right">
+    <%= link_to 'x', comment, :confirm => 'Are you sure you want to delete your comment?', :method => :delete, :remote => true %>
+    </div>
+  <% end %>
+</div>
+
+</div>
 </div>

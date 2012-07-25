@@ -21,5 +21,18 @@
   <% end %>
 <% end %>
 
-  <br><br>
-  <%= render partial: 'items/pin', locals: { item: pin.item } %>
+<br><br>
+<%= render partial: 'items/pin', locals: { item: pin.item } %>
+
+
+<h4>Comments</h4>
+<br />
+<%= form_for [pin.item, Comment.new], :html => { :class => 'form-inline comments-form' }, :remote => true do |f| %>
+  <%= render :partial => 'comments/form', :locals => { :f => f } %>
+<% end %>
+<br />
+<div id="comments-container-<%= pin.item.id %>">
+  <% pin.item.comments.each do |comment| %>
+    <%= render comment %>
+  <% end %>
+</div>

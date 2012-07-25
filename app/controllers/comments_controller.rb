@@ -10,4 +10,17 @@ class CommentsController < ApplicationController
       format.js
     end
   end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    if @comment.user != current_user
+      render :text => "you don't own me!"
+      return
+    else
+      @comment.destroy
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
 end
