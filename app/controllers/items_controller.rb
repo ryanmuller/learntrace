@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
     @item.pins.build
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html 
       format.json { render json: @item }
     end
   end
@@ -75,7 +75,12 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(params[:item])
-    @stream = current_user.streams.find(params[:stream_id])
+
+    if params[:stream_name] and not params[:stream_name].empty?
+      @stream = current_user.streams.create(name: params[:stream_name])
+    else
+      @stream = current_user.streams.find(params[:stream_id])
+    end
 
     respond_to do |format|
       if @item.save

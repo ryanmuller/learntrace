@@ -16,6 +16,21 @@ describe 'Items' do
       visit stream_path(stream)
       page.should have_content new_item[:name]
     end
+
+    it "should work for new streams too" do
+      new_stream_attributes = FactoryGirl.attributes_for(:stream)
+      new_stream_name = new_stream_attributes[:name]
+        
+      visit new_item_path
+      new_item = fill_in_item
+      fill_in "stream_name", with: new_stream_name
+      click_button "Create Item"
+
+      visit streams_path
+      page.should have_content new_stream_name
+      click_link new_stream_name
+      page.should have_content new_item[:name]
+    end
   end
 end
 

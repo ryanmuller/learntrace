@@ -34,7 +34,9 @@
 <div class="row-fluid">
   <div class="span6">
     <h3>Add item</h3>
-    <%= render 'items/form' %>
+    <%= form_for(@item, html: { class: "form-horizontal" }, remote: true) do |f| %>
+      <%= render partial: 'items/form', locals: { f: f } %>
+    <% end %>
   </div>
   <div class="span6">
     <h3>Settings</h3>
