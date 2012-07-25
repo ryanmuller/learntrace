@@ -1,3 +1,9 @@
-$('.nav-tabs a[href="#stream-items"]').tab('show');
+//$('.nav-tabs a[href="#stream-items"]').tab('show');
+$('.calculating-thumb').remove();
 $('#stream-pins').append('<div class="date"><%= @pin.scheduled_at.strftime("%B %e") %></div>');
 $('#stream-pins').append('<%=j render partial: 'items/item_task', locals: { pin: @pin } %>');
+
+$('form .controls input, textarea').val('');
+$('form .form-actions > input').val('Create Item');
+$('form .form-actions > input').removeClass('disabled');
+
