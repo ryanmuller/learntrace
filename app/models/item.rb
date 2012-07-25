@@ -63,7 +63,7 @@ class Item < ActiveRecord::Base
   end
 
   def add_thumb
-    unless self.thumb_url
+    if self.thumb_url == "/assets/no-thumbnail.png"
       begin 
         require 'open-uri'
         require 'json'
@@ -71,7 +71,7 @@ class Item < ActiveRecord::Base
         api_call = "http://api.embed.ly/1/oembed?key=309c8f118a624159a31ec483f7ae5ceb&url=#{URI.escape(self.url)}"
 
         resp = JSON.parse(open(api_call).read)
-        if resp['thumbnail_url']
+        if resp['thumbnail_url'] && !resp['thumbnail_url'].empty?
           self.thumb_url = resp['thumbnail_url']
         else
           require 'scraper_utils'
