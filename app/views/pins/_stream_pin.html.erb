@@ -25,7 +25,7 @@
 <%= render partial: 'items/pin', locals: { item: pin.item } %>
 
 
-<h4>Comments</h4>
+<h4>Comments (<%= pin.item.comments.length %>)</h4>
 <br />
 <%= form_for [pin.item, Comment.new], :html => { :class => 'form-inline comments-form' }, :remote => true do |f| %>
   <%= render :partial => 'comments/form', :locals => { :f => f } %>
