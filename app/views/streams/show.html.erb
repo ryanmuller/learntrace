@@ -45,18 +45,21 @@
         <div class="tab-pane" id="settings">
           <h2>Learn about <%= @stream.name %></h2>
           <% unless @stream.sources.empty? %>
-            <p>
-            Copying items from 
+            <p>This stream is currently flowing items from:</p> 
+            <ul>
             <% @stream.sources.each do |source| %>
-              <%= link_to source.user.display_name, source.user %>'s <%= link_to source.name, source %>
+              <% if source.user == current_user %>
+                <li>Your stream, <%= link_to source.name, source %></li>
+              <% else %>
+                <li><%= link_to source.user.display_name, source.user %>'s <%= link_to source.name, source %></li>
+              <% end %>
             <% end %>
-            </p>
+          </ul>
           <% end %>
 
           <% if current_user %>
-            <p>
             <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
-              This stream is currently forked to your following streams:
+              <p>This stream is currently forked to your following streams:</p>
               <ul>
                 <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
                   <li><%= link_to target.name, target %></li>
@@ -67,7 +70,6 @@
                 You aren't learning <%= @stream.name %> yet! You can start receiving its items in one of your own streams.
               <% end %>
             <% end %>
-            </p>
           <% end %>
 
 
