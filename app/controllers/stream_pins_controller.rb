@@ -13,7 +13,7 @@ class StreamPinsController < ApplicationController
   def destroy
     @pin = Pin.find(params[:id])
     @item = @pin.item
-    current_user.unpin!(@item)
+    current_user.unpin!(@pin)
 
     respond_to do |format|
       format.js 

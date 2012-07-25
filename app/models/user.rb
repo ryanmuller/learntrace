@@ -45,8 +45,8 @@ class User < ActiveRecord::Base
     return pin
   end
 
-  def unpin!(item)
-    pins.find_by_item_id(item.id).destroy
+  def unpin!(pin)
+    pin.destroy
   end
 
   def pinned?(item)
