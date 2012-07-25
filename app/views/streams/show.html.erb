@@ -17,7 +17,6 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="stream-items">
-          <h3>Course Items</h3>
           <div id="stream-pins">
             <% unless @stream.pins.empty? %>
               <% last_date = @stream.pins.first.display_date %>
@@ -32,10 +31,10 @@
                 </div>
               <% end %>
               <div class="row-fluid">
-                <div class="span4 pin-micro">
+                <div class="span2 pin-micro">
                   <img src="<%= pin.item.thumb_url %>">
                 </div>
-                <div class="span8">
+                <div class="span10">
                   <%= link_to pin.item.name, stream_stream_pin_path(@stream, pin), remote: true %>
                 </div>
               </div>

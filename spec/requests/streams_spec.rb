@@ -87,6 +87,8 @@ describe 'Streams' do
 
       new_item = {}
 
+      click_link "New item"
+
       within("#new_item") do
         new_item = fill_in_item
         click_button "Create Item"

@@ -1,24 +1,80 @@
 
+<h1><%= @stream.name %></h1>
 <div class="row-fluid">
   <div class="span4">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#stream-items" data-toggle="tab">Schedule</a></li>
+      <li><a href="#new-item" data-toggle="tab">New item</a></li>
+      <li><a href="#settings" data-toggle="tab">Settings</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="stream-items">
+        <div id="stream-pins">
+          <% unless @stream.pins.empty? %>
+            <% last_date = @stream.pins.first.display_date %>
+            <div class="date"><%= last_date.strftime("%B %e") %></div>
+          <% end %>
+          <% @stream.pins.each do |pin| %>
+            <% if pin.display_date.to_date > last_date.to_date %>
+              <% last_date = pin.display_date %>
+              <div class="date">
+                <%= last_date.strftime("%B %e") %>
+              </div>
+            <% end %>
+            <%= render partial: 'items/item_task', locals: { pin: pin } %>
+          <% end %>
+        </div>
+      </div>
 
-    <h1><%= @stream.name %></h1>
-    <div id="stream-pins">
+      <div class="tab-pane" id="new-item">
+        <%= form_for(@item, remote: true) do |f| %>
+          <%= render partial: 'items/form', locals: { f: f } %>
+        <% end %>
+      </div>
 
-      <% unless @stream.pins.empty? %>
-        <% last_date = @stream.pins.first.display_date %>
-        <div class="date"><%= last_date.strftime("%B %e") %></div>
-      <% end %>
-      <% @stream.pins.each do |pin| %>
-        <% if pin.display_date.to_date > last_date.to_date %>
-          <% last_date = pin.display_date %>
-          <div class="date">
-            <%= last_date.strftime("%B %e") %>
-          </div>
+      <div class="tab-pane" id="settings">
+
+        <% unless @stream.sources.empty? %>
+          <p>
+          Flowing items from 
+          <% @stream.sources.each do |source| %>
+            <%= link_to source.name, source %>
+          <% end %>
+          </p>
         <% end %>
 
-        <%= render partial: 'items/item_task', locals: { pin: pin } %>
-      <% end %>
+        <%= render 'streams/delete' %>
+
+        <hr>
+        <p>
+        <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
+          This stream is currently flowing into 
+          <ul>
+            <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
+              <li><%= link_to target.name, target %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <% if @stream.user != current_user %>
+            You aren't learning <%= @stream.name %> yet! You can start receiving its items in one of your own streams.
+          <% end %>
+        <% end %>
+        </p>
+
+        <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
+          <div class="control-group">
+            <%= f.label :target_id, "Flow items from "+@stream.name+" to one of your existing streams:", class: 'control-label' %>
+            <div class="controls">
+              <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
+            </div>
+          </div>
+          <div class="control-group">
+            <p>or into a new stream</p>
+            <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
+          </div>
+          <%= f.submit 'Create flow', class: 'btn btn-primary' %>
+        <% end %>
+      </div>
     </div>
   </div>
 
@@ -27,59 +83,6 @@
       <%= render partial: 'pins/stream_pin', locals: { pin: @stream.pins.todo.first } %>
     <% else %>
       Add some items to this course!
-    <% end %>
-  </div>
-</div>
-<hr>
-<div class="row-fluid">
-  <div class="span6">
-    <h3>Add item</h3>
-    <%= form_for(@item, html: { class: "form-horizontal" }, remote: true) do |f| %>
-      <%= render partial: 'items/form', locals: { f: f } %>
-    <% end %>
-  </div>
-  <div class="span6">
-    <h3>Settings</h3>
-
-    <% unless @stream.sources.empty? %>
-      <p>
-      Flowing items from 
-      <% @stream.sources.each do |source| %>
-        <%= link_to source.name, source %>
-      <% end %>
-      </p>
-    <% end %>
-
-    <%= render 'streams/delete' %>
-
-    <hr>
-    <p>
-    <% unless @stream.targets.where('user_id = ?', current_user).empty? %>
-      This stream is currently flowing into 
-      <ul>
-        <% @stream.targets.where('user_id = ?', current_user).each do |target| %>
-          <li><%= link_to target.name, target %></li>
-        <% end %>
-      </ul>
-    <% else %>
-      <% if @stream.user != current_user %>
-        You aren't learning <%= @stream.name %> yet! You can start receiving its items in one of your own streams.
-      <% end %>
-    <% end %>
-    </p>
-
-    <%= form_for [@stream, Fork.new], class: 'form-inline' do |f| %>
-      <div class="control-group">
-        <%= f.label :target_id, "Flow items from "+@stream.name+" to one of your existing streams:", class: 'control-label' %>
-        <div class="controls">
-          <%= f.select :target_id, current_user.streams.reject { |s| s == @stream }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
-        </div>
-      </div>
-      <div class="control-group">
-        <p>or into a new stream</p>
-        <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
-      </div>
-      <%= f.submit 'Create flow', class: 'btn btn-primary' %>
     <% end %>
   </div>
 </div>
