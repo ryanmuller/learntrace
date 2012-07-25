@@ -11,7 +11,7 @@ class DefaultStreamAndScheduledAt < ActiveRecord::Migration
         end
 
         stream = user.streams.find_by_name("Unsorted items") || Stream.create!(user: user, name: "Unsorted items")
-        user.unpin!(item)
+        user.unpin!(pin)
         pin = user.pin!(item, stream)
       end
 
