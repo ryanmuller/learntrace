@@ -8,7 +8,7 @@ window.renderPin = () ->
       $.ajax({ url : url, data : data, type : 'PUT' }))
  
   # render embedly embeds, but switch youtube thumbs to youtube video...
-  $('.embed').embedly({key:"309c8f118a624159a31ec483f7ae5ceb", elems: $(this),  success: (oembed, dict) ->
+  $('.embed-me').embedly({key:"309c8f118a624159a31ec483f7ae5ceb", elems: $(this),  success: (oembed, dict) ->
  	 $el = this.elems[0]
  	 if oembed.thumbnail_url != undefined && oembed.thumbnail_url.match("img.youtube.com")
  		 yt = "http://www.youtube.com/watch?v=" + oembed.thumbnail_url.match(/vi\/(.*)\//)[1]
