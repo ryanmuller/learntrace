@@ -43,14 +43,16 @@
         </div>
 
         <div class="tab-pane" id="settings">
-          <h3>Learn about <%= @stream.name %></h3>
-          <br />
-          <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.sources, :message => ["This stream is currently flowing items from:", ""] } %>
-
           <% if current_user %>
+            <h3>Learn about <%= @stream.name %></h3>
+            <br />
+            <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.sources, :message => ["This stream is currently flowing items from:", ""] } %>
+
             <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.targets.where(:user_id => current_user), :message => ["This stream is currently forked into some of your streams:", ""] } %>
             <hr />
             <%= render :partial => 'forks/form', :locals => {:stream => @stream } %>
+          <% else %>
+            <p style="padding: 10px 10px 30px 10px; margin-bottom: 20px;"><%= link_to "Sign in", user_session_path %> to fork this stream and start learning!</p>
           <% end %>
         </div>
       </div>
