@@ -9,7 +9,7 @@ class Stream < ActiveRecord::Base
 
   validates :name, :presence => true
 
-  scope :popular, order('forks_count DESC').where('public = true')
+  scope :popular, order('forks_count DESC, created_at DESC').where('public = true')
                                                                                                                
 
   def upstream?(source)
