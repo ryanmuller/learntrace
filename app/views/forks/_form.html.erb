@@ -1,0 +1,13 @@
+<%= form_for [stream, Fork.new], class: 'form-inline' do |f| %>
+  <div class="control-group">
+    <div class="controls">
+      <p>Flow current and future items from <i><%= @stream.name %></i> into one of your <%= stream.user == current_user ? "other" : "own" %> streams:</p>
+      <%= f.select :target_id, current_user.streams.reject { |s| s == stream || stream.forks.map { |f| f.target_id }.include?(s.id) }.collect {|s| [s.name, s.id]}, {:class => "input-medium" } %>
+    </div>
+  </div>
+  <div class="control-group">
+    <p>Or, create a new stream for these items to flow into!</p>
+    <%= text_field_tag :new_stream, nil, placeholder: "stream name" %>
+  </div>
+  <%= f.submit 'Start the flow!', class: 'btn btn-primary' %>
+<% end %>

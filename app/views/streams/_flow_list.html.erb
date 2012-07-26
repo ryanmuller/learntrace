@@ -1,0 +1,15 @@
+<% unless streams.empty? %>
+  <p><%= message[0] %></p>
+  <ul>
+    <% streams.each do |source| %>
+      <% if source.user == current_user %>
+        <li>Your stream, <%= link_to source.name, source %></li>
+      <% else %>
+        <li><%= link_to source.user.display_name, source.user %>'s stream, <%= link_to source.name, source %></li>
+      <% end %>
+    <% end %>
+  </ul>
+<% else %>
+  <p><%= message[1] %></p>
+<% end %>
+
