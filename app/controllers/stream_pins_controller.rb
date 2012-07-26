@@ -1,5 +1,5 @@
 class StreamPinsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:show]
 
   def show
     @stream = Stream.find(params[:stream_id])
