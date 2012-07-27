@@ -15,6 +15,7 @@ class Pin < ActiveRecord::Base
 
   scope :before_today, where("scheduled_at < ?", Date.today.beginning_of_day)
   scope :today, where("scheduled_at between ? and ?", Date.today.beginning_of_day, Date.tomorrow.beginning_of_day)
+  scope :due, todo.where("scheduled_at < ?", Time.now)
   scope :overdue, todo.before_today
   scope :due_today, todo.today
   scope :done_today, done.today

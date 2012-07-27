@@ -13,7 +13,7 @@
     <% @stream = stream %>
     <div class="row-fluid">
       <% if stream.user == current_user %>
-        <% stream.pins.todo.limit(4).each do |pin|  %>
+        <% stream.pins.due.limit(4).each do |pin|  %>
           <%= render partial: 'pins/pin_mini', locals: { pin: pin } %>
         <% end %>
       <% else %>

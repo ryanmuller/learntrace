@@ -1,9 +1,12 @@
 <% if current_user %>
-<h2>Your courses</h2>
-  <% if current_user.streams.count > 0 %>
-    <%= render current_user.streams %>
+  <h2>Due for <%= Date.today.strftime("%B %e, %Y") %></h2>
+  <% unless current_user.pins.due.empty? %>
+    <% current_user.streams.each do |stream| %>
+      <% next if stream.pins.due.empty? %>
+      <%= render stream %>
+    <% end %>
   <% else %>
-    Nothing yet!
+    Nothing left to do today!
   <% end %>
 
   <div class="row-fluid">
