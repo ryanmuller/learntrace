@@ -5,9 +5,14 @@
 <% @stream.pins.each do |pin| %>
   <% if pin.display_date.to_date > last_date.to_date %>
     <% last_date = pin.display_date %>
-    <div class="date">
-      <%= last_date.strftime("%B %e") %>
-    </div>
+    <div class="date"><%= last_date.strftime("%B %e") %></div>
   <% end %>
-  <%= render partial: 'items/item_task', locals: { pin: pin } %>
+<div class="row-fluid item-task<%- if pin.completed_at %> completed<% end %>" data-id="<%= pin.id %>">
+    <div class="span2 pin-micro">
+      <img src="<%= pin.item.thumb_url %>">
+    </div>
+    <div class="span10">
+      <%= link_to pin.item.name, stream_stream_pin_path(@stream, pin), { :remote => true, 'data-pin' => pin.id, 'data-stream' => @stream.id, :class => 'pin-link' } %>
+    </div>
+  </div>
 <% end %>

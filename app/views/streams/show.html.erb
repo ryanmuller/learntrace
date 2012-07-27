@@ -3,7 +3,7 @@
     <h1><%= @stream.name %></h1>
   </div>
   <div class="span4">
-    <p class="pull-right">Owned by <%= link_to @stream.user, @stream.user %></p>
+      <p class="pull-right">Owned by <%= link_to @stream.user, @stream.user %></p>
   </div>
 </div>
 
@@ -35,7 +35,7 @@
                   <img src="<%= pin.item.thumb_url %>">
                 </div>
                 <div class="span10">
-                  <%= link_to pin.item.name, stream_stream_pin_path(@stream, pin), remote: true %>
+                  <%= link_to pin.item.name, stream_stream_pin_path(@stream, pin), { :remote => true, 'data-pin' => pin.id, 'data-stream' => @stream.id, :class => 'pin-link' } %>
                 </div>
               </div>
             <% end %>
@@ -60,6 +60,10 @@
   </div>
 
   <div class="span8" id="item-area">
-    <%= render :partial => 'pins/stream_pin',  :locals => { :pin => @stream.pins.first }  %>
+    <% unless @stream.pins.empty? %>
+      <%= render :partial => 'pins/stream_pin',  :locals => { :pin => @display_pin }  %>
+    <% else %>
+      <p><%= @stream.user.name %> hasn't added any items to this stream yet!</p>
+    <% end %>
   </div>
 </div>
