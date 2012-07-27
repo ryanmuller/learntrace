@@ -14,7 +14,7 @@ describe "Forks" do
 
     it "should create a fork and copy the items" do
       visit stream_path(source)
-      click_button "Create fork"
+      click_button "Start the flow!"
       page.should have_content target.name
       page.should have_content item.name
     end
@@ -24,7 +24,7 @@ describe "Forks" do
     it "should create the new stream, a fork to it, and copy the items" do
       visit stream_path(source)
       fill_in "new_stream", with: "New stream"
-      click_button "Create fork"
+      click_button "Start the flow!"
       page.should have_content "New stream"
       page.should have_content item.name
     end
@@ -34,7 +34,7 @@ describe "Forks" do
 
     it "should be copied to the target" do
       visit stream_path(source)
-      click_button "Create fork"
+      click_button "Start the flow!"
       sign_out
 
       sign_in creator

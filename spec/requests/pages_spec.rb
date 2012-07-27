@@ -8,14 +8,6 @@ describe "Pages" do
     end
   end
 
-  describe "About page" do
-    it "should be accessible and have stuff" do
-      visit '/'
-      click_link "About"
-      page.should have_content "About Learnstream"
-    end
-  end
-
   describe "Tools page" do
 
     let(:user) { FactoryGirl.create :user }
