@@ -21,11 +21,11 @@ jQuery ->
 	)
 
 
-	$('body').on('click', ".dropdown-menu input", (e) ->
+	$('.item').on('click', ".dropdown-menu input", (e) ->
 		# prevent it from submitting the form... instead must hit enter.
 		return false
 	)
-	$('body').on('click', '.dropdown-menu > li > a', (e) ->
+	$('.item').on('click', '.dropdown-menu > li > a', (e) ->
 		$form = $(this).parents('form')
 		$form.find('[name="pin[stream_id]"]').val($(this).data('stream'))
 		$form.submit()
