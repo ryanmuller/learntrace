@@ -17,7 +17,11 @@ class MyStreamsController < ApplicationController
 
     @item = Item.new
     unless @stream.pins.empty?
-      @display_pin = params[:pin_id].nil? ? @stream.pins.todo.first : Pin.find(params[:pin_id]) 
+      if @stream.pins.todo.empty?
+        @display_pin = params[:pin_id].nil? ? @stream.pins.first : Pin.find(params[:pin_id]) 
+      else
+        @display_pin = params[:pin_id].nil? ? @stream.pins.todo.first : Pin.find(params[:pin_id]) 
+      end
     end
 
     respond_to do |format|

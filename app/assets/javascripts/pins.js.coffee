@@ -19,28 +19,24 @@ window.renderPin = () ->
 	})
 
 
-
 jQuery ->
 	$('[rel=tooltip]').tooltip()
 	window.renderPin()
 
-
 	$('.pin-link').click(() ->
-		state = History.getState()
-		History.pushState({ stream: $(this).data('stream'), pin: $(this).data('pin') }, "Pin " + $(this).data('pin'),  "/" + state.cleanUrl.split("/")[3] + '/' + $(this).data('stream') + '/pins/' + $(this).data('pin'))
+		title = "Pin " + $(this).data('pin')
+		url = "/" + History.getState().cleanUrl.split("/")[3] + '/' + $(this).data('stream') + '/pins/' + $(this).data('pin')
+		History.pushState({ stream: $(this).data('stream'), pin: $(this).data('pin') }, title,  url)
 	)
 
-	rootUrl = History.getRootUrl()
-	console.log(rootUrl)
+	# re-write url to correspond to displayed pin
 	if $("#stream-pin").length > 0
-		console.log(History.getState())
 		History.replaceState({ stream:  $("#stream-pin").data('stream'), pin: $("#stream-pin").data('pin') },  "Pin " + $("#stream-pin").data('pin'),  "/" + History.getState().cleanUrl.split("/")[3] + "/" + $("#stream-pin").data('stream') + '/pins/' + $("#stream-pin").data('pin'))
 
+	# binds browser navigation to update pins (for 'back' action...)
 	$(window).bind('statechange', ()->
-		state = History.getState()
-		data = state.data
-		console.log(state)
-		console.log(data)
-		$.get('/streams/' + data.stream + '/stream_pins/' + data.pin)
+		data = History.getState().data
+		if data.stream && data.pin
+			$.get('/streams/' + data.stream + '/stream_pins/' + data.pin)
 	)
 

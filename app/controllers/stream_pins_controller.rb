@@ -3,9 +3,7 @@ class StreamPinsController < ApplicationController
 
   def show
     @stream = Stream.find(params[:stream_id])
-    #@stream = Stream.find(params[:id])
     @pin = Pin.find(params[:id])
-
 
     respond_to do |format|
       format.js
