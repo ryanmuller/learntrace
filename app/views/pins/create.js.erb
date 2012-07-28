@@ -1,1 +1,2 @@
-$('.pin-form-item-' + <%= @item.id %>).replaceWith('<%=j render partial: 'items/unpin', locals: { item: @item } %>');
+$('.pin-form-item-' + <%= @item.id %>).replaceWith('<button class="btn disabled"><i class="icon-ok"></i> Pinned!</button>');
+  

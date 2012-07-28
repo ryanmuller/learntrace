@@ -23,10 +23,14 @@ window.renderPin = () ->
 jQuery ->
 	$('[rel=tooltip]').tooltip()
 	current_pin = $("#stream-pin").data("pin")
-	console.log('asdf')
-	console.log(current_pin)
 	$('.item-task[data-id="' + current_pin + '"]').addClass('current')
 	window.renderPin()
+
+	$(".no-click").click(() ->
+		console.log('...?')
+		return false
+	)
+
 
 	$('.pin-link').click(() ->
 		title = "Pin " + $(this).data('pin')
