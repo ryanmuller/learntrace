@@ -37,7 +37,11 @@ class StreamsController < ApplicationController
   def show
     @stream = Stream.find(params[:id]) 
     if @stream.user == current_user
-      redirect_to my_stream_path(@stream)
+      if params[:pin_id].nil?
+        redirect_to my_stream_path(@stream)
+      else
+        redirect_to pin_my_stream_path(@stream, :pin_id => params[:pin_id])
+      end
       return
     end
     unless @stream.pins.empty?
