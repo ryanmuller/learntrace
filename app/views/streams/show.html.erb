@@ -30,7 +30,7 @@
                   <%= "Day #{((last_date - first_date)/86400).to_i + 1}"  %>
                 </div>
               <% end %>
-              <div class="row-fluid">
+              <div class="row-fluid item-task" data-id="<%= pin.id %>">
                 <div class="span2 pin-micro">
                   <img src="<%= pin.item.thumb_url %>">
                 </div>
