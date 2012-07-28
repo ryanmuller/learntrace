@@ -31,9 +31,9 @@
 
           <%= render 'streams/delete' %>
 
-          <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.targets, :message => ["This stream receives items forked from:", ""] } %>
+          <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.sources, :message => ["This stream receives items forked from:", ""] } %>
           <hr />    
-          <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.sources, :message => ["This stream is currently flowing into:", ""] } %>
+          <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.targets, :message => ["This stream is currently flowing into:", ""] } %>
           <%= render :partial => 'forks/form', :locals => {:stream => @stream } %>
         </div>
       </div>

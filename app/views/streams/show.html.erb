@@ -1,10 +1,36 @@
 <div class="row-fluid">
-  <div class="span8">
+  <div class="stream-header span8">
     <h1 class="stream-name"><%= @stream.name %></h1>
-    <a href="#" class="btn btn-primary">Fork Me!</a>
+    <% if current_user %>
+      <div class="fork-form pull-right">
+        <%= form_for [@stream, Fork.new], remote: true, :html => { :class => 'form-inline'} do |f| %>
+          <div><%= f.hidden_field :target_id %></div>
+          <div class="btn-group">
+            <button id="fork-button-popover" rel="popover" data-content="<h4>Do you want to learn things from this stream? You should fork it!</h4><br /><p>By forking another user's stream into one of your own, you will get a copy of all the content they have already added, as well as subscribe to updates as they add new stuff. It's kinda like you're creating a fork off a river... items that flow down the original stream will also flow into yours.</p>" data-original-title="What's a fork?" class="btn btn-small no-click">Fork to stream...</button>
+            <a  class="btn dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <% current_user.streams.each do |s| %>
+                <% if s.sources.include?(@stream) %>
+                  <li><a data-stream="<%= s.id %>" class="disabled" href="#"><i class="icon-random"></i> <%= s.name %></a></li>
+                <% else %>
+                  <li><%= image_tag "ajax-loader.gif", :class => "hidden" %><a data-stream="<%= s.id %>" href="#"><%= s.name %></a></li>
+                <% end %>
+              <% end %>
+              <li class="divider"></li>
+              <li><%= text_field_tag :new_stream, nil, :placeholder => "new stream", :class => "dropdown-input-field", :style => "margin-left: 10px; margin-bottom: 2px; width: 120px;"  %></li>
+            </ul>
+          </div>
+        <% end %>
+      <a id="fork-notification" href="#" >Forked! Visit stream...</a>
+      </div>
+    <% end %>
   </div>
+
+
   <div class="span4">
-      <p class="pull-right">Owned by <%= link_to @stream.user, @stream.user %></p>
+    <p class="pull-right">Owned by <%= link_to @stream.user, @stream.user %></p>
   </div>
 </div>
 
