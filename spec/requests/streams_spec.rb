@@ -60,7 +60,9 @@ describe 'Streams' do
       click_link due_today_pin.item.name 
       click_link "Remove"
 
+      puts due_today_pin.item.name
       page.driver.browser.switch_to.alert.accept
+      puts due_today_pin.item.name
       page.should_not have_content(due_today_pin.item.name)
     end
 
