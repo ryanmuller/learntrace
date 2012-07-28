@@ -8,6 +8,19 @@ html {
 
 body {
   padding-top: 60px;
+  background-image: url('arches.png');
+  background-color: green;
+}
+
+.tab-content {
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ddd;
+  border-top: 0px none;
+}
+
+#stream-pins {
+  background-image: none;
 }
 
 .hidden { display: none; }
