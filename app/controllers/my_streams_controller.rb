@@ -9,10 +9,24 @@ class MyStreamsController < ApplicationController
   end
 
   def show
-    @stream = current_user.streams.find(params[:id]) 
-    @item = Item.new
+    @stream = Stream.find(params[:id]) 
+    if @stream.user != current_user
+      if params[:pin_id].nil?
+        redirect_to stream_path(:id => params[:id])
+      else
+        redirect_to pin_stream_path(@stream, :pin_id => params[:pin_id])
+      end
+      return
+    end
 
-    @pins = @stream.pins.timeline
+    @item = Item.new
+    unless @stream.pins.empty?
+      if @stream.pins.todo.empty?
+        @display_pin = params[:pin_id].nil? ? @stream.pins.first : Pin.find(params[:pin_id]) 
+      else
+        @display_pin = params[:pin_id].nil? ? @stream.pins.todo.first : Pin.find(params[:pin_id]) 
+      end
+    end
 
     respond_to do |format|
       format.html

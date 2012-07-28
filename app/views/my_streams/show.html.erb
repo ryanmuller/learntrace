@@ -1,46 +1,48 @@
-
-<h1><%= @stream.name %></h1>
+<h1 id="stream-title" data-id="<%= @stream.id %>"><%= @stream.name %></h1>
 <div class="row-fluid">
   <div class="span4">
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#stream-items" data-toggle="tab">Schedule</a></li>
-      <li><a href="#new-item" data-toggle="tab">New item</a></li>
-      <li><a href="#settings" data-toggle="tab">Settings</a></li>
-    </ul>
-    <div class="tab-content">
-      <div class="tab-pane active" id="stream-items">
-        <div id="stream-pins">
-          <%= render 'stream_pins' %>
+    <div class="tabs">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#stream-items" data-toggle="tab">Schedule</a></li>
+        <li><a href="#new-item" data-toggle="tab">New item</a></li>
+        <li><a href="#settings" data-toggle="tab">Settings</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="stream-items">
+          <div id="stream-pins">
+            <%= render 'stream_pins' %>
+          </div>
         </div>
-      </div>
 
-      <div class="tab-pane" id="new-item">
-        <%= form_for(@item, remote: true) do |f| %>
-          <%= render partial: 'items/form', locals: { f: f } %>
-        <% end %>
-      </div>
+        <div class="tab-pane" id="new-item">
+          <%= form_for(@item, remote: true) do |f| %>
+            <%= render partial: 'items/form', locals: { f: f } %>
+          <% end %>
+        </div>
 
-      <div class="tab-pane" id="settings">
-        <p>Do you want to share this stream? (Other people will be able to see what you're learning)
-        <%= form_for(@stream, remote: true) do |f| %>
-          <%= f.radio_button("public", true) %> Yes
-          <%= f.radio_button("public", false) %> No
-          <%= f.submit class: 'btn btn-small' %>
-        <% end %>
-        </p>
+        <div class="tab-pane" id="settings">
+          <p>Do you want to share this stream? (Other people will be able to see what you're learning)
+          <%= form_for(@stream, remote: true) do |f| %>
+            <%= f.radio_button("public", true) %> Yes
+            <%= f.radio_button("public", false) %> No
+            <%= f.submit class: 'btn btn-small' %>
+          <% end %>
+          </p>
 
-        <%= render 'streams/delete' %>
-        <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.targets, :message => ["This stream receives items forked from:", ""] } %>
-        <hr />    
-        <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.sources, :message => ["This stream is currently flowing into:", ""] } %>
-        <%= render :partial => 'forks/form', :locals => {:stream => @stream } %>
+          <%= render 'streams/delete' %>
+
+          <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.targets, :message => ["This stream receives items forked from:", ""] } %>
+          <hr />    
+          <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.sources, :message => ["This stream is currently flowing into:", ""] } %>
+          <%= render :partial => 'forks/form', :locals => {:stream => @stream } %>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="span8" id="item-area">
     <% unless @stream.pins.empty? %>
-      <%= render partial: 'pins/stream_pin', locals: { pin: @stream.pins.todo.first } %>
+      <%= render partial: 'pins/stream_pin', locals: { pin: @display_pin } %>
     <% else %>
       Add some items to this course!
     <% end %>

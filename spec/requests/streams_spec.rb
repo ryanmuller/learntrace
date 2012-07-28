@@ -33,7 +33,7 @@ describe 'Streams' do
     let!(:due_tomorrow_pin) { FactoryGirl.create(:due_tomorrow_pin, user: user, stream: stream) }
     let!(:completed_pin) { FactoryGirl.create(:completed_pin, user: user, stream: stream) }
     let!(:completed_today_pin) { FactoryGirl.create(:completed_today_pin, user: user, stream: stream) }
-    
+
     it "should be accessible from the streams page" do
       visit streams_path
       click_link stream.name
@@ -49,6 +49,27 @@ describe 'Streams' do
       visit stream_path(stream)
       page.should have_content due_earlier_pin.item.name
     end
+
+    describe "url" do
+
+      it "should have the path to the currently due pin", js: true do
+        visit stream_path(stream)
+        URI.parse(current_url).path.should == pin_my_stream_path(stream, due_earlier_pin)
+      end
+
+      it "should change the path to the clicked-on stream pin", js: true do
+        visit stream_path(stream)
+        click_link due_today_pin.item.name
+        URI.parse(current_url).path.should == pin_my_stream_path(stream, due_today_pin)
+      end
+
+    end
+
+    it "should load the correct pin based on stream pin path", js: true do
+      visit pin_my_stream_path(stream, due_today_pin)
+      page.should have_css('#item-name', :text => due_today_pin.item.name)
+    end
+
 
     it "should show the items completed today" do
       visit stream_path(stream)

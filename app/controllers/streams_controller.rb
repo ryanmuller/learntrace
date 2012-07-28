@@ -36,14 +36,20 @@ class StreamsController < ApplicationController
 
   def show
     @stream = Stream.find(params[:id]) 
-
     if @stream.user == current_user
-      redirect_to my_stream_path(@stream)
-    else
-      respond_to do |format|
-        format.html
-        format.json 
+      if params[:pin_id].nil?
+        redirect_to my_stream_path(@stream)
+      else
+        redirect_to pin_my_stream_path(@stream, :pin_id => params[:pin_id])
       end
+      return
+    end
+    unless @stream.pins.empty?
+      @display_pin = params[:pin_id].nil? ? @stream.pins.first : Pin.find(params[:pin_id]) 
+    end
+    respond_to do |format|
+      format.html
+      format.json 
     end
   end
 
@@ -51,7 +57,7 @@ class StreamsController < ApplicationController
     @stream = current_user.streams.find(params[:id])
     @stream.update_attributes(params[:stream])
     respond_to do |format|
-      format.js { render nothing: true }
+      format.js 
     end
   end
 end

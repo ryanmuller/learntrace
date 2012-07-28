@@ -1,5 +1,5 @@
 <div class="pin-mini span3" data-id="<%= pin.id %>">
-  <img src="<%= pin.item.thumb_url %>">
+  <a href="<%= pin_stream_path(@stream, pin) %>"><img src="<%= pin.item.thumb_url %>"></a>
   <br>
   <%= pin.item.name %>
 </div>

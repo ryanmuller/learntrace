@@ -20,6 +20,30 @@ jQuery ->
 		$this.typeahead({ source: $("#tag-data").data('tags').split(",") })
 	)
 
+	$('.pin-form-item').on('click', '.dropdown-menu input', (e) ->
+		return false
+	)
+
+	$('.pin-form-item').on('click', 'no-click', ()->
+		return false
+	)
+
+	$('.pin-form-item').on('click', '.dropdown-menu > li > a', (e) ->
+		$form = $(this).parents('form')
+		$form.find('[name="pin[stream_id]"]').val($(this).data('stream'))
+		$form.submit()
+		return false
+	)
+	$('.pin-form-item').on('keyup', '.dropdown-input-field', (e) ->
+		if e.which == 13
+			$form = $(this).parents('form')
+			$form.find('[name="pin[stream]"]').val($(this).val())
+			$form.submit()
+			return false
+	)
+
+
+
 
 	$('.item').on('click', ".dropdown-menu input", (e) ->
 		# prevent it from submitting the form... instead must hit enter.
