@@ -42,9 +42,6 @@ jQuery ->
 			return false
 	)
 
-
-
-
 	$('.item').on('click', ".dropdown-menu input", (e) ->
 		# prevent it from submitting the form... instead must hit enter.
 		return false
@@ -55,3 +52,33 @@ jQuery ->
 		$form.submit()
 		return false
 	)
+
+
+
+	# fork form button dropdown...
+	$('.fork-form').on('click', '.dropdown-menu input', (e) ->
+		return false
+	)
+
+	$('.fork-form').on('click', 'no-click', ()->
+		return false
+	)
+
+	$('.fork-form').on('click', '.dropdown-menu > li > a', (e) ->
+		$form = $(this).parents('form')
+		$form.find('[name="fork[target_id]"]').val($(this).data('stream'))
+		$form.submit()
+		console.log($(this))
+		$(this).hide()
+		$(this).siblings().show()
+		return false
+	)
+	$('.fork-form').on('keyup', '.dropdown-input-field', (e) ->
+		if e.which == 13
+			$form = $(this).parents('form')
+			$form.submit()
+			return false
+	)
+
+
+
