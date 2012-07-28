@@ -57,7 +57,7 @@ class StreamsController < ApplicationController
     @stream = current_user.streams.find(params[:id])
     @stream.update_attributes(params[:stream])
     respond_to do |format|
-      format.js { render nothing: true }
+      format.js 
     end
   end
 end
