@@ -385,7 +385,6 @@ color:#aaa !important;
 .stream-header {
 
   h1 {
-display: inline-block; 
          margin-right: 20px; 
   }
 #fork-notification { display:block; margin-bottom:20px; margin-top: -12px; } 
@@ -400,5 +399,11 @@ form { display: inline-block; }
 
   }
 
+  .fork-block {
+
+  width: 280px;
+  .fork-label { display: inline-block; margin-top: 5px; }
+  .btn-group.pull-right { display: inline; }
+}
 }
 
