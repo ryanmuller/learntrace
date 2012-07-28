@@ -343,6 +343,12 @@ ul.dropdown-menu { text-align: left; }
   box-shadow: 0px 3px 2px -2px #888;
 }
 
+.navbar-inner {
+  //background-image: url('navbg.png');
+  background-image: none;
+  background-color: #444;
+}
+
 
 /* embedly */
 .embed-me {
