@@ -99,6 +99,10 @@ class User < ActiveRecord::Base
     read_attribute(:username) || self.id.to_s
   end
 
+  def public_streams
+    streams.where("public = true")
+  end
+
   private
   def default_username
     self.username = self.name.nil? ? (rand()*10000).to_i.to_s : self.name.sub(/[^a-zA-Z0-9_\-\.]/, ".").downcase

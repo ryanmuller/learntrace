@@ -14,9 +14,13 @@
     <h2>or <%= link_to "explore learning resources on Learnstream", items_path %></h2>
   </div>
   <hr>
-  <h2>Courses on Learnstream</h2>
-  <%= render @streams.where('user_id != ?', current_user.id) %>
+  <h2>See who's already using Learnstream</h2>
+  <% User.where("id != 1").limit(5).each do |user| %>
+    <%= render partial: 'users/user_stream', locals: { user: user } %>
+  <% end %>
 <% else %>
-  <h2>Courses on Learnstream</h2>
-  <%= render @streams %>
+  <h2>See who's already using Learnstream</h2>
+  <% User.where("id != 1").limit(5).each do |user| %>
+    <%= render partial: 'users/user_stream', locals: { user: user } %>
+  <% end %>
 <% end %>

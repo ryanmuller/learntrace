@@ -1,0 +1,20 @@
+<div class="row-fluid">
+  <div class="span1">&nbsp;</div>
+  <div class="span1">
+    <img src="<%= user.image %>">
+    <h3><%= link_to user.name, user %></h3>
+    <%= pluralize user.public_streams.count, 'stream' %>
+  </div>
+  <% user.public_streams.limit(3).each do |stream| %>
+    <div class="span3 pin-mini">
+      <%= link_to stream_path(stream) do %>
+        <%= stream.name %><br>
+        <% stream.pins.limit(4).each do |pin| %>
+          <img src="<%= pin.item.thumb_url %>">
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="span1">&nbsp;</div>
+</div>
+<hr>
