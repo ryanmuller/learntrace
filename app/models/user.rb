@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
 
   before_create :default_username
 
+  default_scope order("updated_at DESC")
+
   #validates_presence_of :name, :on => :update
 
   def role?(role)
