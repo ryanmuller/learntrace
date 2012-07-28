@@ -1,6 +1,7 @@
 <div class="row-fluid">
   <div class="span8">
-    <h1><%= @stream.name %></h1>
+    <h1 class="stream-name"><%= @stream.name %></h1>
+    <a href="#" class="btn btn-primary">Fork Me!</a>
   </div>
   <div class="span4">
       <p class="pull-right">Owned by <%= link_to @stream.user, @stream.user %></p>
