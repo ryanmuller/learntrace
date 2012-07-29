@@ -7,8 +7,9 @@ module ValidUserRequestHelper
     click_button "Sign in"
   end
 
-  def sign_out
+  def sign_out(user)
     visit '/'
+    click_link user.name
     click_link 'Sign out'
   end
 end

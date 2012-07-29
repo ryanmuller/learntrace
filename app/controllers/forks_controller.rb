@@ -9,8 +9,8 @@ class ForksController < ApplicationController
       @target = current_user.streams.find(params[:fork][:target_id])
     end
     @target.fork!(@source)
-    #redirect_to @target
     respond_to do |format|
+      format.html { redirect_to @target }
       format.js
     end
   end
