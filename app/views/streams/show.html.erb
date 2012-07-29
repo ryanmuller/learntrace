@@ -76,13 +76,10 @@
           <% if current_user %>
             <h3>Learn about <%= @stream.name %></h3>
             <br />
-            <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.sources, :message => ["This stream is currently flowing items from:", ""] } %>
+            <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.sources }%>
 
-            <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.targets.where(:user_id => current_user), :message => ["This stream is currently forked into some of your streams:", ""] } %>
           <% else %>
             <p style="padding: 10px 10px 30px 10px; margin-bottom: 20px;"><%= link_to "Sign in", user_session_path %> to fork this stream and start learning!</p>
-            <hr />
-            <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.targets, :message => ["This stream is currently forked into the following streams..."] } %>
           <% end %>
         </div>
       </div>
