@@ -342,6 +342,8 @@ ul.dropdown-menu { text-align: left; }
   -moz-box-shadow: 0px 3px 2px -2px #888;
   -webkit-box-shadow: 0px 3px 2px -2px #888;
   box-shadow: 0px 3px 2px -2px #888;
+
+  .tab-pane { padding: 10px; }
 }
 
 .navbar-inner {
@@ -380,3 +382,29 @@ ul.dropdown-menu { text-align: left; }
 color:#aaa !important;
     }
 }
+
+.stream-header {
+
+  h1 {
+         margin-right: 20px; 
+  }
+#fork-notification { display:block; margin-bottom:20px; margin-top: -12px; } 
+  .fork-form {
+
+display: inline;
+form { display: inline-block; }
+    /*
+       .btn-group { display: inline; }
+     */
+    li > img { padding: 3px 15px; }
+
+  }
+
+  .fork-block {
+
+  width: 280px;
+  .fork-label { display: inline-block; margin-top: 5px; }
+  .btn-group.pull-right { display: inline; }
+}
+}
+
