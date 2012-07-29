@@ -64,10 +64,7 @@ describe "Forks" do
   describe "deleting a fork" do
 
     it "should stop showing the fork", js: true do
-      visit stream_path(source)
-      click_link "Fork Me!"
-      click_button "Start the flow!"
-
+      create_fork
       visit stream_path(target)
       click_link "Settings"
       page.should have_content(source.name)

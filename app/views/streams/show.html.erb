@@ -28,15 +28,30 @@
               <li><%= text_field_tag :new_stream, nil, :placeholder => "new stream", :class => "dropdown-input-field", :style => "margin-left: 10px; margin-bottom: 2px; width: 120px;"  %></li>
             </ul>
           </div>
-        </div>
+        <% end %>
+      </div>
+    <% end %>
 
-        <div class="tab-pane" id="settings">
-          <% if current_user %>
-            <h3>Learn about <%= @stream.name %></h3>
-            <%= render :partial => 'forks/form', :locals => {:stream => @stream } %>
-          <% else %>
-            <p style="padding: 10px 10px 30px 10px; margin-bottom: 20px;"><%= link_to "Sign in", user_session_path %> to fork this stream and start learning!</p>
-          <% end %>
+    <div id="stream-pins">
+      <% unless @stream.pins.empty? %>
+        <% last_date = @stream.pins.first.display_date %>
+        <% first_date = last_date %>
+        <div class="date"><%= "Day #{(last_date - first_date).to_i + 1}" %></div>
+      <% end %>
+      <% @stream.pins.each do |pin| %>
+        <% if pin.display_date.to_date > last_date.to_date %>
+          <% last_date = pin.display_date %>
+          <div class="date">
+            <%= "Day #{((last_date - first_date)/86400).to_i + 1}"  %>
+          </div>
+        <% end %>
+        <div class="row-fluid item-task" data-id="<%= pin.id %>">
+          <div class="span2 pin-micro">
+            <img src="<%= pin.item.thumb_url %>">
+          </div>
+          <div class="span10">
+            <%= link_to pin.item.name, stream_stream_pin_path(@stream, pin), { :remote => true, 'data-pin' => pin.id, 'data-stream' => @stream.id, :class => 'pin-link' } %>
+          </div>
         </div>
       <% end %>
     </div>
