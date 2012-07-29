@@ -34,7 +34,6 @@
           <%= render :partial => 'streams/flow_list', :locals => { :streams => @stream.sources } %>
 
           <p><%= pluralize @stream.targets.count, "person" %> are learning from your stream.</p>
-
           <%= render :partial => 'forks/form', :locals => {:stream => @stream } %>
         </div>
       </div>

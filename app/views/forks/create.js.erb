@@ -1,0 +1,8 @@
+$("#fork-notification").text('Forked! Visit "<%= j @target.name %>"');
+$("#fork-notification").show();
+$("#fork-notification").attr('href', '<%= stream_path(@target) %>');
+$('.fork-form .dropdown-toggle').click();
+$('.fork-form [data-stream="<%= @target.id %>"]').prepend('<i class="icon-random"></i> ');
+$('.fork-form [data-stream="<%= @target.id %>"]').addClass('disabled');
+$('.fork-form [data-stream="<%= @target.id %>"]').show();
+$('.fork-form [data-stream="<%= @target.id %>"]').siblings().hide();

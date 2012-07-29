@@ -9,7 +9,7 @@ jQuery ->
 			if e.which == 13
 				$.ajax({ url: '/streams/' + $stream_id, type: "PUT", data: { "stream[name]": $(this).val() } })
 		)
-
-
-
 	)
+
+	$("#fork-button-popover").popover()
+	$("#fork-notification").hide()
