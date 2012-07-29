@@ -1,6 +1,7 @@
 window.renderPin = () ->
 
 	# render datepicker
+	console.log('render pin')
 	$('.rescheduler').datepicker()
 		.on('changeDate', (ev) ->
 			url = '/pins/'+$(ev.target).attr('data-id')

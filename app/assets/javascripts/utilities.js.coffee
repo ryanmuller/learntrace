@@ -24,17 +24,17 @@ jQuery ->
 		return false
 	)
 
-	$('.pin-form-item').on('click', 'no-click', ()->
+	$('body').on('click', '.pin-form-item no-click', ()->
 		return false
 	)
 
-	$('.pin-form-item').on('click', '.dropdown-menu > li > a', (e) ->
+	$('body').on('click', '.pin-form-item .dropdown-menu > li > a', (e) ->
 		$form = $(this).parents('form')
 		$form.find('[name="pin[stream_id]"]').val($(this).data('stream'))
 		$form.submit()
 		return false
 	)
-	$('.pin-form-item').on('keyup', '.dropdown-input-field', (e) ->
+	$('body').on('keyup', '.pin-form-item .dropdown-input-field', (e) ->
 		if e.which == 13
 			$form = $(this).parents('form')
 			$form.find('[name="pin[stream]"]').val($(this).val())
@@ -42,11 +42,11 @@ jQuery ->
 			return false
 	)
 
-	$('.item').on('click', ".dropdown-menu input", (e) ->
+	$('body').on('click', ".item .dropdown-menu input", (e) ->
 		# prevent it from submitting the form... instead must hit enter.
 		return false
 	)
-	$('.item').on('click', '.dropdown-menu > li > a', (e) ->
+	$('body').on('click', '.item .dropdown-menu > li > a', (e) ->
 		$form = $(this).parents('form')
 		$form.find('[name="pin[stream_id]"]').val($(this).data('stream'))
 		$form.submit()
@@ -56,15 +56,15 @@ jQuery ->
 
 
 	# fork form button dropdown...
-	$('.fork-form').on('click', '.dropdown-menu input', (e) ->
+	$('body').on('click', '.fork-form .dropdown-menu input', (e) ->
 		return false
 	)
 
-	$('.fork-form').on('click', 'no-click', ()->
+	$('body').on('click', '.fork-form .no-click', ()->
 		return false
 	)
 
-	$('.fork-form').on('click', '.dropdown-menu > li > a', (e) ->
+	$('body').on('click', '.fork-form .dropdown-menu > li > a', (e) ->
 		$form = $(this).parents('form')
 		$form.find('[name="fork[target_id]"]').val($(this).data('stream'))
 		$form.submit()
@@ -73,7 +73,7 @@ jQuery ->
 		$(this).siblings().show()
 		return false
 	)
-	$('.fork-form').on('keyup', '.dropdown-input-field', (e) ->
+	$('body').on('keyup', '.fork-form .dropdown-input-field', (e) ->
 		if e.which == 13
 			$form = $(this).parents('form')
 			$form.submit()
