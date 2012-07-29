@@ -20,14 +20,14 @@
                 <% else %>
                   <li><%= image_tag "ajax-loader.gif", :class => "hidden" %><a data-stream="<%= s.id %>" href="#"><%= s.name %></a></li>
                 <% end %>
-                <li class="divider"></li>
-                <li><%= text_field_tag :new_stream, nil, :placeholder => "new stream", :class => "dropdown-input-field", :style => "margin-left: 10px; margin-bottom: 2px; width: 120px;"  %></li>
-              </ul>
-            </div>
+              <% end %>
+              <li class="divider"></li>
+              <li><%= text_field_tag :new_stream, nil, :placeholder => "new stream", :class => "dropdown-input-field", :style => "margin-left: 10px; margin-bottom: 2px; width: 120px;"  %></li>
+            </ul>
           </div>
         <% end %>
-        <a id="fork-notification" href="#" >Forked! Visit stream...</a>
       </div>
+      <a id="fork-notification" href="#" >Forked! Visit stream...</a>
     <% end %>
 
     <div id="stream-pins">
