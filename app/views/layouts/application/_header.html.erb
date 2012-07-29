@@ -2,7 +2,10 @@
   <div class="navbar-inner">
     <div class="container-fluid">
       
-      <%= link_to "Learnstream", '/', id: "logo" %>
+      <%= link_to '/', id: "logo" do %>
+        <img src="/assets/logo.png">
+        Learnstream
+      <% end %>
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Explore", "#" %></li>
