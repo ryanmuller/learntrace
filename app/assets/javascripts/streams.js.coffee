@@ -11,5 +11,5 @@ jQuery ->
 		)
 	)
 
-	$("#fork-button-popover").popover({ placement: "bottom" })
+	$("#fork-button-popover").popover()
 	$("#fork-notification").hide()
