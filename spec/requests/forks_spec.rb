@@ -51,4 +51,20 @@ describe "Forks" do
       page.should have_content(new_item[:name])
     end
   end
+
+  describe "deleting a fork" do
+
+    it "should stop showing the fork", js: true do
+      visit stream_path(source)
+      click_link "Fork Me!"
+      click_button "Start the flow!"
+
+      visit stream_path(target)
+      click_link "Settings"
+      page.should have_content(source.name)
+      click_link "Remove this fork"
+      page.driver.browser.switch_to.alert.accept
+      page.should_not have_content(source.name)
+    end
+  end
 end

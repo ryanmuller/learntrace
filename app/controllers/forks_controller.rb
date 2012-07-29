@@ -13,10 +13,14 @@ class ForksController < ApplicationController
   end
 
   def destroy
-    @fork = Fork.find(params[:id]).source
+    @fork = Fork.find(params[:id])
+    @fork_id = @fork.id
     @target = current_user.streams.find(@fork.target)
     @target.dam!(@fork.source)
-    redirect_to @target
+
+    respond_to do |format|
+      format.js
+    end
   end
 
 end

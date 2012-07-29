@@ -1,0 +1,4 @@
+<%= link_to stream_fork_path(@stream, @stream.back_forks.find_by_source_id(source)), method: 'delete', remote: true, confirm: "Are you sure? You will no longer receive updates from #{source.name}.", title: "Remove this fork" do %>
+  <i class="icon-remove"></i>
+<% end %>
+

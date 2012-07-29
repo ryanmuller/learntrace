@@ -1,15 +1,20 @@
 <% unless streams.empty? %>
-  <p><%= message[0] %></p>
+  <p>This stream receives updates from</p>
   <ul>
     <% streams.each do |source| %>
+      <li data-forkid="<%= @stream.back_forks.find_by_source_id(source).id %>">
       <% if source.user == current_user %>
-        <li>Your stream, <%= link_to source.name, source %></li>
+        Your 
       <% else %>
-        <li><%= link_to source.user.display_name, source.user %>'s stream, <%= link_to source.name, source %></li>
+        <%= link_to source.user.display_name, source.user %>'s 
       <% end %>
+      stream, <%= link_to source.name, source %>
+
+      <% if @stream.user == current_user %>
+        <%= render partial: 'streams/unfork', locals: { source: source } %>
+      <% end %>
+      </li>
     <% end %>
   </ul>
-<% else %>
-  <p><%= message[1] %></p>
 <% end %>
 
