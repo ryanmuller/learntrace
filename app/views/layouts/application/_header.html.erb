@@ -8,7 +8,7 @@
       <% end %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Explore", "#" %></li>
+          <li><%= link_to "Explore", items_path %></li>
           <% if user_signed_in? %>
             <% if current_user.admin? %>
               <li><%= link_to "Admin", admin_path %></li>
