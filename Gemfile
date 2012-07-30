@@ -12,6 +12,9 @@ gem 'heroku'
 gem 'image_size'
 gem 'nokogiri'
 gem 'rabl'
+gem 'pygments.rb'
+gem 'redcarpet', "~> 2.1.1"
+
 
 gem "pg", :require => "pg"
 
