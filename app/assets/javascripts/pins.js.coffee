@@ -33,7 +33,7 @@ jQuery ->
 	)
 
 
-	$('.pin-link').click(() ->
+	$('body').on('click', '.pin-link', () ->
 		title = "Pin " + $(this).data('pin')
 		url = "/" + History.getState().cleanUrl.split("/")[3] + '/' + $(this).data('stream') + '/pins/' + $(this).data('pin')
 		History.pushState({ stream: $(this).data('stream'), pin: $(this).data('pin') }, title,  url)
