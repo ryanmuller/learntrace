@@ -12,6 +12,7 @@ class StreamPinsController < ApplicationController
 
   def destroy
     @pin = Pin.find(params[:id])
+    @stream = @pin.stream
     @item = @pin.item
     current_user.unpin!(@pin)
 
@@ -23,6 +24,7 @@ class StreamPinsController < ApplicationController
   def update
     @pin = current_user.pins.find(params[:id])
     @pin.complete!
+    @stream = @pin.stream
 
     respond_to do |format|
       format.js

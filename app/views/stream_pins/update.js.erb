@@ -1,2 +1,2 @@
-$('.item-task[data-id=<%= @pin.id %>]').addClass('completed');
 $('.item-task[data-id=<%= @pin.id %>]').nextAll('.item-task').first().find('a').click();
+$('#stream-pins').html('<%=j render partial: 'my_streams/stream_pins' %>');
