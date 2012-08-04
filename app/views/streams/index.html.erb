@@ -19,6 +19,19 @@
     <%= render partial: 'users/user_stream', locals: { user: user } %>
   <% end %>
 <% else %>
+  <div class="hero-unit">
+    <h1>Don't just look. Learn!</h1> 
+    <p>Sign up for Learnstream to schedule your courses, share what you're learning, and add material from anywhere on the web!</p>
+
+    <div id="frontpage-login">
+      <%= link_to user_omniauth_authorize_path(:facebook) do %>
+        <img src="assets/fb_connect.png">
+      <% end %><br />
+
+      You can also <%= link_to "register with email", new_user_registration_path %> or
+      <%= link_to "sign in", new_user_session_path %>
+    </div>
+  </div>
   <h2>See who's already using Learnstream</h2>
   <% User.where("id != 1").limit(5).each do |user| %>
     <%= render partial: 'users/user_stream', locals: { user: user } %>
