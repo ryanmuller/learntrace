@@ -22,7 +22,7 @@ class Pin < ActiveRecord::Base
 
   scope :timeline, where("scheduled_at IS NOT NULL").order('scheduled_at')
 
-  #default_scope order('completed_at, scheduled_at')
+  default_scope order('completed_at, scheduled_at')
 
   before_validation :default_scheduled_at
 
