@@ -10,7 +10,14 @@ class Stream < ActiveRecord::Base
   validates :name, :presence => true
 
   scope :popular, order('forks_count DESC, created_at DESC').where('public = true')
-                                                                                                               
+
+  def todo_pins
+    pins.todo
+  end
+
+  def done_pins
+    pins.done
+  end
 
   def upstream?(source)
     back_forks.find_by_source_id(source.id)

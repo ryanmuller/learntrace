@@ -9,8 +9,6 @@
 
   <% if pin.user == current_user %>
 
-    <a href="#" data-date="<%= pin.display_date.strftime("%m-%d-%Y") %>" data-date-format="mm-dd-yyyy" class="btn btn-small rescheduler" data-id="<%= pin.id %>"><i class="icon-calendar"></i> Reschedule</a>
-
     <% unless pin.complete? %>
       <%= link_to stream_stream_pin_path(@stream, pin), method: :put, remote: true, class: 'btn btn-small' do %>
         <i class="icon-ok"></i> Complete!

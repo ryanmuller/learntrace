@@ -1,13 +1,5 @@
-<% unless @stream.pins.empty? %>
-  <% last_date = @stream.pins.first.display_date %>
-  <div class="date"><%= last_date.strftime("%B %e") %></div>
-<% end %>
-<% @stream.pins.each do |pin| %>
-  <% if pin.display_date.to_date > last_date.to_date %>
-    <% last_date = pin.display_date %>
-    <div class="date"><%= last_date.strftime("%B %e") %></div>
-  <% end %>
-<div class="row-fluid item-task<%- if pin.completed_at %> completed<% end %>" data-id="<%= pin.id %>">
+<% @stream.todo_pins.each do |pin| %>
+<div class="row-fluid item-task" data-id="<%= pin.id %>">
     <div class="span2 pin-micro">
       <img src="<%= pin.item.thumb_url %>">
     </div>

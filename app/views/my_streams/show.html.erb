@@ -3,7 +3,8 @@
   <div class="span4">
     <div class="tabs">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#stream-items" data-toggle="tab">Schedule</a></li>
+        <li class="active"><a href="#stream-items" data-toggle="tab">Queue</a></li>
+        <li><a href="#stream-history" data-toggle="tab">History</a></li>
         <li><a href="#new-item" data-toggle="tab">New item</a></li>
         <li><a href="#settings" data-toggle="tab">Settings</a></li>
       </ul>
@@ -12,6 +13,10 @@
           <div id="stream-pins">
             <%= render 'stream_pins' %>
           </div>
+        </div>
+
+        <div class="tab-pane" id="stream-history">
+          <%= render 'history' %>
         </div>
 
         <div class="tab-pane" id="new-item">
