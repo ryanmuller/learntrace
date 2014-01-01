@@ -5,6 +5,8 @@ gem "sass-rails"
 gem "coffee-rails"
 gem 'uglifier', ">= 1.0.3"
 gem 'bootstrap-sass-rails'
+gem 'rails_12factor', group: :production
+
 gem 'xml-simple'
 
 gem 'image_size'
