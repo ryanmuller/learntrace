@@ -1,7 +1,7 @@
-<h2>Make your own stream</h2>
+<h2>What skill or area do you want to work on daily?</h2>
 <div style="text-align:center;">
 <%= form_for(current_user.streams.build, :html => { :class => "form-search" }) do |f| %>
-  <%= f.text_field :name, { :class => 'input-medium' } %>
-  <%= f.submit "Create", :class => 'btn btn-primary' %>
+  <%= f.text_field :name, { :class => 'input-medium', :placeholder => 'My new skill' } %>
+  <%= f.submit "Start", :class => 'btn btn-primary' %>
 <% end %>
 </div>

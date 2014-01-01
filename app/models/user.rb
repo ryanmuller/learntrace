@@ -105,6 +105,10 @@ class User < ActiveRecord::Base
     streams.where("public = true")
   end
 
+  def self.active(n=5)
+    where("users.id != 1").joins(:streams).where("streams.public = true").uniq.limit(n)
+  end
+
   private
   def default_username
     self.username = self.name.nil? ? (rand()*10000).to_i.to_s : self.name.sub(/[^a-zA-Z0-9_\-\.]/, ".").downcase
