@@ -50,7 +50,6 @@ BaseApp::Application.configure do
   # Compress both stylesheets and JavaScripts
   config.assets.compress = true
   config.assets.js_compressor  = :uglifier
-  config.assets.css_compressor = :scss
 
   config.assets.compile = false
   config.assets.digest = true
