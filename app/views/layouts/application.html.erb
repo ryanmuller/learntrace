@@ -5,9 +5,6 @@
     <%= stylesheet_link_tag "application" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
-    <script defer src="http://balupton.github.com/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Swanky+and+Moo+Moo' rel='stylesheet' type='text/css'>
-    <script src="http://scripts.embed.ly/jquery.embedly.min.js"></script>
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -23,17 +20,8 @@
      </script>
    </head>
    <body>
-     <div id="tag-data" data-tags="<%= Tag.name_array.join(",") %>" ></div>
-     <div id="fb-root"></div>
-     <script>(function(d, s, id) {
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) return;
-       js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=488975377784488";
-       fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));</script>
      <%= render "layouts/application/header" %>
-     <div class="container-fluid">
+     <div class="container">
 
        <% if notice %>
          <div class="alert alert-success">
@@ -51,14 +39,5 @@
 
        <%= yield %>
      </div>
-
-     <script type="text/javascript">
-       var uvOptions = {};
-(function() {
- var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
- uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/XYsiaRleIqE7w8lDkS3Q.js';
- var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
- })();
-</script>
 </body>
 </html>

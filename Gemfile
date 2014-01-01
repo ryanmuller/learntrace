@@ -1,20 +1,17 @@
 source "http://rubygems.org"
 
 gem "rails", "3.2.1"
-gem "sass-rails", "~> 3.2.3"
-gem "coffee-rails", "3.2.1"
+gem "sass-rails"
+gem "coffee-rails"
 gem 'uglifier', ">= 1.0.3"
-gem 'bootstrap-sass', '2.0.0'
+gem 'bootstrap-sass-rails'
 gem 'xml-simple'
-
-gem 'heroku'
 
 gem 'image_size'
 gem 'nokogiri'
 gem 'rabl'
 gem 'pygments.rb'
 gem 'redcarpet', "~> 2.1.1"
-
 
 gem "pg", :require => "pg"
 
@@ -32,7 +29,6 @@ group :test, :development do
   gem "rspec-rails"
   gem "guard-rspec"
   gem "spork", "~> 1.0.0rc1"
-  gem "ruby-debug19"
   gem "awesome_print"
 end
 
@@ -50,8 +46,6 @@ group :test do
   gem "capybara"
   gem "shoulda"
   gem "email_spec"
-  gem 'rb-fsevent', '0.4.3.1', :require => false
-  gem 'growl', '1.0.3'
 end
 
 group :production do
