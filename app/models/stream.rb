@@ -10,6 +10,7 @@ class Stream < ActiveRecord::Base
   validates :name, :presence => true
 
   scope :popular, order('forks_count DESC, created_at DESC').where('public = true')
+  scope :featured, where('featured = true')
 
   def todo_pins
     pins.todo

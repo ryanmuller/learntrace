@@ -9,10 +9,6 @@
     <h2>or <%= link_to "explore learning resources on Learnstream", items_path %></h2>
   </div>
   <hr>
-  <h2>See who's already using Learnstream</h2>
-  <% User.active(5).each do |user| %>
-    <%= render partial: 'users/user_stream', locals: { user: user } %>
-  <% end %>
 <% else %>
   <% content_for :head do %>
   <div id="welcome">
@@ -52,9 +48,6 @@
     </div>
   </div>
   <% end %>
-
-  <h2>See who's already using Learnstream</h2>
-  <% User.active(5).each do |user| %>
-    <%= render partial: 'users/user_stream', locals: { user: user } %>
-  <% end %>
 <% end %>
+<h2>Get started with a featured stream</h2>
+<%= render Stream.featured %>
