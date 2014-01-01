@@ -335,21 +335,8 @@ ul.dropdown-menu { text-align: left; }
 /* embedly */
 .embed-me {
 
-  margin-bottom: 3px;
-  .embed { 
-    a { 
-      display: block; 
-   }
-    img { @extend .thumbnail; margin-bottom: 5px; }
-    .description { 
-      @extend .span10; 
-      @extend hr;
-      padding-top: 10px;
-      margin-top: 3px;
-    }
-
-  }
-
+  img { max-width: 100%; }
+  iframe { max-width: 100%; }
 }
 /* button dropdown... */
 .dropdown-menu {
