@@ -179,12 +179,40 @@ p {
 
 /* front page */
 
-.hero-unit {
+#welcome {
+  margin-top: -20px;
+  padding-top: 20px;
+  background-color: #F0F0D8;
+  border-bottom: solid 12px #D8D8A8;
 
-  h1 { margin-bottom: .2em; }
-  p { margin-bottom: .5em; }
+  .btn {
+    margin-top: 20px;
+  }
 
-  #frontpage-login { 
+  h1 {
+    font-size: 18px;
+    color: rgb(119,119,119);
+    font-weight: bold;
+    letter-spacing: 0;
+  }
+
+  h3 {
+    font-size: 45px;
+    font-weight: normal;
+  }
+
+  .ls-info {
+    padding-top: 20px;
+    &:last-child {
+      .label {
+        height: 32px;
+        width: 32px;
+        border-radius: 16px;
+        font-size: 20px;
+        padding-top: 6px;
+        padding-left: 8px;
+      }
+    }
   }
 }
 
