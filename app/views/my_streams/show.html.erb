@@ -1,6 +1,6 @@
 <h1 id="stream-title" data-id="<%= @stream.id %>"><%= @stream.name %></h1>
-<div class="row-fluid">
-  <div class="span4">
+<div class="row">
+  <div class="col-md-4">
     <div class="tabs">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#stream-items" data-toggle="tab">Queue</a></li>
@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  <div class="span8" id="item-area">
+  <div class="col-md-8" id="item-area">
     <% unless @stream.pins.empty? %>
       <%= render partial: 'pins/stream_pin', locals: { pin: @display_pin } %>
     <% else %>

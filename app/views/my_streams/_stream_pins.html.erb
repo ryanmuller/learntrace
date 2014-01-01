@@ -1,9 +1,9 @@
 <% @stream.todo_pins.each do |pin| %>
-<div class="row-fluid item-task" data-id="<%= pin.id %>">
-    <div class="span2 pin-micro">
+<div class="row item-task" data-id="<%= pin.id %>">
+    <div class="col-md-2 pin-micro">
       <img src="<%= pin.item.thumb_url %>">
     </div>
-    <div class="span10">
+    <div class="col-md-10">
       <%= link_to pin.item.name, stream_stream_pin_path(@stream, pin), { :remote => true, 'data-pin' => pin.id, 'data-stream' => @stream.id, :class => 'pin-link' } %>
     </div>
   </div>

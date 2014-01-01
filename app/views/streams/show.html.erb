@@ -1,8 +1,8 @@
 <p><%= link_to @stream.user, @stream.user %></p>
 <h1 class="stream-name"><%= @stream.name %></h1>
 
-<div class="row-fluid">
-  <div class="span4">
+<div class="row">
+  <div class="col-md-4">
     <% if current_user %>
       <div class="fork-form">
         <%= form_for [@stream, Fork.new], :html => { :class => 'form-inline'} do |f| %>
@@ -45,11 +45,11 @@
             <%= "Day #{((last_date - first_date)/86400).to_i + 1}"  %>
           </div>
         <% end %>
-        <div class="row-fluid item-task" data-id="<%= pin.id %>">
-          <div class="span2 pin-micro">
+        <div class="row item-task" data-id="<%= pin.id %>">
+          <div class="col-md-2 pin-micro">
             <img src="<%= pin.item.thumb_url %>">
           </div>
-          <div class="span10">
+          <div class="col-md-10">
             <%= link_to pin.item.name, stream_stream_pin_path(@stream, pin), { :remote => true, 'data-pin' => pin.id, 'data-stream' => @stream.id, :class => 'pin-link' } %>
           </div>
         </div>
@@ -57,7 +57,7 @@
     </div>
   </div>
 
-  <div class="span8" id="item-area">
+  <div class="col-md-8" id="item-area">
     <% unless @stream.pins.empty? %>
       <%= render :partial => 'pins/stream_pin',  :locals => { :pin => @display_pin }  %>
     <% else %>
