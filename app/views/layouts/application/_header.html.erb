@@ -24,10 +24,11 @@
           <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <% current_user.streams.each do |s| %>
+          <% current_user.streams.visible.each do |s| %>
             <% next if s.id.nil? %>
             <li><%= link_to s.name, my_stream_path(s) %></li>
           <% end %>
+          <li><%= link_to 'See all', my_streams_path %></li>
         </ul>
         </li>
         <li><%= link_to "Tools", tools_path %></li>

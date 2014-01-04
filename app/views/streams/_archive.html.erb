@@ -1,0 +1,4 @@
+<%= form_for(current_user.streams.find(stream), html: { method: :put }) do |f| %>
+  <%= f.hidden_field :archived, :value => true %>
+  <%= f.submit "Archive", class: "btn btn-default", confirm: "Are you sure you want to archive this stream?" %>
+<% end %>

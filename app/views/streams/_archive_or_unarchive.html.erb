@@ -1,0 +1,5 @@
+<% if stream.archived %>
+  <%= render 'streams/unarchive', :stream => stream %>
+<% else %>
+  <%= render 'streams/archive', :stream => stream %>
+<% end %>

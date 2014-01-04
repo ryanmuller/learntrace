@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140101190921) do
+ActiveRecord::Schema.define(:version => 20140104193314) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20140101190921) do
     t.integer  "forks_count", :default => 0
     t.boolean  "public",      :default => true
     t.boolean  "featured",    :default => false, :null => false
+    t.boolean  "archived",    :default => false, :null => false
   end
 
   add_index "streams", ["user_id"], :name => "index_paths_on_user_id"

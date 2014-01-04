@@ -1,5 +1,5 @@
 <% if current_user %>
-  <% current_user.streams.each do |stream| %>
+  <% current_user.streams.visible.each do |stream| %>
     <% next if stream.todo_pins.empty? %>
     <%= render stream %>
   <% end %>

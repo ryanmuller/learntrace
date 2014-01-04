@@ -4,6 +4,7 @@ class MyStreamsController < ApplicationController
     @streams = current_user.streams
 
     respond_to do |format|
+      format.html
       format.json
     end
   end
