@@ -34,7 +34,7 @@
     <div class="control-group">
       <%= label_tag :stream_id %>
       <div class="controls">
-        <%= select_tag :stream_id, options_from_collection_for_select(current_user.streams, "id", "name"), {:class => "input-medium" } %>
+        <%= select_tag :stream_id, options_from_collection_for_select(current_user.streams.visible, "id", "name"), {:class => "input-medium" } %>
         <p class="help-block">or create a new stream:</p>
       </div>
     </div>

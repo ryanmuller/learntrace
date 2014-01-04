@@ -14,7 +14,7 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <% current_user.streams.each do |s| %>
+              <% current_user.streams.visible.each do |s| %>
                 <% if s.sources.include?(@stream) %>
                   <li><a data-stream="<%= s.id %>" class="disabled" href="#"><i class="icon-random"></i> <%= s.name %></a></li>
                 <% else %>

@@ -1,7 +1,7 @@
 <div class="row">
-  <h2><%= @user %>: <%= pluralize @user.streams.count, 'course' %></h2>
+  <h2><%= @user %>: <%= pluralize @user.streams.public.count, 'course' %></h2>
 
-  <%= render @user.streams %>
+  <%= render @user.streams.public %>
 
 </div>
 

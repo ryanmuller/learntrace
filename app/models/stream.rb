@@ -12,6 +12,7 @@ class Stream < ActiveRecord::Base
   scope :popular, order('forks_count DESC, created_at DESC').where('public = true')
   scope :featured, where('featured = true')
   scope :visible, where('archived = false')
+  scope :public, where('public = true').where('archived = false')
 
   def todo_pins
     pins.todo
