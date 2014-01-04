@@ -34,7 +34,8 @@ class Item < ActiveRecord::Base
   end
 
   def update_thumb
-    add_thumb()
+    add_thumb
+    save
   end
 
   private 
