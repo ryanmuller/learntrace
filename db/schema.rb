@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140104193314) do
+ActiveRecord::Schema.define(:version => 20140106222109) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(:version => 20140104193314) do
     t.integer  "stream_id"
     t.datetime "scheduled_at"
     t.datetime "completed_at"
+    t.text     "summary"
+    t.string   "pin_media"
   end
 
   add_index "pins", ["item_id"], :name => "index_pins_on_item_id"

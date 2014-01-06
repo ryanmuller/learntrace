@@ -1,0 +1,8 @@
+<h3><%= pin.item.name %></h3>
+<h4><%= pin.completed_at.strftime("%m/%d/%Y") %></h4>
+<p><%= pin.summary %></p>
+<%= image_tag(pin.pin_media_url) if pin.pin_media? %>
+
+<div class="embed-me">
+  <%= link_to pin.item.name, pin.item.url %>
+</div>

@@ -7,20 +7,25 @@
   </div>
 
 
-  <% if pin.user == current_user %>
-
-    <% unless pin.complete? %>
-      <%= link_to stream_stream_pin_path(@stream, pin), method: :put, remote: true, class: 'btn btn-small' do %>
-        <i class="icon-ok"></i> Complete!
-      <% end %>
-    <% end %>
-
-    <%= link_to stream_stream_pin_path(@stream, pin), method: :delete, remote: true, confirm: "Are you sure you want to remove this item?", class: 'btn btn-small' do %>
-      <i class="icon-remove"></i> Remove
+  <% if pin.user == current_user and not pin.complete? %>
+    <%= form_for(pin, url: stream_stream_pin_path(@stream, pin), html: { method: :put }) do |f| %>
+      <%= f.hidden_field :completed_at, value: Time.now %>
+      <div class="form-group">
+        <%= f.label "What did you do or learn?" %><br>
+        <%= f.text_area :summary, rows: 6, class: 'form-control' %><br>
+      </div>
+      <div class="form-group">
+        <%= f.label "Include a picture" %><br>
+        <%= f.file_field :pin_media, class: 'form-control' %>
+      </div>
+      <%= f.submit "Complete", class: "btn btn-primary" %><br>
     <% end %>
   <% end %>
 
   <br><br>
+  <% if pin.user == current_user %>
+    <%= link_to "Remove", stream_stream_pin_path(@stream, pin), method: :delete, remote: true, confirm: "Are you sure you want to remove this item?", class: 'btn btn-danger pull-left' %>
+  <% end %>
   <% if current_user %>
     <%= render partial: 'items/pin', locals: { item: pin.item } %>
 

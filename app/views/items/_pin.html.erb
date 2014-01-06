@@ -3,10 +3,7 @@
     <div><%= f.hidden_field :item_id %></div>
     <div><%= f.hidden_field :stream_id %></div>
     <div class="btn-group">
-      <button class="btn btn-small no-click"><%= pin_text ||= "Add to stream..." %></button>
-      <a class="btn dropdown-toggle" data-toggle="dropdown">
-        <span class="caret"></span>
-      </a>
+      <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><%= pin_text ||= "Add to stream..." %><span class="caret"></span></button>
       <ul class="dropdown-menu">
         <% current_user.streams.visible.each do |s| %>
           <% if s.items.include?(item) %>

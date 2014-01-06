@@ -1,5 +1,5 @@
 class Pin < ActiveRecord::Base
-  attr_accessible :item_id, :status, :stream_id, :scheduled_at, :completed_at
+  attr_accessible :item_id, :status, :stream_id, :scheduled_at, :completed_at, :summary, :pin_media
 
   belongs_to :user
   belongs_to :item, :counter_cache => true
@@ -9,6 +9,8 @@ class Pin < ActiveRecord::Base
   validates :item_id, presence: true
   validates :scheduled_at, presence: true
   validates :stream_id, presence: true
+
+  mount_uploader :pin_media, PinMediaUploader
 
   scope :todo, where("completed_at IS NULL")
   scope :done, where("completed_at IS NOT NULL")

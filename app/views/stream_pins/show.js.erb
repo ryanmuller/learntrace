@@ -1,4 +1,8 @@
 $('.item-task').removeClass('current');
 $('.item-task[data-id=<%= @pin.id %>]').addClass('current');
-$('#item-area').html('<%=j render partial: 'pins/stream_pin', locals: { pin: @pin } %>');
+<% if @pin.complete? %>
+  $('#item-area').html('<%=j render partial: 'pins/completed_stream_pin', locals: { pin: @pin } %>');
+<% else %>
+  $('#item-area').html('<%=j render partial: 'pins/stream_pin', locals: { pin: @pin } %>');
+<% end %>
 window.renderPin();

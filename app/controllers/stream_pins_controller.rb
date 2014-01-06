@@ -23,10 +23,11 @@ class StreamPinsController < ApplicationController
 
   def update
     @pin = current_user.pins.find(params[:id])
-    @pin.complete!
     @stream = @pin.stream
+    @pin.update_attributes(params[:pin])
 
     respond_to do |format|
+      format.html { redirect_to stream_path(@stream) }
       format.js
     end
   end
