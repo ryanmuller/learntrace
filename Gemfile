@@ -24,6 +24,7 @@ gem "omniauth-facebook"
 
 gem "kaminari"
 gem "carrierwave"
+gem "fog"
 gem "jquery-rails", '>= 1.0.12'
 gem "meta_search"
 
